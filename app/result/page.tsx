@@ -1,6 +1,5 @@
 import { redirect } from 'next/navigation';
 import { getSubmissionById } from '@/lib/db';
-import { slugify } from '@/lib/riasec';
 
 export default async function ResultPage({ searchParams }: { searchParams: { id?: string } }) {
   const id = searchParams.id ? parseInt(searchParams.id) : null;
@@ -14,8 +13,6 @@ export default async function ResultPage({ searchParams }: { searchParams: { id?
   if (!submission) {
     redirect('/test');
   }
-
-  const majorSlug = slugify(submission.major);
 
   return (
     <div className="bg-gray-50 min-h-screen text-gray-800">
