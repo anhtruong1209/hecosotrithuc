@@ -7,40 +7,45 @@
     background: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
   }
   
   .glass-dark {
-    background: rgba(30, 58, 138, 0.4);
+    /* Đổi thành trong suốt để không tạo màu riêng */
+    background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(147, 197, 253, 0.3);
-    box-shadow: 0 8px 32px 0 rgba(30, 58, 138, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
   }
   
   .glass-card {
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    /* Nền trắng mờ - quan trọng */
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    /* Viền kính mỏng, trắng nhẹ */
     border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    /* Đổ bóng nhẹ nhàng hơn */
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
   }
   
   .glass-button {
-    background: rgba(59, 130, 246, 0.4);
+    background: rgba(59, 130, 246, 0.5);
     backdrop-filter: blur(10px) saturate(180%);
     -webkit-backdrop-filter: blur(10px) saturate(180%);
-    border: 1px solid rgba(147, 197, 253, 0.4);
+    border: 1px solid rgba(147, 197, 253, 0.5);
     transition: all 0.3s ease;
-    box-shadow: 0 4px 16px 0 rgba(59, 130, 246, 0.25);
+    box-shadow: 0 4px 16px 0 rgba(59, 130, 246, 0.3);
   }
   
   .glass-button:hover {
-    background: rgba(59, 130, 246, 0.5);
-    border: 1px solid rgba(147, 197, 253, 0.6);
+    background: rgba(59, 130, 246, 0.6);
+    border: 1px solid rgba(147, 197, 253, 0.7);
     transform: translateY(-2px);
-    box-shadow: 0 8px 32px 0 rgba(59, 130, 246, 0.35);
+    box-shadow: 0 8px 32px 0 rgba(59, 130, 246, 0.4);
   }
   
   @keyframes slideIn {

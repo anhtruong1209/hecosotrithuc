@@ -51,6 +51,44 @@ export default async function AdminDetailPage({ params }: { params: Promise<{ id
           </div>
         </div>
 
+        {submission.tests_completed && submission.tests_completed.length > 0 && (
+          <div className="glass-card rounded-2xl p-4 md:p-6 mb-6">
+            <h3 className="font-semibold mb-3 text-blue-700">Các bài test đã làm</h3>
+            <div className="space-y-4">
+              {submission.tests_completed.map((test, index) => {
+                const testNames: Record<string, string> = {
+                  'mbti': 'Test Tính Cách MBTI',
+                  'interest': 'Test Sở Thích Nghề Nghiệp',
+                  'aptitude': 'Test Năng Lực Học Tập',
+                  'riasec': 'Test RIASEC 20'
+                };
+                const testIcons: Record<string, string> = {
+                  'mbti': '🧠',
+                  'interest': '❤️',
+                  'aptitude': '📚',
+                  'riasec': '⚡'
+                };
+                return (
+                  <div key={index} className="border border-blue-200/50 rounded-xl p-4 bg-blue-50/30">
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="text-2xl">{testIcons[test.test_type] || '📝'}</span>
+                      <div className="flex-1">
+                        <h4 className="font-semibold text-gray-800">{test.test_name || testNames[test.test_type] || 'Bài test'}</h4>
+                        <p className="text-xs text-gray-600">Hoàn thành: {new Date(test.completed_at).toLocaleString('vi-VN')}</p>
+                      </div>
+                    </div>
+                    <div className="mt-3 p-3 bg-white/50 rounded-lg border border-blue-200/30">
+                      <pre className="text-xs text-gray-700 overflow-auto max-h-40">
+                        {JSON.stringify(test.result, null, 2)}
+                      </pre>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
         <div className="glass-card rounded-2xl p-4 md:p-6 mb-6">
           <h3 className="font-semibold mb-3 text-blue-700">Kết quả</h3>
           <div className="mt-2 space-y-2 text-sm">

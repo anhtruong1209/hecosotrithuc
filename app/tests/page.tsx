@@ -121,10 +121,11 @@ const colorClasses = {
 
 export default function TestsPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 text-gray-800 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 text-gray-800 relative overflow-hidden">
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 right-20 w-96 h-96 bg-blue-400/30 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-20 w-96 h-96 bg-purple-400/30 rounded-full blur-3xl"></div>
+        <div className="absolute top-20 right-20 w-96 h-96 bg-pink-300/40 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div className="absolute bottom-20 left-20 w-96 h-96 bg-purple-300/40 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-300/30 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '2s' }}></div>
       </div>
 
       <div className="relative z-10">
@@ -160,7 +161,7 @@ export default function TestsPage() {
                 key={test.id}
                 className="glass-card rounded-xl overflow-hidden hover:scale-105 transition-all cursor-pointer"
               >
-                <div className="glass-dark p-4 md:p-6 border-b border-blue-200/30">
+                <div className="p-4 md:p-6">
                   <div className="flex items-center gap-3 mb-3">
                     <span className="text-3xl md:text-4xl">{test.icon}</span>
                     <div className="flex-1 min-w-0">
@@ -173,11 +174,9 @@ export default function TestsPage() {
                       </div>
                     </div>
                   </div>
-                  <p className="text-xs md:text-sm text-gray-600 leading-relaxed line-clamp-2">
+                  <p className="text-xs md:text-sm text-gray-600 leading-relaxed line-clamp-2 mb-4">
                     {test.description}
                   </p>
-                </div>
-                <div className="p-4 md:p-6">
                   <a
                     href={test.link}
                     className="block w-full glass-button text-white px-4 py-2 rounded-lg text-xs md:text-sm font-medium text-center"

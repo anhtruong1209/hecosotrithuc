@@ -353,7 +353,7 @@ export default function MajorsPage() {
                 className="glass-card rounded-xl overflow-hidden hover:scale-105 transition-all cursor-pointer shadow-lg"
                 onClick={() => setSelectedGroup(group)}
               >
-                <div className="glass-dark p-4 md:p-6 border-b border-blue-200/30">
+                <div className="p-4 md:p-6">
                   <div className="flex items-center gap-3 mb-3">
                     <span className="text-3xl md:text-4xl">{group.icon}</span>
                     <div className="flex-1 min-w-0">
@@ -365,11 +365,9 @@ export default function MajorsPage() {
                       </h2>
                     </div>
                   </div>
-                  <p className="text-xs md:text-sm text-gray-600 line-clamp-3">
+                  <p className="text-xs md:text-sm text-gray-600 line-clamp-3 mb-4">
                     {group.description}
                   </p>
-                </div>
-                <div className="p-4 md:p-6">
                   <div className="mb-4">
                     <h3 className="text-xs font-semibold text-gray-600 mb-2">Một số ngành học:</h3>
                     <div className="flex flex-wrap gap-1.5">

@@ -6,6 +6,13 @@ const DB_PATH = process.env.VERCEL
   ? '/tmp/db.json'
   : path.join(process.cwd(), 'lib', 'db.json');
 
+export interface TestResult {
+  test_type: 'mbti' | 'interest' | 'aptitude' | 'riasec';
+  test_name: string;
+  result: any; // Kết quả test (có thể là MBTIResult, InterestResult, AptitudeResult, hoặc RIASEC result)
+  completed_at: string;
+}
+
 export interface Submission {
   id: number;
   fullname: string;
@@ -25,6 +32,7 @@ export interface Submission {
   jobs: string[];
   related_majors: string[];
   suggested_blocks: string[];
+  tests_completed?: TestResult[]; // Danh sách các bài test đã làm
   created_at: string;
 }
 
@@ -81,6 +89,27 @@ export function getSubmissions(limit: number = 200): Submission[] {
 export function getSubmissionById(id: number): Submission | null {
   const db = readDB();
   return db.submissions.find(s => s.id === id) || null;
+}
+
+export function getSubmissionsByEmail(email: string): Submission[] {
+  const db = readDB();
+  return db.submissions.filter(s => s.email === email);
+}
+
+export function addTestResult(email: string, testResult: TestResult): boolean {
+  const db = readDB();
+  const submission = db.submissions.find(s => s.email === email);
+  if (!submission) {
+    return false;
+  }
+  
+  if (!submission.tests_completed) {
+    submission.tests_completed = [];
+  }
+  
+  submission.tests_completed.push(testResult);
+  writeDB(db);
+  return true;
 }
 
 export function saveSubmission(submission: Omit<Submission, 'id'>): number {
