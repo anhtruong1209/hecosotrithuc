@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
 import { getSubmissionById } from '@/lib/db';
+import { universities, studyAbroadCountries } from '@/lib/universities';
 
 export default async function ResultPage({ searchParams }: { searchParams: { id?: string } }) {
   const id = searchParams.id ? parseInt(searchParams.id) : null;

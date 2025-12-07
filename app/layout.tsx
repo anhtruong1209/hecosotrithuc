@@ -18,7 +18,7 @@ export default function RootLayout({
       </head>
       <body className="overflow-x-hidden">
         <Sidebar />
-        <main className="md:ml-64 transition-all duration-300 min-h-screen">
+        <main className="ml-64 transition-all duration-300 min-h-screen">
           {children}
         </main>
       </body>

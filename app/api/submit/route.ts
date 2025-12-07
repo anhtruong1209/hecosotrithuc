@@ -13,6 +13,9 @@ export async function POST(request: NextRequest) {
     const monmanh = formData.getAll('monmanh') as string[];
     const tinhcach = formData.getAll('tinhcach') as string[];
     const muctieu = formData.get('muctieu') as string;
+    const study_option = formData.get('study_option') as 'domestic' | 'abroad';
+    const university_id = formData.get('university_id') as string | null;
+    const study_abroad_country = formData.get('study_abroad_country') as string | null;
 
     // Calculate RIASEC scores
     const r_scores = calculateRIASECScores(sothich, monmanh, tinhcach, muctieu);
@@ -38,6 +41,9 @@ export async function POST(request: NextRequest) {
       monmanh,
       tinhcach,
       muctieu,
+      study_option: study_option || 'domestic',
+      university_id: university_id || undefined,
+      study_abroad_country: study_abroad_country || undefined,
       r_scores: r_scores as unknown as Record<string, number>,
       major,
       description,

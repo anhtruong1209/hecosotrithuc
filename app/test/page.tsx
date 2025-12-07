@@ -141,6 +141,96 @@ export default function TestPage() {
               </select>
             </div>
 
+            <div className="glass-card p-6 md:p-8 rounded-2xl">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="text-2xl">5️⃣</span>
+                <h2 className="text-lg md:text-xl font-semibold text-blue-700">Bạn muốn học trong nước hay du học?</h2>
+              </div>
+              <div className="space-y-4">
+                <div className="flex gap-4">
+                  <label className="flex items-center p-4 glass border border-blue-200/50 rounded-xl hover:bg-blue-50/50 cursor-pointer transition flex-1">
+                    <input type="radio" name="study_option" value="domestic" className="mr-3 w-5 h-5 text-blue-600 accent-blue-600" required />
+                    <div>
+                      <div className="font-semibold text-gray-700">🇻🇳 Học trong nước</div>
+                      <div className="text-xs text-gray-600 mt-1">Các trường đại học tại Việt Nam</div>
+                    </div>
+                  </label>
+                  <label className="flex items-center p-4 glass border border-blue-200/50 rounded-xl hover:bg-blue-50/50 cursor-pointer transition flex-1">
+                    <input type="radio" name="study_option" value="abroad" className="mr-3 w-5 h-5 text-blue-600 accent-blue-600" required />
+                    <div>
+                      <div className="font-semibold text-gray-700">✈️ Du học</div>
+                      <div className="text-xs text-gray-600 mt-1">Học tập tại nước ngoài</div>
+                    </div>
+                  </label>
+                </div>
+                
+                {/* Trường đại học trong nước */}
+                <div id="domestic-options" className="hidden">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Chọn trường đại học mong muốn:</label>
+                  <select name="university_id" className="w-full p-3 glass border border-blue-200/50 rounded-xl bg-white/50 text-gray-800 focus:outline-none focus:border-blue-400 focus:bg-white transition">
+                    <option value="">-- Chọn trường đại học --</option>
+                    <optgroup label="Trường công lập">
+                      <option value="hust">Đại học Bách khoa Hà Nội (HUST)</option>
+                      <option value="vnu">Đại học Quốc gia Hà Nội (VNU)</option>
+                      <option value="hust-hcm">Đại học Bách khoa TP.HCM (HCMUT)</option>
+                      <option value="hcmus">Đại học Khoa học Tự nhiên TP.HCM (HCMUS)</option>
+                      <option value="ueh">Đại học Kinh tế TP.HCM (UEH)</option>
+                      <option value="neu">Đại học Kinh tế Quốc dân (NEU)</option>
+                      <option value="ftu">Đại học Ngoại thương (FTU)</option>
+                      <option value="hust-arch">Đại học Kiến trúc Hà Nội (HAU)</option>
+                      <option value="hcm-arch">Đại học Kiến trúc TP.HCM (UAH)</option>
+                      <option value="hust-med">Đại học Y Hà Nội (HMU)</option>
+                      <option value="hcm-med">Đại học Y Dược TP.HCM (UMP)</option>
+                      <option value="hust-law">Đại học Luật Hà Nội (HUL)</option>
+                      <option value="hcm-law">Đại học Luật TP.HCM (UL)</option>
+                      <option value="hust-edu">Đại học Sư phạm Hà Nội (HNUE)</option>
+                      <option value="hcm-edu">Đại học Sư phạm TP.HCM (HCMUE)</option>
+                      <option value="hust-arts">Đại học Mỹ thuật Việt Nam (VNUA)</option>
+                      <option value="hcm-arts">Đại học Mỹ thuật TP.HCM (HCMUFA)</option>
+                      <option value="dut">Đại học Bách khoa Đà Nẵng (DUT)</option>
+                      <option value="hue">Đại học Huế (HUE)</option>
+                      <option value="ctu">Đại học Cần Thơ (CTU)</option>
+                      <option value="dthu">Đại học Thái Nguyên (TNU)</option>
+                    </optgroup>
+                    <optgroup label="Trường tư thục">
+                      <option value="fpt">Đại học FPT</option>
+                      <option value="rmit">Đại học RMIT Việt Nam</option>
+                      <option value="ton-duc-thang">Đại học Tôn Đức Thắng (TDTU)</option>
+                      <option value="hutech">Đại học Công nghệ TP.HCM (HUTECH)</option>
+                      <option value="greenwich">Đại học Greenwich Việt Nam</option>
+                    </optgroup>
+                  </select>
+                </div>
+
+                {/* Du học */}
+                <div id="abroad-options" className="hidden">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Chọn quốc gia muốn du học:</label>
+                  <select name="study_abroad_country" className="w-full p-3 glass border border-blue-200/50 rounded-xl bg-white/50 text-gray-800 focus:outline-none focus:border-blue-400 focus:bg-white transition">
+                    <option value="">-- Chọn quốc gia --</option>
+                    <optgroup label="Phổ biến">
+                      <option value="us">🇺🇸 Hoa Kỳ</option>
+                      <option value="uk">🇬🇧 Vương quốc Anh</option>
+                      <option value="au">🇦🇺 Úc</option>
+                      <option value="ca">🇨🇦 Canada</option>
+                      <option value="sg">🇸🇬 Singapore</option>
+                      <option value="jp">🇯🇵 Nhật Bản</option>
+                      <option value="kr">🇰🇷 Hàn Quốc</option>
+                      <option value="de">🇩🇪 Đức</option>
+                      <option value="fr">🇫🇷 Pháp</option>
+                    </optgroup>
+                    <optgroup label="Khác">
+                      <option value="nl">🇳🇱 Hà Lan</option>
+                      <option value="nz">🇳🇿 New Zealand</option>
+                      <option value="ch">🇨🇭 Thụy Sĩ</option>
+                      <option value="se">🇸🇪 Thụy Điển</option>
+                      <option value="tw">🇹🇼 Đài Loan</option>
+                      <option value="cn">🇨🇳 Trung Quốc</option>
+                    </optgroup>
+                  </select>
+                </div>
+              </div>
+            </div>
+
             <div className="text-center pt-8">
               <button type="submit" className="glass-button px-8 md:px-12 py-3 md:py-4 text-white rounded-xl text-base md:text-lg font-semibold hover:scale-105 transition-transform">
                 🚀 Xem kết quả tư vấn →
@@ -174,6 +264,29 @@ export default function TestPage() {
                 }
               });
             });
+
+            // Handle study option selection
+            const domesticOptions = document.getElementById('domestic-options');
+            const abroadOptions = document.getElementById('abroad-options');
+            const domesticRadio = document.querySelector('input[value="domestic"]');
+            const abroadRadio = document.querySelector('input[value="abroad"]');
+
+            function updateStudyOptions() {
+              if (domesticRadio && domesticRadio.checked) {
+                domesticOptions?.classList.remove('hidden');
+                abroadOptions?.classList.add('hidden');
+                const abroadSelect = document.querySelector('select[name="study_abroad_country"]') as HTMLSelectElement;
+                if (abroadSelect) abroadSelect.value = '';
+              } else if (abroadRadio && abroadRadio.checked) {
+                domesticOptions?.classList.add('hidden');
+                abroadOptions?.classList.remove('hidden');
+                const domesticSelect = document.querySelector('select[name="university_id"]') as HTMLSelectElement;
+                if (domesticSelect) domesticSelect.value = '';
+              }
+            }
+
+            domesticRadio?.addEventListener('change', updateStudyOptions);
+            abroadRadio?.addEventListener('change', updateStudyOptions);
           })();
         ` }} />
       </div>

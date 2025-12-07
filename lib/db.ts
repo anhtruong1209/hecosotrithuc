@@ -15,6 +15,9 @@ export interface Submission {
   monmanh: string[];
   tinhcach: string[];
   muctieu: string;
+  study_option: 'domestic' | 'abroad'; // Học trong nước hoặc du học
+  university_id?: string; // ID trường đại học (nếu chọn trong nước)
+  study_abroad_country?: string; // Quốc gia du học (nếu chọn du học)
   r_scores: Record<string, number>;
   major: string;
   description: string;
