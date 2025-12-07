@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 import { getSubmissions } from '@/lib/db';
 import { isAdmin } from '@/lib/auth';
 import Link from 'next/link';
+import DeleteButton from '../components/DeleteButton';
 
 export default async function AdminPage() {
   if (!isAdmin()) {
@@ -66,15 +67,7 @@ export default async function AdminPage() {
                             <Link href={`/admin/${sub.id}`} className="glass-button text-white px-3 py-1 rounded-lg text-xs font-medium">
                               Xem
                             </Link>
-                            <form method="POST" action={`/api/admin/submissions/${sub.id}/delete`} className="inline" onSubmit={(e) => {
-                              if (!confirm('Bạn có chắc chắn muốn xóa bản ghi này? Hành động này không thể hoàn tác.')) {
-                                e.preventDefault();
-                              }
-                            }}>
-                              <button type="submit" className="px-3 py-1 bg-red-500/40 hover:bg-red-500/50 text-white rounded-lg text-xs font-medium border border-red-400/40 transition">
-                                🗑️ Xóa
-                              </button>
-                            </form>
+                            <DeleteButton id={sub.id} />
                           </div>
                         </td>
                       </tr>

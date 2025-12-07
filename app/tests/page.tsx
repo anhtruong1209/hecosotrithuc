@@ -121,22 +121,28 @@ const colorClasses = {
 
 export default function TestsPage() {
   return (
-    <div className="bg-gradient-to-b from-blue-50 via-white to-blue-50 min-h-screen text-gray-800">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 text-gray-800 relative overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-20 right-20 w-96 h-96 bg-blue-400/30 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-20 w-96 h-96 bg-purple-400/30 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="relative z-10">
       {/* Header */}
-      <div className="bg-white shadow-md border-b">
-        <div className="max-w-7xl mx-auto px-6 py-8">
+      <div className="glass-card border-b border-blue-200/30">
+        <div className="max-w-7xl mx-auto px-6 py-6">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
-              <h1 className="text-4xl md:text-5xl font-bold text-blue-700 mb-3">
+              <h1 className="text-2xl md:text-3xl font-bold text-blue-700 mb-2">
                 Chọn Bài Test Phù Hợp
               </h1>
-              <p className="text-lg text-gray-600 max-w-2xl">
+              <p className="text-sm md:text-base text-gray-600 max-w-2xl">
                 Khám phá bản thân qua các bài test chuyên nghiệp để tìm ra ngành học và nghề nghiệp phù hợp nhất với bạn
               </p>
             </div>
             <a
               href="/"
-              className="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl font-semibold transition"
+              className="glass-button text-white px-4 py-2 rounded-xl text-sm font-medium"
             >
               ← Về trang chủ
             </a>
@@ -145,42 +151,36 @@ export default function TestsPage() {
       </div>
 
       {/* Test Types Grid */}
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="max-w-7xl mx-auto px-6 py-8 md:py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {testTypes.map((test) => {
             const colors = colorClasses[test.color as keyof typeof colorClasses];
             return (
               <div
                 key={test.id}
-                className={`bg-white rounded-2xl shadow-lg border-2 ${colors.border} overflow-hidden hover:shadow-2xl transition-all transform hover:-translate-y-1`}
+                className="glass-card rounded-xl overflow-hidden hover:scale-105 transition-all cursor-pointer"
               >
-                <div className={`${colors.bg} p-6 border-b ${colors.border}`}>
-                  <div className="flex items-center gap-4 mb-4">
-                    <span className="text-5xl">{test.icon}</span>
-                    <div className="flex-1">
-                      <h2 className={`text-xl font-bold ${colors.text} mb-1`}>
+                <div className="glass-dark p-4 md:p-6 border-b border-blue-200/30">
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className="text-3xl md:text-4xl">{test.icon}</span>
+                    <div className="flex-1 min-w-0">
+                      <h2 className="text-base md:text-lg font-bold text-blue-700 mb-1 truncate">
                         {test.name}
                       </h2>
-                      <div className="flex items-center gap-3 text-sm text-gray-600">
-                        <span className="flex items-center gap-1">
-                          <span>📝</span>
-                          {test.questions} câu
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <span>⏱️</span>
-                          {test.duration}
-                        </span>
+                      <div className="flex items-center gap-2 text-xs text-gray-600">
+                        <span>📝 {test.questions} câu</span>
+                        <span>⏱️ {test.duration}</span>
                       </div>
                     </div>
                   </div>
-                  <p className="text-gray-700 text-sm leading-relaxed">
+                  <p className="text-xs md:text-sm text-gray-600 leading-relaxed line-clamp-2">
                     {test.description}
                   </p>
                 </div>
-                <div className="p-6">
+                <div className="p-4 md:p-6">
                   <a
                     href={test.link}
-                    className={`block w-full ${colors.button} text-white px-6 py-3 rounded-xl font-semibold text-center transition shadow-md hover:shadow-lg`}
+                    className="block w-full glass-button text-white px-4 py-2 rounded-lg text-xs md:text-sm font-medium text-center"
                   >
                     Bắt đầu test →
                   </a>
@@ -191,29 +191,29 @@ export default function TestsPage() {
         </div>
 
         {/* Info Section */}
-        <div className="mt-12 bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+        <div className="mt-8 md:mt-12 glass-card rounded-xl p-6 md:p-8">
+          <h2 className="text-lg md:text-xl font-bold text-blue-700 mb-4 text-center">
             Tại sao nên làm nhiều bài test?
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
             <div className="text-center">
-              <div className="text-4xl mb-3">🎯</div>
-              <h3 className="font-semibold text-gray-800 mb-2">Định hướng rõ ràng</h3>
-              <p className="text-gray-600 text-sm">
+              <div className="text-3xl md:text-4xl mb-2">🎯</div>
+              <h3 className="text-sm md:text-base font-semibold text-blue-700 mb-2">Định hướng rõ ràng</h3>
+              <p className="text-xs md:text-sm text-gray-600">
                 Mỗi bài test cung cấp góc nhìn khác nhau về bản thân, giúp bạn có cái nhìn toàn diện hơn
               </p>
             </div>
             <div className="text-center">
-              <div className="text-4xl mb-3">💡</div>
-              <h3 className="font-semibold text-gray-800 mb-2">Khám phá tiềm năng</h3>
-              <p className="text-gray-600 text-sm">
+              <div className="text-3xl md:text-4xl mb-2">💡</div>
+              <h3 className="text-sm md:text-base font-semibold text-blue-700 mb-2">Khám phá tiềm năng</h3>
+              <p className="text-xs md:text-sm text-gray-600">
                 Phát hiện những điểm mạnh và sở thích mà bạn có thể chưa nhận ra
               </p>
             </div>
             <div className="text-center">
-              <div className="text-4xl mb-3">🚀</div>
-              <h3 className="font-semibold text-gray-800 mb-2">Lựa chọn đúng đắn</h3>
-              <p className="text-gray-600 text-sm">
+              <div className="text-3xl md:text-4xl mb-2">🚀</div>
+              <h3 className="text-sm md:text-base font-semibold text-blue-700 mb-2">Lựa chọn đúng đắn</h3>
+              <p className="text-xs md:text-sm text-gray-600">
                 Kết hợp kết quả từ nhiều bài test giúp đưa ra quyết định chính xác hơn
               </p>
             </div>
@@ -222,12 +222,13 @@ export default function TestsPage() {
       </div>
 
       {/* Footer */}
-      <footer className="text-center py-8 text-gray-500 text-sm bg-white border-t mt-12">
-        <div className="max-w-7xl mx-auto px-6">
-          © 2025 Hệ Chuyên Gia Hướng Nghiệp – All rights reserved.
-          <div className="mt-2 text-gray-400">Bản quyền thuộc về nhóm Học viên CNTT 2025.1</div>
+      <footer className="text-center py-6 md:py-8 text-gray-500 text-xs md:text-sm glass-card border-t border-blue-200/30 mt-12">
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
+          © 2025 Hệ Chuyên Gia Hướng Nghiệp
+          <div className="mt-1 text-gray-400 text-xs">CNTT 2025.1</div>
         </div>
       </footer>
+      </div>
     </div>
   );
 }

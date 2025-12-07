@@ -386,7 +386,7 @@ export default function MajorsPage() {
                     </div>
                   </div>
                   <button
-                    className={`w-full ${colors.button} text-white px-4 py-2 rounded-xl font-semibold transition`}
+                    className="w-full glass-button text-white px-4 py-2 rounded-xl font-semibold transition hover:scale-105"
                     onClick={(e) => {
                       e.stopPropagation();
                       setSelectedGroup(group);
@@ -407,97 +407,115 @@ export default function MajorsPage() {
         )}
       </div>
 
-      {/* Modal Detail */}
+      {/* Modal Detail - Compact */}
       {selectedGroup && (
         <div
           className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] flex items-center justify-center p-4"
           onClick={() => setSelectedGroup(null)}
-          style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
         >
           <div
-            className="glass-card rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+            className="glass-card rounded-xl max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="glass-dark p-4 md:p-6 border-b border-blue-200/30">
-              <div className="flex items-start justify-between">
-                <div className="flex items-center gap-3 md:gap-4">
-                  <span className="text-4xl md:text-5xl">{selectedGroup.icon}</span>
-                  <div>
-                    <div className="inline-block px-2 py-1 rounded-full text-xs font-bold glass border border-blue-200/50 mb-2 text-blue-700">
-                      Nhóm {selectedGroup.code}
+            {/* Header Compact */}
+            <div className="glass-dark p-4 border-b border-blue-200/30 sticky top-0">
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-3 flex-1 min-w-0">
+                  <span className="text-3xl flex-shrink-0">{selectedGroup.icon}</span>
+                  <div className="min-w-0 flex-1">
+                    <div className="inline-block px-2 py-0.5 rounded-full text-xs font-bold glass border border-blue-200/50 mb-1 text-blue-700">
+                      {selectedGroup.code}
                     </div>
-                    <h2 className="text-xl md:text-2xl font-bold text-blue-700">
+                    <h2 className="text-base md:text-lg font-bold text-blue-700 truncate">
                       {selectedGroup.name}
                     </h2>
                   </div>
                 </div>
                 <button
                   onClick={() => setSelectedGroup(null)}
-                  className="text-gray-500 hover:text-gray-700 text-2xl font-bold transition"
+                  className="text-gray-500 hover:text-gray-700 text-xl font-bold transition flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/20"
                 >
                   ×
                 </button>
               </div>
-              <p className="text-gray-600 mt-3 md:mt-4 text-sm md:text-base leading-relaxed">
-                {selectedGroup.description}
-              </p>
             </div>
 
-            <div className="p-4 md:p-6 space-y-4 md:space-y-6">
+            {/* Content Compact */}
+            <div className="p-4 space-y-3">
+              {/* Description */}
+              <p className="text-xs md:text-sm text-gray-600 leading-relaxed">
+                {selectedGroup.description}
+              </p>
+
+              {/* Majors - Compact Grid */}
               <div>
-                <h3 className="text-base md:text-lg font-semibold text-blue-700 mb-3">Các ngành học phù hợp</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                  {selectedGroup.majors.map((major, idx) => (
-                    <div key={idx} className="p-3 glass rounded-lg border border-blue-200/50 text-gray-700 text-sm">
+                <h3 className="text-xs md:text-sm font-semibold text-blue-700 mb-2">Ngành học phù hợp</h3>
+                <div className="flex flex-wrap gap-1.5">
+                  {selectedGroup.majors.slice(0, 8).map((major, idx) => (
+                    <span key={idx} className="px-2 py-1 glass border border-blue-200/50 rounded-lg text-gray-700 text-xs">
                       {major}
-                    </div>
+                    </span>
                   ))}
+                  {selectedGroup.majors.length > 8 && (
+                    <span className="px-2 py-1 glass border border-blue-200/50 rounded-lg text-gray-500 text-xs">
+                      +{selectedGroup.majors.length - 8} ngành khác
+                    </span>
+                  )}
                 </div>
               </div>
 
+              {/* Jobs - Compact */}
               <div>
-                <h3 className="text-base md:text-lg font-semibold text-blue-700 mb-3">Nghề nghiệp phù hợp</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                  {selectedGroup.jobs.map((job, idx) => (
-                    <div key={idx} className="p-3 glass rounded-lg border border-blue-200/50 text-gray-700 text-sm">
+                <h3 className="text-xs md:text-sm font-semibold text-blue-700 mb-2">Nghề nghiệp phù hợp</h3>
+                <div className="flex flex-wrap gap-1.5">
+                  {selectedGroup.jobs.slice(0, 6).map((job, idx) => (
+                    <span key={idx} className="px-2 py-1 glass border border-blue-200/50 rounded-lg text-gray-700 text-xs">
                       {job}
-                    </div>
+                    </span>
                   ))}
+                  {selectedGroup.jobs.length > 6 && (
+                    <span className="px-2 py-1 glass border border-blue-200/50 rounded-lg text-gray-500 text-xs">
+                      +{selectedGroup.jobs.length - 6} nghề khác
+                    </span>
+                  )}
                 </div>
               </div>
 
+              {/* Strengths - Compact */}
               <div>
-                <h3 className="text-base md:text-lg font-semibold text-blue-700 mb-3">Điểm mạnh nổi bật</h3>
-                <div className="flex flex-wrap gap-2">
+                <h3 className="text-xs md:text-sm font-semibold text-blue-700 mb-2">Điểm mạnh</h3>
+                <div className="flex flex-wrap gap-1.5">
                   {selectedGroup.strengths.map((strength, idx) => (
-                    <span key={idx} className="px-3 py-2 glass border border-blue-200/50 rounded-full font-medium text-gray-700 text-xs md:text-sm">
+                    <span key={idx} className="px-2 py-1 glass border border-blue-200/50 rounded-full text-gray-700 text-xs">
                       {strength}
                     </span>
                   ))}
                 </div>
               </div>
 
+              {/* Exam Blocks */}
               <div>
-                <h3 className="text-base md:text-lg font-semibold text-blue-700 mb-3">Khối thi phù hợp</h3>
-                <div className="flex flex-wrap gap-2 md:gap-3">
+                <h3 className="text-xs md:text-sm font-semibold text-blue-700 mb-2">Khối thi</h3>
+                <div className="flex flex-wrap gap-2">
                   {selectedGroup.examBlocks.map((block, idx) => (
-                    <span key={idx} className="px-3 md:px-4 py-2 glass-dark border border-blue-400/50 rounded-full font-bold text-base md:text-lg text-blue-600">
+                    <span key={idx} className="px-3 py-1.5 glass-dark border border-blue-400/50 rounded-full font-bold text-sm text-blue-600">
                       {block}
                     </span>
                   ))}
                 </div>
               </div>
 
-              <div className="flex gap-3 md:gap-4 pt-4">
+              {/* Actions */}
+              <div className="flex gap-2 pt-2 border-t border-blue-200/30">
                 <a
                   href="/test"
-                  className="flex-1 glass-button text-white px-4 md:px-6 py-2 md:py-3 rounded-xl text-sm md:text-base font-medium text-center"
+                  className="flex-1 glass-button text-white px-4 py-2 rounded-lg text-xs md:text-sm font-medium text-center"
                 >
-                  Làm bài test ngay →
+                  Làm test →
                 </a>
                 <button
                   onClick={() => setSelectedGroup(null)}
-                  className="px-4 md:px-6 py-2 md:py-3 glass border border-blue-200/50 hover:bg-blue-50/50 text-gray-700 rounded-xl text-sm md:text-base font-medium transition"
+                  className="px-4 py-2 glass border border-blue-200/50 hover:bg-blue-50/50 text-gray-700 rounded-lg text-xs md:text-sm font-medium transition"
                 >
                   Đóng
                 </button>

@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 import { getSubmissionById } from '@/lib/db';
 import { isAdmin } from '@/lib/auth';
 import Link from 'next/link';
+import DeleteButtonDetail from '../../components/DeleteButtonDetail';
 
 export default async function AdminDetailPage({ params }: { params: Promise<{ id: string }> | { id: string } }) {
   // Handle both Promise and direct params for Next.js compatibility
@@ -82,15 +83,7 @@ export default async function AdminDetailPage({ params }: { params: Promise<{ id
         </div>
 
         <div className="flex gap-3 md:gap-4 flex-wrap">
-          <form method="POST" action={`/api/admin/submissions/${submission.id}/delete`} className="inline" onSubmit={(e) => {
-            if (!confirm('Bạn có chắc chắn muốn xóa bản ghi này? Hành động này không thể hoàn tác.')) {
-              e.preventDefault();
-            }
-          }}>
-            <button type="submit" className="px-4 md:px-6 py-2 md:py-3 bg-red-500/40 hover:bg-red-500/50 text-white rounded-xl text-sm md:text-base font-medium transition border border-red-400/40">
-              🗑️ Xóa bản ghi
-            </button>
-          </form>
+          <DeleteButtonDetail id={submission.id} />
           <Link href="/admin" className="glass-button text-white px-4 md:px-6 py-2 md:py-3 rounded-xl text-sm md:text-base font-medium transition inline-block">
             ← Quay lại
           </Link>
