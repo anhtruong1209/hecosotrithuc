@@ -11,6 +11,7 @@ export default function Sidebar() {
     { href: '/test', label: 'Bài tư vấn', icon: '🎯' },
     { href: '/tests', label: 'Chọn test', icon: '🧪' },
     { href: '/majors', label: 'Ngành học', icon: '📚' },
+    { href: '/guide', label: 'Hướng dẫn', icon: '📖' },
   ];
 
   return (

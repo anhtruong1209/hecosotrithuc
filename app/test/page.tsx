@@ -1,4 +1,44 @@
+'use client';
+
+import { useState } from 'react';
+
 export default function TestPage() {
+  const [showModal, setShowModal] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionId, setSubmissionId] = useState<number | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const formData = new FormData(e.currentTarget);
+    
+    try {
+      const response = await fetch('/api/submit', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success && data.id) {
+          setSubmissionId(data.id);
+          setShowModal(true);
+        } else {
+          alert('Có lỗi xảy ra khi xử lý yêu cầu. Vui lòng thử lại.');
+        }
+      } else {
+        const errorData = await response.json().catch(() => ({}));
+        alert(errorData.error || 'Có lỗi xảy ra khi xử lý yêu cầu. Vui lòng thử lại.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Có lỗi xảy ra khi xử lý yêu cầu. Vui lòng thử lại.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 text-gray-800 relative overflow-hidden">
       {/* Animated background */}
@@ -29,19 +69,7 @@ export default function TestPage() {
           </div>
         </div>
 
-          <form action="/api/submit" method="POST" className="space-y-6">
-            <div className="glass-card p-6 md:p-8 rounded-2xl">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="text-2xl">👤</span>
-                <h2 className="text-lg md:text-xl font-semibold text-blue-700">Thông tin người tham gia tư vấn</h2>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                <input type="text" name="fullname" placeholder="Họ và tên" required className="p-3 glass border border-blue-200/50 rounded-xl bg-white/50 text-gray-800 placeholder-gray-500 focus:outline-none focus:border-blue-400 focus:bg-white transition" />
-                <input type="tel" name="phone" placeholder="Số điện thoại" required className="p-3 glass border border-blue-200/50 rounded-xl bg-white/50 text-gray-800 placeholder-gray-500 focus:outline-none focus:border-blue-400 focus:bg-white transition" />
-                <input type="email" name="email" placeholder="Địa chỉ email" required className="p-3 glass border border-blue-200/50 rounded-xl bg-white/50 text-gray-800 placeholder-gray-500 focus:outline-none focus:border-blue-400 focus:bg-white transition" />
-              </div>
-            </div>
-
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div className="glass-card p-6 md:p-8 rounded-2xl">
               <div className="flex items-center gap-3 mb-4">
                 <span className="text-2xl">1️⃣</span>
@@ -99,22 +127,21 @@ export default function TestPage() {
                   { value: 'kiendinh', label: 'Kiên nhẫn, kiên trì' },
                   { value: 'tomo', label: 'Tò mò, thích khám phá' },
                   { value: 'doclap', label: 'Độc lập, tự chủ' },
-                  { value: 'phantich', label: 'Thích phân tích, nghiên cứu' },
-                  { value: 'thantrong', label: 'Thận trọng, cẩn trọng' },
-                  { value: 'tudo', label: 'Tự do, không thích ràng buộc' },
-                  { value: 'bieucam', label: 'Biểu cảm, giàu cảm xúc' },
-                  { value: 'nhaycam', label: 'Nhạy cảm, tinh tế' },
+                  { value: 'phantich', label: 'Phân tích, suy nghĩ sâu sắc' },
+                  { value: 'thantrong', label: 'Thận trọng, cẩn thận' },
+                  { value: 'tudo', label: 'Tự do, linh hoạt' },
+                  { value: 'bieucam', label: 'Biểu cảm, nghệ thuật' },
+                  { value: 'nhaycam', label: 'Nhạy cảm, đồng cảm' },
                   { value: 'linhhoat', label: 'Linh hoạt, thích ứng nhanh' },
-                  { value: 'thanthien', label: 'Thân thiện, dễ gần' },
-                  { value: 'giupdo', label: 'Thích giúp đỡ người khác' },
-                  { value: 'dongcam', label: 'Đồng cảm, thấu hiểu' },
-                  { value: 'tuccam', label: 'Tự tin, mạnh mẽ' },
-                  { value: 'thamvong', label: 'Tham vọng, có hoài bão' },
-                  { value: 'nangdong', label: 'Năng động, nhiệt huyết' },
+                  { value: 'thanthien', label: 'Thân thiện, hòa đồng' },
+                  { value: 'giupdo', label: 'Giúp đỡ, hỗ trợ người khác' },
+                  { value: 'dongcam', label: 'Đồng cảm, hiểu người khác' },
+                  { value: 'tuccam', label: 'Tự cường, quyết đoán' },
+                  { value: 'thamvong', label: 'Tham vọng, có mục tiêu rõ ràng' },
                   { value: 'quyetdoan', label: 'Quyết đoán, dám nghĩ dám làm' },
                   { value: 'ngannap', label: 'Ngăn nắp, có tổ chức' },
                   { value: 'dangtincay', label: 'Đáng tin cậy, trung thực' },
-                  { value: 'tuanthu', label: 'Tuân thủ quy tắc, kỷ luật' },
+                  { value: 'tuanthu', label: 'Tuân thủ quy tắc, kỷ luật' }
                 ].map(trait => (
                   <label key={trait.value} className="flex items-center p-3 glass border border-blue-200/50 rounded-xl hover:bg-blue-50/50 cursor-pointer transition">
                     <input type="checkbox" name="tinhcach" value={trait.value} className="mr-3 w-5 h-5 text-blue-600 accent-blue-600" />
@@ -131,11 +158,14 @@ export default function TestPage() {
               </div>
               <select name="muctieu" required defaultValue="" className="w-full p-3 glass border border-blue-200/50 rounded-xl bg-white/50 text-gray-800 focus:outline-none focus:border-blue-400 focus:bg-white transition">
                 <option value="" disabled>-- Chọn mục tiêu nghề nghiệp --</option>
-                <option value="luongcao">Thu nhập cao</option>
-                <option value="on_dinh">Ổn định, ít áp lực</option>
-                <option value="sangtao">Được sáng tạo</option>
-                <option value="phucvu">Phục vụ cộng đồng</option>
-                <option value="lanhdao">Có cơ hội lãnh đạo</option>
+                <option value="nghiencuu">Nghiên cứu, phát triển</option>
+                <option value="kinhdoanh">Kinh doanh, khởi nghiệp</option>
+                <option value="quanly">Quản lý, lãnh đạo</option>
+                <option value="chuyengia">Chuyên gia, tư vấn</option>
+                <option value="giaoduc">Giáo dục, đào tạo</option>
+                <option value="sangtao">Sáng tạo, nghệ thuật</option>
+                <option value="phucvu">Phục vụ, chăm sóc</option>
+                <option value="kythuat">Kỹ thuật, vận hành</option>
               </select>
             </div>
 
@@ -145,60 +175,42 @@ export default function TestPage() {
                 <h2 className="text-lg md:text-xl font-semibold text-blue-700">Bạn muốn học trong nước hay du học?</h2>
               </div>
               <div className="space-y-4">
-                <div className="flex gap-4">
-                  <label className="flex items-center p-4 glass border border-blue-200/50 rounded-xl hover:bg-blue-50/50 cursor-pointer transition flex-1">
-                    <input type="radio" name="study_option" value="domestic" className="mr-3 w-5 h-5 text-blue-600 accent-blue-600" required />
-                    <div>
-                      <div className="font-semibold text-gray-700">🇻🇳 Học trong nước</div>
-                      <div className="text-xs text-gray-600 mt-1">Các trường đại học tại Việt Nam</div>
-                    </div>
-                  </label>
-                  <label className="flex items-center p-4 glass border border-blue-200/50 rounded-xl hover:bg-blue-50/50 cursor-pointer transition flex-1">
-                    <input type="radio" name="study_option" value="abroad" className="mr-3 w-5 h-5 text-blue-600 accent-blue-600" required />
-                    <div>
-                      <div className="font-semibold text-gray-700">✈️ Du học</div>
-                      <div className="text-xs text-gray-600 mt-1">Học tập tại nước ngoài</div>
-                    </div>
-                  </label>
-                </div>
-                
-                {/* Trường đại học trong nước */}
-                <div id="domestic-options" className="hidden">
+                <label className="flex items-start p-4 glass border border-blue-200/50 rounded-xl hover:bg-blue-50/50 cursor-pointer transition">
+                  <input type="radio" name="study_option" value="domestic" defaultChecked className="mt-1 mr-3 w-5 h-5 text-blue-600 accent-blue-600" />
+                  <div>
+                    <div className="font-semibold text-gray-800">🇻🇳 Học trong nước</div>
+                    <div className="text-sm text-gray-600">Các trường đại học tại Việt Nam</div>
+                  </div>
+                </label>
+                <label className="flex items-start p-4 glass border border-blue-200/50 rounded-xl hover:bg-blue-50/50 cursor-pointer transition">
+                  <input type="radio" name="study_option" value="abroad" className="mt-1 mr-3 w-5 h-5 text-blue-600 accent-blue-600" />
+                  <div>
+                    <div className="font-semibold text-gray-800">✈️ Du học</div>
+                    <div className="text-sm text-gray-600">Học tập tại nước ngoài</div>
+                  </div>
+                </label>
+
+                {/* Trong nước */}
+                <div id="domestic-options">
                   <label className="block text-sm font-medium text-gray-700 mb-2">Chọn trường đại học mong muốn:</label>
                   <select name="university_id" className="w-full p-3 glass border border-blue-200/50 rounded-xl bg-white/50 text-gray-800 focus:outline-none focus:border-blue-400 focus:bg-white transition">
                     <option value="">-- Chọn trường đại học --</option>
                     <optgroup label="Trường công lập - Hà Nội">
                       <option value="hust">Đại học Bách khoa Hà Nội (HUST)</option>
-                      <option value="vnu">Đại học Quốc gia Hà Nội (VNU)</option>
-                      <option value="neu">Đại học Kinh tế Quốc dân (NEU)</option>
-                      <option value="ftu">Đại học Ngoại thương (FTU)</option>
-                      <option value="hust-arch">Đại học Kiến trúc Hà Nội (HAU)</option>
-                      <option value="hust-med">Đại học Y Hà Nội (HMU)</option>
-                      <option value="hust-law">Đại học Luật Hà Nội (HUL)</option>
-                      <option value="hust-edu">Đại học Sư phạm Hà Nội (HNUE)</option>
-                      <option value="hust-arts">Đại học Mỹ thuật Việt Nam (VNUA)</option>
+                      <option value="hust-it">Đại học Công nghệ - ĐHQG Hà Nội (UET)</option>
                       <option value="hanoi-university">Đại học Hà Nội (HANU)</option>
-                      <option value="hanoi-open">Đại học Mở Hà Nội (HOU)</option>
-                      <option value="hust-transport">Đại học Giao thông Vận tải (UTC)</option>
-                      <option value="hust-water">Đại học Thủy lợi (TLU)</option>
-                      <option value="hust-forestry">Đại học Lâm nghiệp (VNUF)</option>
-                      <option value="hust-agriculture">Học viện Nông nghiệp Việt Nam (VNUA)</option>
-                      <option value="hust-banking">Học viện Ngân hàng (BA)</option>
-                      <option value="hust-finance">Học viện Tài chính (AOF)</option>
-                      <option value="hust-diplomacy">Học viện Ngoại giao (DAV)</option>
-                      <option value="hust-journalism">Học viện Báo chí và Tuyên truyền (AJC)</option>
-                      <option value="hust-industry">Đại học Công nghiệp Hà Nội (HaUI)</option>
-                      <option value="hust-ict">Học viện Công nghệ Bưu chính Viễn thông (PTIT)</option>
-                      <option value="hust-military">Học viện Kỹ thuật Quân sự (MTA)</option>
-                      <option value="hust-mining">Đại học Mỏ - Địa chất (HUMG)</option>
-                      <option value="hust-environment">Đại học Tài nguyên và Môi trường Hà Nội (HUNRE)</option>
-                      <option value="hust-culture">Đại học Văn hóa Hà Nội (HUC)</option>
-                      <option value="hust-sports">Đại học Thể dục Thể thao (USSH)</option>
-                      <option value="hust-foreign-trade">Đại học Ngoại thương (FTU)</option>
-                      <option value="dai-hoc-viet-nhat">Đại học Việt Nhật (VJU)</option>
-                      <option value="dai-hoc-hai-phong">Đại học Hải Phòng (HPU)</option>
-                      <option value="dai-hoc-hung-yen">Đại học Sư phạm Kỹ thuật Hưng Yên (UTEHY)</option>
-                      <option value="dai-hoc-vinh">Đại học Vinh (VINU)</option>
+                      <option value="neu">Đại học Kinh tế Quốc dân (NEU)</option>
+                      <option value="hcmus-hn">Đại học Khoa học Tự nhiên - ĐHQG Hà Nội (HUS)</option>
+                      <option value="vnu-hn">Đại học Quốc gia Hà Nội (VNU)</option>
+                      <option value="hn-arch">Đại học Kiến trúc Hà Nội (HAU)</option>
+                      <option value="hn-med">Đại học Y Hà Nội (HMU)</option>
+                      <option value="hn-law">Đại học Luật Hà Nội (HLU)</option>
+                      <option value="hn-edu">Đại học Sư phạm Hà Nội (HNUE)</option>
+                      <option value="hn-arts">Đại học Mỹ thuật Việt Nam (VNUA)</option>
+                      <option value="hn-open">Đại học Mở Hà Nội (HOU)</option>
+                      <option value="hn-industry">Đại học Công nghiệp Hà Nội (HAUI)</option>
+                      <option value="hn-foreign">Đại học Ngoại ngữ - ĐHQG Hà Nội (ULIS)</option>
+                      <option value="hn-pedagogy">Đại học Sư phạm Hà Nội 2 (HPU2)</option>
                     </optgroup>
                     <optgroup label="Trường công lập - TP.HCM">
                       <option value="hust-hcm">Đại học Bách khoa TP.HCM (HCMUT)</option>
@@ -216,58 +228,12 @@ export default function TestPage() {
                       <option value="hcm-culture">Đại học Văn hóa TP.HCM (HCMUC)</option>
                       <option value="dai-hoc-quoc-te">Đại học Quốc tế - ĐHQG TP.HCM (IU)</option>
                     </optgroup>
-                    <optgroup label="Trường công lập - Miền Trung">
-                      <option value="dut">Đại học Bách khoa Đà Nẵng (DUT)</option>
-                      <option value="dai-hoc-kinh-te-danang">Đại học Kinh tế Đà Nẵng (DUE)</option>
-                      <option value="hue">Đại học Huế (HUE)</option>
-                      <option value="dai-hoc-nha-trang">Đại học Nha Trang (NTU)</option>
-                      <option value="hust-fisheries">Đại học Thủy sản (NHA)</option>
-                      <option value="dai-hoc-quy-nhon">Đại học Quy Nhơn (QNU)</option>
-                      <option value="dai-hoc-lam-dong">Đại học Đà Lạt (DLU)</option>
-                    </optgroup>
-                    <optgroup label="Trường công lập - Miền Nam">
-                      <option value="ctu">Đại học Cần Thơ (CTU)</option>
-                      <option value="dai-hoc-an-giang">Đại học An Giang (AGU)</option>
-                      <option value="dai-hoc-dong-thap">Đại học Đồng Tháp (DTHU)</option>
-                      <option value="dai-hoc-tien-giang">Đại học Tiền Giang (TGU)</option>
-                      <option value="dai-hoc-tra-vinh">Đại học Trà Vinh (TVU)</option>
-                      <option value="dai-hoc-soc-trang">Đại học Sóc Trăng (STU)</option>
-                      <option value="dai-hoc-bac-lieu">Đại học Bạc Liêu (BLU)</option>
-                      <option value="dai-hoc-ca-mau">Đại học Cà Mau (CMU)</option>
-                    </optgroup>
-                    <optgroup label="Trường công lập - Miền Bắc">
-                      <option value="dthu">Đại học Thái Nguyên (TNU)</option>
-                      <option value="dai-hoc-tay-bac">Đại học Tây Bắc (QTU)</option>
-                      <option value="dai-hoc-dien-bien">Đại học Điện Biên (DBU)</option>
-                      <option value="dai-hoc-hung-vuong">Đại học Hùng Vương (HVU)</option>
-                      <option value="dai-hoc-hai-duong">Đại học Hải Dương (HDU)</option>
-                      <option value="dai-hoc-thai-binh">Đại học Thái Bình (TBU)</option>
-                      <option value="dai-hoc-nam-dinh">Đại học Điều dưỡng Nam Định (NDU)</option>
-                      <option value="dai-hoc-quang-binh">Đại học Quảng Bình (QBU)</option>
-                      <option value="dai-hoc-quang-tri">Đại học Quảng Trị (QTU)</option>
-                    </optgroup>
                     <optgroup label="Trường tư thục nổi tiếng">
                       <option value="fpt">Đại học FPT</option>
                       <option value="rmit">Đại học RMIT Việt Nam</option>
                       <option value="ton-duc-thang">Đại học Tôn Đức Thắng (TDTU)</option>
                       <option value="hutech">Đại học Công nghệ TP.HCM (HUTECH)</option>
                       <option value="greenwich">Đại học Greenwich Việt Nam</option>
-                      <option value="dai-hoc-duy-tan">Đại học Duy Tân (DTU)</option>
-                      <option value="dai-hoc-phenikaa">Đại học Phenikaa (PHENA)</option>
-                      <option value="dai-hoc-van-lang">Đại học Văn Lang (VLU)</option>
-                      <option value="dai-hoc-nguyen-tat-thanh">Đại học Nguyễn Tất Thành (NTTU)</option>
-                      <option value="dai-hoc-viet-duc">Đại học Việt Đức (VGU)</option>
-                      <option value="dai-hoc-binh-duong">Đại học Bình Dương (BDU)</option>
-                      <option value="dai-hoc-lac-hong">Đại học Lạc Hồng (LHU)</option>
-                      <option value="dai-hoc-dong-a">Đại học Đông Á (DAU)</option>
-                      <option value="dai-hoc-dong-do">Đại học Đông Đô (DDU)</option>
-                      <option value="dai-hoc-hong-bang">Đại học Hồng Bàng (HBU)</option>
-                      <option value="dai-hoc-quoc-te-sai-gon">Đại học Quốc tế Sài Gòn (SIU)</option>
-                      <option value="dai-hoc-tan-tao">Đại học Tân Tạo (TTU)</option>
-                      <option value="dai-hoc-van-hien">Đại học Văn Hiến (VHU)</option>
-                      <option value="dai-hoc-cong-nghe-sai-gon">Đại học Công nghệ Sài Gòn (STU)</option>
-                      <option value="dai-hoc-nam-can-tho">Đại học Nam Cần Thơ (NCTU)</option>
-                      <option value="dai-hoc-cu-long">Đại học Cửu Long (CLU)</option>
                     </optgroup>
                   </select>
                 </div>
@@ -302,14 +268,67 @@ export default function TestPage() {
             </div>
 
             <div className="text-center pt-8">
-              <button type="submit" className="glass-button px-8 md:px-12 py-3 md:py-4 text-white rounded-xl text-base md:text-lg font-semibold hover:scale-105 transition-transform">
-                🚀 Xem kết quả tư vấn →
+              <button 
+                type="submit" 
+                disabled={isSubmitting}
+                className="glass-button px-8 md:px-12 py-3 md:py-4 text-white rounded-xl text-base md:text-lg font-semibold hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isSubmitting ? 'Đang xử lý...' : '🚀 Xem kết quả tư vấn →'}
               </button>
-              <p className="text-xs md:text-sm text-gray-600 mt-4">
-                Kết quả sẽ được phân tích tự động và gửi về email của bạn
-              </p>
             </div>
           </form>
+
+        {/* Modal */}
+        {showModal && (
+          <div
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] flex items-center justify-center p-4"
+            onClick={() => setShowModal(false)}
+          >
+            <div
+              className="glass-card rounded-xl max-w-lg w-full max-h-[85vh] overflow-y-auto shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="p-6">
+                <div className="text-center mb-6">
+                  <div className="text-5xl mb-4">🎉</div>
+                  <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
+                    Kết quả tư vấn đã sẵn sàng!
+                  </h2>
+                  <p className="text-sm md:text-base text-gray-600">
+                    Hệ thống đã phân tích và đưa ra gợi ý ngành học phù hợp với bạn.
+                  </p>
+                </div>
+
+                <div className="space-y-4 mb-6">
+                  <div className="glass-card rounded-xl p-4 border border-white/30">
+                    <h3 className="font-semibold text-gray-800 mb-3">💡 Để xem kết quả chi tiết và nhận đề xuất tốt nhất:</h3>
+                    <ul className="text-sm text-gray-700 space-y-2 mb-4">
+                      <li>• Đăng ký tài khoản để lưu kết quả</li>
+                      <li>• Xem đề xuất nhóm ngành học phù hợp</li>
+                      <li>• Nhận gợi ý trường đại học tốt nhất</li>
+                      <li>• Quy nạp tất cả các bài test để đánh giá chuẩn nhất</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-3">
+                  <a
+                    href={`/result?id=${submissionId}`}
+                    className="glass-button text-white px-6 py-3 rounded-xl text-base font-semibold text-center hover:scale-105 transition"
+                  >
+                    🎯 Xem kết quả ngay →
+                  </a>
+                  <button
+                    onClick={() => setShowModal(false)}
+                    className="px-6 py-3 bg-white/20 backdrop-blur-sm border border-white/40 hover:bg-white/30 text-gray-700 rounded-xl text-base font-medium transition"
+                  >
+                    Đóng
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         <script dangerouslySetInnerHTML={{ __html: `
           (function() {
@@ -342,14 +361,14 @@ export default function TestPage() {
             const abroadRadio = document.querySelector('input[value="abroad"]');
 
             function updateStudyOptions() {
-              if (domesticRadio && domesticRadio.checked) {
+              if (domesticRadio && (domesticRadio as HTMLInputElement).checked) {
                 domesticOptions?.classList.remove('hidden');
                 abroadOptions?.classList.add('hidden');
                 const abroadSelect = document.querySelector('select[name="study_abroad_country"]') as HTMLSelectElement;
                 if (abroadSelect) abroadSelect.value = '';
-              } else if (abroadRadio && abroadRadio.checked) {
-                domesticOptions?.classList.add('hidden');
+              } else if (abroadRadio && (abroadRadio as HTMLInputElement).checked) {
                 abroadOptions?.classList.remove('hidden');
+                domesticOptions?.classList.add('hidden');
                 const domesticSelect = document.querySelector('select[name="university_id"]') as HTMLSelectElement;
                 if (domesticSelect) domesticSelect.value = '';
               }
@@ -357,10 +376,10 @@ export default function TestPage() {
 
             domesticRadio?.addEventListener('change', updateStudyOptions);
             abroadRadio?.addEventListener('change', updateStudyOptions);
+            updateStudyOptions();
           })();
-        ` }} />
+        `}} />
       </div>
     </div>
   );
 }
-

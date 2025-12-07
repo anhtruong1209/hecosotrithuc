@@ -6,9 +6,10 @@ export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
     
-    const fullname = formData.get('fullname') as string;
-    const phone = formData.get('phone') as string;
-    const email = formData.get('email') as string;
+    // Không yêu cầu thông tin cá nhân nữa
+    const fullname = formData.get('fullname') as string || '';
+    const phone = formData.get('phone') as string || '';
+    const email = formData.get('email') as string || '';
     const sothich = formData.get('sothich') as string;
     const monmanh = formData.getAll('monmanh') as string[];
     const tinhcach = formData.getAll('tinhcach') as string[];
@@ -54,11 +55,11 @@ export async function POST(request: NextRequest) {
       created_at: new Date().toISOString(),
     });
 
-    // Redirect to result page with data
-    const resultUrl = new URL('/result', request.url);
-    resultUrl.searchParams.set('id', submissionId.toString());
-    
-    return NextResponse.redirect(resultUrl);
+    // Return JSON with submission ID instead of redirect
+    return NextResponse.json({ 
+      success: true,
+      id: submissionId 
+    });
   } catch (error) {
     console.error('Error processing submission:', error);
     return NextResponse.json(
