@@ -4,11 +4,12 @@ import { requireAdmin } from '@/lib/auth';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> | { id: string } }
 ) {
   try {
-    requireAdmin();
-    const id = parseInt(params.id);
+    await requireAdmin();
+    const resolvedParams = params instanceof Promise ? await params : params;
+    const id = parseInt(resolvedParams.id);
     const submission = getSubmissionById(id);
     
     if (!submission) {

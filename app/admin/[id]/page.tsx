@@ -8,7 +8,7 @@ export default async function AdminDetailPage({ params }: { params: Promise<{ id
   // Handle both Promise and direct params for Next.js compatibility
   const resolvedParams = params instanceof Promise ? await params : params;
   
-  if (!isAdmin()) {
+  if (!(await isAdmin())) {
     redirect('/admin/login');
   }
 
@@ -121,6 +121,9 @@ export default async function AdminDetailPage({ params }: { params: Promise<{ id
         </div>
 
         <div className="flex gap-3 md:gap-4 flex-wrap">
+          <Link href={`/result?id=${submission.id}`} className="glass-button text-white px-4 md:px-6 py-2 md:py-3 rounded-xl text-sm md:text-base font-medium transition inline-block bg-green-500/40 border-green-400/40 hover:bg-green-500/50">
+            🎯 Xem kết quả tư vấn
+          </Link>
           <DeleteButtonDetail id={submission.id} />
           <Link href="/admin" className="glass-button text-white px-4 md:px-6 py-2 md:py-3 rounded-xl text-sm md:text-base font-medium transition inline-block">
             ← Quay lại

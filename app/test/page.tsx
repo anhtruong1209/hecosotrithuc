@@ -47,8 +47,8 @@ export default function TestPage() {
                 <span className="text-2xl">1️⃣</span>
                 <h2 className="text-lg md:text-xl font-semibold text-blue-700">Bạn thích hoạt động nào nhất?</h2>
               </div>
-              <select name="sothich" required className="w-full p-3 glass border border-blue-200/50 rounded-xl bg-white/50 text-gray-800 focus:outline-none focus:border-blue-400 focus:bg-white transition">
-                <option value="" disabled selected>-- Chọn sở thích --</option>
+              <select name="sothich" required defaultValue="" className="w-full p-3 glass border border-blue-200/50 rounded-xl bg-white/50 text-gray-800 focus:outline-none focus:border-blue-400 focus:bg-white transition">
+                <option value="" disabled>-- Chọn sở thích --</option>
                 <option value="kythuat">Làm việc với máy móc, kỹ thuật</option>
                 <option value="sangtao">Các hoạt động sáng tạo, thiết kế</option>
                 <option value="congnghe">Công nghệ thông tin, máy tính</option>
@@ -129,8 +129,8 @@ export default function TestPage() {
                 <span className="text-2xl">4️⃣</span>
                 <h2 className="text-lg md:text-xl font-semibold text-blue-700">Mục tiêu nghề nghiệp của bạn là gì?</h2>
               </div>
-              <select name="muctieu" required className="w-full p-3 glass border border-blue-200/50 rounded-xl bg-white/50 text-gray-800 focus:outline-none focus:border-blue-400 focus:bg-white transition">
-                <option value="" disabled selected>-- Chọn mục tiêu nghề nghiệp --</option>
+              <select name="muctieu" required defaultValue="" className="w-full p-3 glass border border-blue-200/50 rounded-xl bg-white/50 text-gray-800 focus:outline-none focus:border-blue-400 focus:bg-white transition">
+                <option value="" disabled>-- Chọn mục tiêu nghề nghiệp --</option>
                 <option value="luongcao">Thu nhập cao</option>
                 <option value="on_dinh">Ổn định, ít áp lực</option>
                 <option value="sangtao">Được sáng tạo</option>

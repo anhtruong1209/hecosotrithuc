@@ -5,7 +5,7 @@ import Link from 'next/link';
 import DeleteButton from '../components/DeleteButton';
 
 export default async function AdminPage() {
-  if (!isAdmin()) {
+  if (!(await isAdmin())) {
     redirect('/admin/login');
   }
 

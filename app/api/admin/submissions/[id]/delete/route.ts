@@ -8,7 +8,7 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> | { id: string } }
 ) {
   try {
-    if (!isAdmin()) {
+    if (!(await isAdmin())) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 

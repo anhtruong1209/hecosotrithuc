@@ -299,29 +299,30 @@ export default function MajorsPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 text-gray-800 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 text-gray-800 relative overflow-hidden">
       {/* Animated background */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 right-20 w-96 h-96 bg-blue-400/30 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-20 w-96 h-96 bg-purple-400/30 rounded-full blur-3xl"></div>
+        <div className="absolute top-20 right-20 w-96 h-96 bg-pink-300/40 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div className="absolute bottom-20 left-20 w-96 h-96 bg-purple-300/40 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-300/30 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '2s' }}></div>
       </div>
 
       <div className="relative z-10">
       {/* Header */}
-      <div className="glass-card border-b border-blue-200/30">
-        <div className="max-w-7xl mx-auto px-6 py-6">
+      <div className="glass-card border-b border-white/30">
+        <div className="max-w-7xl mx-auto px-6 py-8">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
-              <h1 className="text-2xl md:text-3xl font-bold mb-2 text-blue-700">
+              <h1 className="text-3xl md:text-4xl font-bold mb-3 text-gray-800">
                 Thông Tin Ngành Học
               </h1>
-              <p className="text-gray-600 text-sm">
+              <p className="text-gray-600 text-base md:text-lg">
                 Khám phá các nhóm ngành học theo mô hình RIASEC
               </p>
             </div>
             <a
               href="/"
-              className="glass-button text-white px-4 py-2 rounded-xl text-sm font-medium"
+              className="glass-button text-white px-6 py-3 rounded-xl text-sm md:text-base font-medium hover:scale-105 transition"
             >
               ← Về trang chủ
             </a>
@@ -332,13 +333,16 @@ export default function MajorsPage() {
       {/* Search Bar */}
       <div className="max-w-7xl mx-auto px-6 py-6">
         <div className="glass-card rounded-2xl p-4">
-          <input
-            type="text"
-            placeholder="Tìm kiếm ngành học, nghề nghiệp..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-3 glass border border-blue-200/50 rounded-xl focus:outline-none focus:border-blue-400 focus:bg-white text-gray-800 placeholder-gray-500 transition"
-          />
+          <div className="relative">
+            <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl">🔍</span>
+            <input
+              type="text"
+              placeholder="Tìm kiếm ngành học, nghề nghiệp..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-12 pr-4 py-4 glass border border-white/40 rounded-xl focus:outline-none focus:border-white/60 focus:bg-white/60 text-gray-800 placeholder-gray-500 transition text-base"
+            />
+          </div>
         </div>
       </div>
 
@@ -350,41 +354,42 @@ export default function MajorsPage() {
             return (
               <div
                 key={group.code}
-                className="glass-card rounded-xl overflow-hidden hover:scale-105 transition-all cursor-pointer shadow-lg"
+                className="glass-card rounded-xl overflow-hidden hover:scale-[1.02] hover:shadow-xl transition-all duration-300 cursor-pointer group"
                 onClick={() => setSelectedGroup(group)}
               >
-                <div className="p-4 md:p-6">
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className="text-3xl md:text-4xl">{group.icon}</span>
+                <div className="p-4 md:p-5">
+                  <div className="flex items-start gap-3 mb-3">
+                    <div className="text-3xl md:text-4xl flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                      {group.icon}
+                    </div>
                     <div className="flex-1 min-w-0">
-                      <div className="inline-block px-2 py-1 rounded-full text-xs font-bold glass border border-blue-200/50 mb-1 text-blue-700">
+                      <div className="inline-block px-2 py-1 rounded-full text-xs font-bold bg-white/40 backdrop-blur-sm border border-white/50 mb-1.5 text-gray-800">
                         {group.code}
                       </div>
-                      <h2 className="text-base md:text-lg font-bold mt-1 text-blue-700 truncate">
+                      <h2 className="text-sm md:text-base font-bold mt-1 text-gray-800 leading-tight line-clamp-2">
                         {group.name}
                       </h2>
                     </div>
                   </div>
-                  <p className="text-xs md:text-sm text-gray-600 line-clamp-3 mb-4">
+                  <p className="text-xs md:text-sm text-gray-600 leading-relaxed mb-3 line-clamp-2">
                     {group.description}
                   </p>
-                  <div className="mb-4">
-                    <h3 className="text-xs font-semibold text-gray-600 mb-2">Một số ngành học:</h3>
+                  <div className="mb-3">
                     <div className="flex flex-wrap gap-1.5">
-                      {group.majors.slice(0, 3).map((major, idx) => (
-                        <span key={idx} className="text-xs px-2 py-1 glass border border-blue-200/50 rounded text-gray-700">
+                      {group.majors.slice(0, 2).map((major, idx) => (
+                        <span key={idx} className="text-xs px-2 py-1 bg-white/30 backdrop-blur-sm border border-white/40 rounded text-gray-700">
                           {major}
                         </span>
                       ))}
-                      {group.majors.length > 3 && (
-                        <span className="text-xs px-2 py-1 glass border border-blue-200/50 rounded text-gray-500">
-                          +{group.majors.length - 3} ngành khác
+                      {group.majors.length > 2 && (
+                        <span className="text-xs px-2 py-1 bg-white/20 backdrop-blur-sm border border-white/30 rounded text-gray-600">
+                          +{group.majors.length - 2} ngành
                         </span>
                       )}
                     </div>
                   </div>
                   <button
-                    className="w-full glass-button text-white px-4 py-2 rounded-lg text-xs md:text-sm font-medium transition hover:scale-105"
+                    className="w-full glass-button text-white px-4 py-2 rounded-lg text-xs md:text-sm font-medium transition-all duration-300 hover:scale-105"
                     onClick={(e) => {
                       e.stopPropagation();
                       setSelectedGroup(group);
@@ -412,26 +417,26 @@ export default function MajorsPage() {
           onClick={() => setSelectedGroup(null)}
         >
           <div
-            className="glass-card rounded-xl max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl"
+            className="glass-card rounded-xl max-w-lg w-full max-h-[80vh] overflow-y-auto shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header Compact */}
-            <div className="glass-dark p-4 border-b border-blue-200/30 sticky top-0">
+            <div className="p-4 border-b border-white/30 sticky top-0 bg-white/10 backdrop-blur-sm">
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-3 flex-1 min-w-0">
                   <span className="text-3xl flex-shrink-0">{selectedGroup.icon}</span>
                   <div className="min-w-0 flex-1">
-                    <div className="inline-block px-2 py-0.5 rounded-full text-xs font-bold glass border border-blue-200/50 mb-1 text-blue-700">
+                    <div className="inline-block px-2 py-0.5 rounded-full text-xs font-bold bg-white/40 backdrop-blur-sm border border-white/50 mb-1 text-gray-800">
                       {selectedGroup.code}
                     </div>
-                    <h2 className="text-base md:text-lg font-bold text-blue-700 truncate">
+                    <h2 className="text-base md:text-lg font-bold text-gray-800 leading-tight line-clamp-2">
                       {selectedGroup.name}
                     </h2>
                   </div>
                 </div>
                 <button
                   onClick={() => setSelectedGroup(null)}
-                  className="text-gray-500 hover:text-gray-700 text-xl font-bold transition flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/20"
+                  className="text-gray-500 hover:text-gray-800 text-xl font-bold transition flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/30"
                 >
                   ×
                 </button>
@@ -439,52 +444,52 @@ export default function MajorsPage() {
             </div>
 
             {/* Content Compact */}
-            <div className="p-4 space-y-3">
+            <div className="p-4 space-y-4">
               {/* Description */}
-              <p className="text-xs md:text-sm text-gray-600 leading-relaxed">
+              <p className="text-xs md:text-sm text-gray-700 leading-relaxed">
                 {selectedGroup.description}
               </p>
 
-              {/* Majors - Compact Grid */}
+              {/* Majors */}
               <div>
-                <h3 className="text-xs md:text-sm font-semibold text-blue-700 mb-2">Ngành học phù hợp</h3>
+                <h3 className="text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">Ngành học</h3>
                 <div className="flex flex-wrap gap-1.5">
-                  {selectedGroup.majors.slice(0, 8).map((major, idx) => (
-                    <span key={idx} className="px-2 py-1 glass border border-blue-200/50 rounded-lg text-gray-700 text-xs">
+                  {selectedGroup.majors.slice(0, 6).map((major, idx) => (
+                    <span key={idx} className="px-2 py-1 bg-white/30 backdrop-blur-sm border border-white/40 rounded text-gray-700 text-xs">
                       {major}
                     </span>
                   ))}
-                  {selectedGroup.majors.length > 8 && (
-                    <span className="px-2 py-1 glass border border-blue-200/50 rounded-lg text-gray-500 text-xs">
-                      +{selectedGroup.majors.length - 8} ngành khác
+                  {selectedGroup.majors.length > 6 && (
+                    <span className="px-2 py-1 bg-white/20 backdrop-blur-sm border border-white/30 rounded text-gray-600 text-xs">
+                      +{selectedGroup.majors.length - 6} ngành
                     </span>
                   )}
                 </div>
               </div>
 
-              {/* Jobs - Compact */}
+              {/* Jobs */}
               <div>
-                <h3 className="text-xs md:text-sm font-semibold text-blue-700 mb-2">Nghề nghiệp phù hợp</h3>
+                <h3 className="text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">Nghề nghiệp</h3>
                 <div className="flex flex-wrap gap-1.5">
-                  {selectedGroup.jobs.slice(0, 6).map((job, idx) => (
-                    <span key={idx} className="px-2 py-1 glass border border-blue-200/50 rounded-lg text-gray-700 text-xs">
+                  {selectedGroup.jobs.slice(0, 5).map((job, idx) => (
+                    <span key={idx} className="px-2 py-1 bg-white/30 backdrop-blur-sm border border-white/40 rounded text-gray-700 text-xs">
                       {job}
                     </span>
                   ))}
-                  {selectedGroup.jobs.length > 6 && (
-                    <span className="px-2 py-1 glass border border-blue-200/50 rounded-lg text-gray-500 text-xs">
-                      +{selectedGroup.jobs.length - 6} nghề khác
+                  {selectedGroup.jobs.length > 5 && (
+                    <span className="px-2 py-1 bg-white/20 backdrop-blur-sm border border-white/30 rounded text-gray-600 text-xs">
+                      +{selectedGroup.jobs.length - 5} nghề
                     </span>
                   )}
                 </div>
               </div>
 
-              {/* Strengths - Compact */}
+              {/* Strengths */}
               <div>
-                <h3 className="text-xs md:text-sm font-semibold text-blue-700 mb-2">Điểm mạnh</h3>
+                <h3 className="text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">Điểm mạnh</h3>
                 <div className="flex flex-wrap gap-1.5">
                   {selectedGroup.strengths.map((strength, idx) => (
-                    <span key={idx} className="px-2 py-1 glass border border-blue-200/50 rounded-full text-gray-700 text-xs">
+                    <span key={idx} className="px-2 py-1 bg-white/30 backdrop-blur-sm border border-white/40 rounded-full text-gray-700 text-xs">
                       {strength}
                     </span>
                   ))}
@@ -493,10 +498,10 @@ export default function MajorsPage() {
 
               {/* Exam Blocks */}
               <div>
-                <h3 className="text-xs md:text-sm font-semibold text-blue-700 mb-2">Khối thi</h3>
+                <h3 className="text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">Khối thi</h3>
                 <div className="flex flex-wrap gap-2">
                   {selectedGroup.examBlocks.map((block, idx) => (
-                    <span key={idx} className="px-3 py-1.5 glass-dark border border-blue-400/50 rounded-full font-bold text-sm text-blue-600">
+                    <span key={idx} className="px-3 py-1.5 bg-white/40 backdrop-blur-sm border border-white/50 rounded-full font-bold text-xs text-gray-800">
                       {block}
                     </span>
                   ))}
@@ -504,16 +509,16 @@ export default function MajorsPage() {
               </div>
 
               {/* Actions */}
-              <div className="flex gap-2 pt-2 border-t border-blue-200/30">
+              <div className="flex gap-2 pt-3 border-t border-white/30">
                 <a
                   href="/test"
-                  className="flex-1 glass-button text-white px-4 py-2 rounded-lg text-xs md:text-sm font-medium text-center"
+                  className="flex-1 glass-button text-white px-4 py-2 rounded-lg text-xs md:text-sm font-medium text-center hover:scale-105 transition"
                 >
                   Làm test →
                 </a>
                 <button
                   onClick={() => setSelectedGroup(null)}
-                  className="px-4 py-2 glass border border-blue-200/50 hover:bg-blue-50/50 text-gray-700 rounded-lg text-xs md:text-sm font-medium transition"
+                  className="px-4 py-2 bg-white/20 backdrop-blur-sm border border-white/40 hover:bg-white/30 text-gray-700 rounded-lg text-xs md:text-sm font-medium transition"
                 >
                   Đóng
                 </button>
@@ -523,13 +528,6 @@ export default function MajorsPage() {
         </div>
       )}
 
-      {/* Footer */}
-      <footer className="text-center py-6 md:py-8 text-gray-500 text-xs md:text-sm glass-card border-t border-blue-200/30 mt-12">
-        <div className="max-w-7xl mx-auto px-4 md:px-6">
-          © 2025 Hệ Chuyên Gia Hướng Nghiệp
-          <div className="mt-1 text-gray-400 text-xs">CNTT 2025.1</div>
-        </div>
-      </footer>
       </div>
     </div>
   );
