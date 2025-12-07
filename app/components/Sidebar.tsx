@@ -29,17 +29,17 @@ export default function Sidebar() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed left-0 top-0 h-full glass-dark border-r border-white/10 z-40 transition-all duration-300 ease-in-out ${
+        className={`fixed left-0 top-0 h-full glass-dark border-r border-blue-200/30 z-40 transition-all duration-300 ease-in-out ${
           isOpen ? 'w-64 translate-x-0' : '-translate-x-full w-0'
         }`}
       >
         <div className="h-full flex flex-col p-6">
           {/* Logo/Title */}
           <div className="mb-8 pt-12">
-            <h2 className="text-lg font-bold text-white mb-2 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+            <h2 className="text-lg font-bold text-blue-700 mb-2">
               Hệ Tư Vấn
             </h2>
-            <p className="text-xs text-gray-400">Chọn Ngành Học</p>
+            <p className="text-xs text-gray-600">Chọn Ngành Học</p>
           </div>
 
           {/* Menu Items */}
@@ -53,7 +53,7 @@ export default function Sidebar() {
                   className={`group relative flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${
                     isActive
                       ? 'glass-button border border-blue-400/50 text-white shadow-lg scale-105'
-                      : 'text-gray-300 hover:text-white hover:bg-white/10 border border-transparent hover:border-white/20'
+                      : 'text-gray-700 hover:text-blue-700 hover:bg-blue-50/50 border border-transparent hover:border-blue-200/50'
                   }`}
                   onClick={() => {
                     // Add ripple effect
@@ -63,7 +63,7 @@ export default function Sidebar() {
                 >
                   {/* Active indicator */}
                   {isActive && (
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-400 to-cyan-400 rounded-r-full"></div>
+                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500 rounded-r-full"></div>
                   )}
                   
                   {/* Icon */}
@@ -77,14 +77,14 @@ export default function Sidebar() {
                   </span>
 
                   {/* Hover effect */}
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/0 to-cyan-500/0 group-hover:from-blue-500/10 group-hover:to-cyan-500/10 transition-all duration-300"></div>
+                  <div className="absolute inset-0 rounded-xl bg-blue-50/0 group-hover:bg-blue-50/30 transition-all duration-300"></div>
                 </Link>
               );
             })}
           </nav>
 
           {/* Footer */}
-          <div className="pt-4 border-t border-white/10">
+          <div className="pt-4 border-t border-blue-200/30">
             <p className="text-xs text-gray-500 text-center">
               © 2025 CNTT
             </p>

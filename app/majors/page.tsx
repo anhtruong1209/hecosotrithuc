@@ -299,29 +299,29 @@ export default function MajorsPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-gray-100 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 text-gray-800 relative overflow-hidden">
       {/* Animated background */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 right-20 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-20 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute top-20 right-20 w-96 h-96 bg-blue-400/30 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-20 w-96 h-96 bg-purple-400/30 rounded-full blur-3xl"></div>
       </div>
 
       <div className="relative z-10">
       {/* Header */}
-      <div className="glass-dark border-b border-white/10">
+      <div className="glass-card border-b border-blue-200/30">
         <div className="max-w-7xl mx-auto px-6 py-6">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold mb-2 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+              <h1 className="text-2xl md:text-3xl font-bold mb-2 text-blue-700">
                 Thông Tin Ngành Học
               </h1>
-              <p className="text-gray-300">
+              <p className="text-gray-600 text-sm">
                 Khám phá các nhóm ngành học theo mô hình RIASEC
               </p>
             </div>
             <a
               href="/"
-              className="glass-button text-white px-6 py-2 rounded-xl font-semibold"
+              className="glass-button text-white px-4 py-2 rounded-xl text-sm font-medium"
             >
               ← Về trang chủ
             </a>
@@ -331,13 +331,13 @@ export default function MajorsPage() {
 
       {/* Search Bar */}
       <div className="max-w-7xl mx-auto px-6 py-6">
-        <div className="glass-card rounded-2xl border border-white/20 p-4">
+        <div className="glass-card rounded-2xl p-4">
           <input
             type="text"
             placeholder="Tìm kiếm ngành học, nghề nghiệp..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-3 glass-dark border border-white/20 rounded-xl focus:outline-none focus:border-blue-400/50 focus:bg-white/10 text-white placeholder-gray-400 transition"
+            className="w-full px-4 py-3 glass border border-blue-200/50 rounded-xl focus:outline-none focus:border-blue-400 focus:bg-white text-gray-800 placeholder-gray-500 transition"
           />
         </div>
       </div>
@@ -410,45 +410,45 @@ export default function MajorsPage() {
       {/* Modal Detail */}
       {selectedGroup && (
         <div
-          className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[9999] flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] flex items-center justify-center p-4"
           onClick={() => setSelectedGroup(null)}
           style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
         >
           <div
-            className="glass-card rounded-2xl border border-white/20 max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+            className="glass-card rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="glass-dark p-6 border-b border-white/10">
+            <div className="glass-dark p-4 md:p-6 border-b border-blue-200/30">
               <div className="flex items-start justify-between">
-                <div className="flex items-center gap-4">
-                  <span className="text-5xl">{selectedGroup.icon}</span>
+                <div className="flex items-center gap-3 md:gap-4">
+                  <span className="text-4xl md:text-5xl">{selectedGroup.icon}</span>
                   <div>
-                    <div className="inline-block px-3 py-1 rounded-full text-sm font-bold glass-dark border border-white/20 mb-2">
+                    <div className="inline-block px-2 py-1 rounded-full text-xs font-bold glass border border-blue-200/50 mb-2 text-blue-700">
                       Nhóm {selectedGroup.code}
                     </div>
-                    <h2 className="text-3xl font-bold text-white">
+                    <h2 className="text-xl md:text-2xl font-bold text-blue-700">
                       {selectedGroup.name}
                     </h2>
                   </div>
                 </div>
                 <button
                   onClick={() => setSelectedGroup(null)}
-                  className="text-gray-400 hover:text-white text-2xl font-bold transition"
+                  className="text-gray-500 hover:text-gray-700 text-2xl font-bold transition"
                 >
                   ×
                 </button>
               </div>
-              <p className="text-gray-300 mt-4 text-lg leading-relaxed">
+              <p className="text-gray-600 mt-3 md:mt-4 text-sm md:text-base leading-relaxed">
                 {selectedGroup.description}
               </p>
             </div>
 
-            <div className="p-6 space-y-6">
+            <div className="p-4 md:p-6 space-y-4 md:space-y-6">
               <div>
-                <h3 className="text-xl font-semibold text-white mb-3">Các ngành học phù hợp</h3>
+                <h3 className="text-base md:text-lg font-semibold text-blue-700 mb-3">Các ngành học phù hợp</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                   {selectedGroup.majors.map((major, idx) => (
-                    <div key={idx} className="p-3 glass-dark rounded-lg border border-white/10 text-gray-200">
+                    <div key={idx} className="p-3 glass rounded-lg border border-blue-200/50 text-gray-700 text-sm">
                       {major}
                     </div>
                   ))}
@@ -456,10 +456,10 @@ export default function MajorsPage() {
               </div>
 
               <div>
-                <h3 className="text-xl font-semibold text-white mb-3">Nghề nghiệp phù hợp</h3>
+                <h3 className="text-base md:text-lg font-semibold text-blue-700 mb-3">Nghề nghiệp phù hợp</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                   {selectedGroup.jobs.map((job, idx) => (
-                    <div key={idx} className="p-3 glass-dark rounded-lg border border-white/10 text-gray-200">
+                    <div key={idx} className="p-3 glass rounded-lg border border-blue-200/50 text-gray-700 text-sm">
                       {job}
                     </div>
                   ))}
@@ -467,10 +467,10 @@ export default function MajorsPage() {
               </div>
 
               <div>
-                <h3 className="text-xl font-semibold text-white mb-3">Điểm mạnh nổi bật</h3>
+                <h3 className="text-base md:text-lg font-semibold text-blue-700 mb-3">Điểm mạnh nổi bật</h3>
                 <div className="flex flex-wrap gap-2">
                   {selectedGroup.strengths.map((strength, idx) => (
-                    <span key={idx} className="px-4 py-2 glass-dark border border-white/20 rounded-full font-medium text-gray-200">
+                    <span key={idx} className="px-3 py-2 glass border border-blue-200/50 rounded-full font-medium text-gray-700 text-xs md:text-sm">
                       {strength}
                     </span>
                   ))}
@@ -478,26 +478,26 @@ export default function MajorsPage() {
               </div>
 
               <div>
-                <h3 className="text-xl font-semibold text-white mb-3">Khối thi phù hợp</h3>
-                <div className="flex flex-wrap gap-3">
+                <h3 className="text-base md:text-lg font-semibold text-blue-700 mb-3">Khối thi phù hợp</h3>
+                <div className="flex flex-wrap gap-2 md:gap-3">
                   {selectedGroup.examBlocks.map((block, idx) => (
-                    <span key={idx} className="px-4 py-2 glass-dark border border-blue-400/30 rounded-full font-bold text-lg text-blue-300">
+                    <span key={idx} className="px-3 md:px-4 py-2 glass-dark border border-blue-400/50 rounded-full font-bold text-base md:text-lg text-blue-600">
                       {block}
                     </span>
                   ))}
                 </div>
               </div>
 
-              <div className="flex gap-4 pt-4">
+              <div className="flex gap-3 md:gap-4 pt-4">
                 <a
                   href="/test"
-                  className="flex-1 glass-button text-white px-6 py-3 rounded-xl font-semibold text-center border border-white/20"
+                  className="flex-1 glass-button text-white px-4 md:px-6 py-2 md:py-3 rounded-xl text-sm md:text-base font-medium text-center"
                 >
                   Làm bài test ngay →
                 </a>
                 <button
                   onClick={() => setSelectedGroup(null)}
-                  className="px-6 py-3 glass-dark hover:bg-white/10 text-gray-300 rounded-xl font-semibold transition border border-white/10"
+                  className="px-4 md:px-6 py-2 md:py-3 glass border border-blue-200/50 hover:bg-blue-50/50 text-gray-700 rounded-xl text-sm md:text-base font-medium transition"
                 >
                   Đóng
                 </button>
@@ -508,10 +508,10 @@ export default function MajorsPage() {
       )}
 
       {/* Footer */}
-      <footer className="text-center py-8 text-gray-400 text-sm glass-dark border-t border-white/10 mt-12">
-        <div className="max-w-7xl mx-auto px-6">
-          © 2025 Hệ Chuyên Gia Hướng Nghiệp – All rights reserved.
-          <div className="mt-2 text-gray-500">Bản quyền thuộc về nhóm Học viên CNTT 2025.1</div>
+      <footer className="text-center py-6 md:py-8 text-gray-500 text-xs md:text-sm glass-card border-t border-blue-200/30 mt-12">
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
+          © 2025 Hệ Chuyên Gia Hướng Nghiệp
+          <div className="mt-1 text-gray-400 text-xs">CNTT 2025.1</div>
         </div>
       </footer>
       </div>
