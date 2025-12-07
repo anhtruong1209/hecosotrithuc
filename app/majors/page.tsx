@@ -417,11 +417,12 @@ export default function MajorsPage() {
           onClick={() => setSelectedGroup(null)}
         >
           <div
-            className="glass-card rounded-xl max-w-lg w-full max-h-[80vh] overflow-y-auto shadow-2xl"
+            className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-xl max-w-lg w-full max-h-[80vh] overflow-y-auto shadow-colored-lg border border-white/50 backdrop-blur-md"
             onClick={(e) => e.stopPropagation()}
+            style={{ background: 'linear-gradient(135deg, rgba(219, 234, 254, 0.95) 0%, rgba(224, 231, 255, 0.95) 50%, rgba(221, 214, 254, 0.95) 100%)' }}
           >
             {/* Header Compact */}
-            <div className="p-4 border-b border-white/30 sticky top-0 bg-white/10 backdrop-blur-sm">
+            <div className="p-4 border-b border-blue-200/50 sticky top-0 bg-white/20 backdrop-blur-sm">
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-3 flex-1 min-w-0">
                   <span className="text-3xl flex-shrink-0">{selectedGroup.icon}</span>
@@ -452,15 +453,15 @@ export default function MajorsPage() {
 
               {/* Majors */}
               <div>
-                <h3 className="text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">Ngành học</h3>
+                <h3 className="text-xs font-semibold text-blue-700 mb-2 uppercase tracking-wide">Ngành học</h3>
                 <div className="flex flex-wrap gap-1.5">
                   {selectedGroup.majors.slice(0, 6).map((major, idx) => (
-                    <span key={idx} className="px-2 py-1 bg-white/30 backdrop-blur-sm border border-white/40 rounded text-gray-700 text-xs">
+                    <span key={idx} className="px-2 py-1 bg-white/50 backdrop-blur-sm border border-blue-200/50 rounded text-blue-800 text-xs">
                       {major}
                     </span>
                   ))}
                   {selectedGroup.majors.length > 6 && (
-                    <span className="px-2 py-1 bg-white/20 backdrop-blur-sm border border-white/30 rounded text-gray-600 text-xs">
+                    <span className="px-2 py-1 bg-white/40 backdrop-blur-sm border border-blue-200/40 rounded text-blue-700 text-xs">
                       +{selectedGroup.majors.length - 6} ngành
                     </span>
                   )}
@@ -469,15 +470,15 @@ export default function MajorsPage() {
 
               {/* Jobs */}
               <div>
-                <h3 className="text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">Nghề nghiệp</h3>
+                <h3 className="text-xs font-semibold text-blue-700 mb-2 uppercase tracking-wide">Nghề nghiệp</h3>
                 <div className="flex flex-wrap gap-1.5">
                   {selectedGroup.jobs.slice(0, 5).map((job, idx) => (
-                    <span key={idx} className="px-2 py-1 bg-white/30 backdrop-blur-sm border border-white/40 rounded text-gray-700 text-xs">
+                    <span key={idx} className="px-2 py-1 bg-white/50 backdrop-blur-sm border border-blue-200/50 rounded text-blue-800 text-xs">
                       {job}
                     </span>
                   ))}
                   {selectedGroup.jobs.length > 5 && (
-                    <span className="px-2 py-1 bg-white/20 backdrop-blur-sm border border-white/30 rounded text-gray-600 text-xs">
+                    <span className="px-2 py-1 bg-white/40 backdrop-blur-sm border border-blue-200/40 rounded text-blue-700 text-xs">
                       +{selectedGroup.jobs.length - 5} nghề
                     </span>
                   )}
@@ -486,10 +487,10 @@ export default function MajorsPage() {
 
               {/* Strengths */}
               <div>
-                <h3 className="text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">Điểm mạnh</h3>
+                <h3 className="text-xs font-semibold text-blue-700 mb-2 uppercase tracking-wide">Điểm mạnh</h3>
                 <div className="flex flex-wrap gap-1.5">
                   {selectedGroup.strengths.map((strength, idx) => (
-                    <span key={idx} className="px-2 py-1 bg-white/30 backdrop-blur-sm border border-white/40 rounded-full text-gray-700 text-xs">
+                    <span key={idx} className="px-2 py-1 bg-white/50 backdrop-blur-sm border border-blue-200/50 rounded-full text-blue-800 text-xs">
                       {strength}
                     </span>
                   ))}
@@ -498,10 +499,10 @@ export default function MajorsPage() {
 
               {/* Exam Blocks */}
               <div>
-                <h3 className="text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">Khối thi</h3>
+                <h3 className="text-xs font-semibold text-blue-700 mb-2 uppercase tracking-wide">Khối thi</h3>
                 <div className="flex flex-wrap gap-2">
                   {selectedGroup.examBlocks.map((block, idx) => (
-                    <span key={idx} className="px-3 py-1.5 bg-white/40 backdrop-blur-sm border border-white/50 rounded-full font-bold text-xs text-gray-800">
+                    <span key={idx} className="px-3 py-1.5 bg-white/60 backdrop-blur-sm border border-blue-300/60 rounded-full font-bold text-xs text-blue-900">
                       {block}
                     </span>
                   ))}
@@ -509,7 +510,7 @@ export default function MajorsPage() {
               </div>
 
               {/* Actions */}
-              <div className="flex gap-2 pt-3 border-t border-white/30">
+              <div className="flex gap-2 pt-3 border-t border-blue-200/50">
                 <a
                   href="/test"
                   className="flex-1 glass-button text-white px-4 py-2 rounded-lg text-xs md:text-sm font-medium text-center hover:scale-105 transition"

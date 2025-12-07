@@ -48,7 +48,7 @@ interface Database {
   admins: Admin[];
 }
 
-function readDB(): Database {
+export function readDB(): Database {
   try {
     // Ensure directory exists
     const dir = path.dirname(DB_PATH);
@@ -66,7 +66,7 @@ function readDB(): Database {
   return { submissions: [], admins: [] };
 }
 
-function writeDB(data: Database): void {
+export function writeDB(data: Database): void {
   try {
     // Ensure directory exists
     const dir = path.dirname(DB_PATH);

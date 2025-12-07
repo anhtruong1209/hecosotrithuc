@@ -285,7 +285,7 @@ export default function TestPage() {
             onClick={() => setShowModal(false)}
           >
             <div
-              className="glass-card rounded-xl max-w-lg w-full max-h-[85vh] overflow-y-auto shadow-2xl"
+              className="glass-card rounded-xl max-w-lg w-full max-h-[85vh] overflow-y-auto shadow-colored-lg"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="p-6">

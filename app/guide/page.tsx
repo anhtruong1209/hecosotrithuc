@@ -293,9 +293,150 @@ export default function GuidePage() {
             </div>
           </div>
 
-          {/* 9. Kết luận */}
+          {/* 9. Hướng dẫn sử dụng chi tiết */}
           <div className="glass-card rounded-2xl p-6 md:p-8">
-            <h2 className="text-xl md:text-2xl font-bold text-blue-700 mb-4">9. Kết Luận</h2>
+            <h2 className="text-xl md:text-2xl font-bold text-blue-700 mb-4">9. Hướng Dẫn Sử Dụng Chi Tiết</h2>
+            <div className="space-y-4 text-sm md:text-base text-gray-700">
+              <div className="bg-white/30 backdrop-blur-sm rounded-xl p-4 border border-white/40">
+                <h3 className="font-semibold mb-3 text-base">📋 Bước 1: Làm bài tư vấn chọn ngành học</h3>
+                <ol className="list-decimal ml-5 space-y-2 text-xs">
+                  <li>Truy cập trang <strong>"Bài Tư Vấn Chọn Ngành Học"</strong></li>
+                  <li>Trả lời các câu hỏi về:
+                    <ul className="list-disc ml-5 mt-1">
+                      <li><strong>Sở thích:</strong> Lĩnh vực bạn yêu thích (kỹ thuật, sáng tạo, công nghệ...)</li>
+                      <li><strong>Môn học mạnh:</strong> Các môn bạn học tốt (Toán, Lý, Hóa, Văn, Anh...)</li>
+                      <li><strong>Tính cách:</strong> Đặc điểm tính cách của bạn (tỉ mỉ, sáng tạo, giao tiếp...)</li>
+                      <li><strong>Mục tiêu:</strong> Mục tiêu nghề nghiệp của bạn</li>
+                    </ul>
+                  </li>
+                  <li>Chọn <strong>mong muốn học tập:</strong> Trong nước hoặc du học</li>
+                  <li>Nếu chọn trong nước, có thể chọn trường đại học ưu tiên</li>
+                  <li>Nếu chọn du học, chọn quốc gia mong muốn</li>
+                  <li>Nhấn <strong>"Gửi yêu cầu tư vấn"</strong> để xem kết quả</li>
+                </ol>
+              </div>
+
+              <div className="bg-white/30 backdrop-blur-sm rounded-xl p-4 border border-white/40">
+                <h3 className="font-semibold mb-3 text-base">🧪 Bước 2: Làm các bài test bổ sung (Tùy chọn)</h3>
+                <p className="text-xs mb-2">Để có kết quả chính xác hơn, bạn nên làm thêm các bài test sau:</p>
+                <ul className="list-disc ml-5 space-y-1 text-xs">
+                  <li><strong>Test MBTI:</strong> Đánh giá tính cách theo 16 loại MBTI</li>
+                  <li><strong>Test Sở Thích Nghề Nghiệp:</strong> Đánh giá sở thích với các lĩnh vực nghề nghiệp</li>
+                  <li><strong>Test Năng Lực Học Tập:</strong> Đánh giá điểm mạnh trong các môn học</li>
+                  <li><strong>Test RIASEC 20:</strong> Bài test chi tiết về 6 nhóm tính cách RIASEC</li>
+                </ul>
+                <p className="text-xs mt-2 text-blue-600">
+                  💡 <strong>Lưu ý:</strong> Càng làm nhiều test, kết quả quy nạp càng chính xác!
+                </p>
+              </div>
+
+              <div className="bg-white/30 backdrop-blur-sm rounded-xl p-4 border border-white/40">
+                <h3 className="font-semibold mb-3 text-base">📊 Bước 3: Xem kết quả tư vấn</h3>
+                <p className="text-xs mb-2">Sau khi hoàn thành bài tư vấn và các test, bạn sẽ nhận được:</p>
+                <ul className="list-disc ml-5 space-y-1 text-xs">
+                  <li><strong>Đề xuất nhóm ngành học:</strong> Top 3 nhóm ngành phù hợp với độ phù hợp (%)</li>
+                  <li><strong>Chi tiết từng nhóm:</strong> Ngành học, nghề nghiệp, khối thi tương ứng</li>
+                  <li><strong>Đề xuất trường đại học:</strong> Danh sách trường phù hợp với điểm phù hợp</li>
+                  <li><strong>Thông tin trường:</strong> Loại trường, địa điểm, số ngành phù hợp</li>
+                </ul>
+              </div>
+
+              <div className="bg-white/30 backdrop-blur-sm rounded-xl p-4 border border-white/40">
+                <h3 className="font-semibold mb-3 text-base">💾 Bước 4: Lưu kết quả (Tùy chọn)</h3>
+                <p className="text-xs mb-2">
+                  Bạn có thể <strong>xem và xuất kết quả miễn phí</strong> mà không cần đăng ký. 
+                  Nếu muốn lưu kết quả để trường học liên hệ hỗ trợ, bạn có thể điền thông tin (không bắt buộc):
+                </p>
+                <ul className="list-disc ml-5 space-y-1 text-xs">
+                  <li>Họ và tên</li>
+                  <li>Số điện thoại</li>
+                  <li>Email</li>
+                </ul>
+                <p className="text-xs mt-2 text-green-600">
+                  ✅ <strong>Lợi ích:</strong> Trường học có thể xem kết quả và liên hệ tư vấn chi tiết cho bạn
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* 10. Bảo mật và Quyền riêng tư */}
+          <div className="glass-card rounded-2xl p-6 md:p-8">
+            <h2 className="text-xl md:text-2xl font-bold text-blue-700 mb-4">10. Bảo Mật Và Quyền Riêng Tư</h2>
+            <div className="space-y-4 text-sm md:text-base text-gray-700">
+              <div className="bg-white/30 backdrop-blur-sm rounded-xl p-4 border border-white/40">
+                <h3 className="font-semibold mb-2">🔒 Chính sách bảo mật:</h3>
+                <ul className="list-disc ml-5 space-y-1 text-xs">
+                  <li><strong>Xem kết quả miễn phí:</strong> Bạn có thể xem và xuất kết quả mà không cần cung cấp thông tin cá nhân</li>
+                  <li><strong>Thông tin tùy chọn:</strong> Việc cung cấp thông tin (họ tên, SĐT, email) là hoàn toàn tùy chọn</li>
+                  <li><strong>Kiểm soát truy cập:</strong> Hệ thống có thể kiểm soát lượt truy cập bằng IP để tránh spam</li>
+                  <li><strong>Dữ liệu an toàn:</strong> Thông tin được lưu trữ an toàn và chỉ được sử dụng cho mục đích tư vấn</li>
+                  <li><strong>Quyền truy cập:</strong> Chỉ admin và trường học được phép xem kết quả để hỗ trợ tư vấn</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* 11. Hướng phát triển */}
+          <div className="glass-card rounded-2xl p-6 md:p-8">
+            <h2 className="text-xl md:text-2xl font-bold text-blue-700 mb-4">11. Hướng Phát Triển</h2>
+            <div className="space-y-4 text-sm md:text-base text-gray-700">
+              <p>
+                Hệ thống được thiết kế với khả năng mở rộng cao, phù hợp để xây dựng cụ thể cho từng đơn vị trường học 
+                hoặc tổ chức tư vấn hướng nghiệp.
+              </p>
+
+              <div className="bg-white/30 backdrop-blur-sm rounded-xl p-4 border border-white/40">
+                <h3 className="font-semibold mb-3 text-base">🏫 Tùy chỉnh cho trường học/tổ chức:</h3>
+                <ul className="list-disc ml-5 space-y-2 text-xs">
+                  <li><strong>Branding tùy chỉnh:</strong> Logo, màu sắc, tên hệ thống theo từng trường/tổ chức</li>
+                  <li><strong>Danh sách trường riêng:</strong> Chỉ hiển thị các trường trong khu vực hoặc hệ thống của tổ chức</li>
+                  <li><strong>Quy trình tư vấn:</strong> Tích hợp với quy trình tuyển sinh và tư vấn của trường</li>
+                  <li><strong>Báo cáo và thống kê:</strong> Dashboard quản trị với thống kê chi tiết về học sinh</li>
+                  <li><strong>Tích hợp hệ thống:</strong> Kết nối với hệ thống quản lý học sinh (SIS) hiện có</li>
+                </ul>
+              </div>
+
+              <div className="bg-white/30 backdrop-blur-sm rounded-xl p-4 border border-white/40">
+                <h3 className="font-semibold mb-3 text-base">📈 Tính năng nâng cao:</h3>
+                <ul className="list-disc ml-5 space-y-2 text-xs">
+                  <li><strong>Machine Learning:</strong> Cải thiện độ chính xác đề xuất bằng AI/ML</li>
+                  <li><strong>Phân tích xu hướng:</strong> Thống kê xu hướng chọn ngành theo khu vực, thời gian</li>
+                  <li><strong>So sánh kết quả:</strong> So sánh kết quả của học sinh với dữ liệu lịch sử</li>
+                  <li><strong>Xuất báo cáo PDF:</strong> Tự động tạo báo cáo chi tiết dạng PDF</li>
+                  <li><strong>API tích hợp:</strong> Cung cấp API để tích hợp với hệ thống khác</li>
+                  <li><strong>Multi-language:</strong> Hỗ trợ đa ngôn ngữ cho các trường quốc tế</li>
+                </ul>
+              </div>
+
+              <div className="bg-white/30 backdrop-blur-sm rounded-xl p-4 border border-white/40">
+                <h3 className="font-semibold mb-3 text-base">🔧 Công nghệ mở rộng:</h3>
+                <ul className="list-disc ml-5 space-y-2 text-xs">
+                  <li><strong>Database nâng cao:</strong> Chuyển từ JSON sang PostgreSQL/MySQL cho dữ liệu lớn</li>
+                  <li><strong>Authentication:</strong> Hệ thống đăng nhập cho học sinh, giáo viên, admin</li>
+                  <li><strong>Real-time:</strong> Cập nhật kết quả real-time với WebSocket</li>
+                  <li><strong>Mobile App:</strong> Ứng dụng di động cho iOS và Android</li>
+                  <li><strong>Cloud Deployment:</strong> Triển khai trên cloud (AWS, Azure, GCP) với auto-scaling</li>
+                </ul>
+              </div>
+
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-200/50">
+                <h3 className="font-semibold mb-2 text-base text-blue-800">💼 Dịch vụ triển khai:</h3>
+                <p className="text-xs text-gray-700 mb-2">
+                  Chúng tôi cung cấp dịch vụ tùy chỉnh và triển khai hệ thống cho các trường học và tổ chức tư vấn:
+                </p>
+                <ul className="list-disc ml-5 space-y-1 text-xs text-gray-700">
+                  <li>Tư vấn và thiết kế hệ thống theo nhu cầu</li>
+                  <li>Phát triển và tùy chỉnh tính năng</li>
+                  <li>Đào tạo và hỗ trợ kỹ thuật</li>
+                  <li>Bảo trì và cập nhật định kỳ</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* 12. Kết luận */}
+          <div className="glass-card rounded-2xl p-6 md:p-8">
+            <h2 className="text-xl md:text-2xl font-bold text-blue-700 mb-4">12. Kết Luận</h2>
             <div className="space-y-4 text-sm md:text-base text-gray-700">
               <p>
                 Hệ thống tư vấn chọn ngành học được xây dựng dựa trên các mô hình tâm lý học đã được kiểm chứng, 
@@ -305,12 +446,20 @@ export default function GuidePage() {
               <div className="bg-white/30 backdrop-blur-sm rounded-xl p-4 border border-white/40">
                 <h3 className="font-semibold mb-2">Ưu điểm của hệ thống:</h3>
                 <ul className="list-disc ml-5 space-y-1 text-xs">
-                  <li>Đánh giá toàn diện dựa trên nhiều yếu tố (tính cách, sở thích, năng lực)</li>
-                  <li>Quy nạp kết quả từ nhiều bài test để tăng độ chính xác</li>
-                  <li>Đề xuất cụ thể về ngành học và trường đại học</li>
-                  <li>Giao diện hiện đại, dễ sử dụng</li>
-                  <li>Hệ thống mở, dễ mở rộng và cải thiện</li>
+                  <li>✅ Đánh giá toàn diện dựa trên nhiều yếu tố (tính cách, sở thích, năng lực)</li>
+                  <li>✅ Quy nạp kết quả từ nhiều bài test để tăng độ chính xác</li>
+                  <li>✅ Đề xuất cụ thể về ngành học và trường đại học</li>
+                  <li>✅ Giao diện hiện đại, dễ sử dụng với Glassmorphism design</li>
+                  <li>✅ Hệ thống mở, dễ mở rộng và tùy chỉnh cho từng tổ chức</li>
+                  <li>✅ Miễn phí xem và xuất kết quả, thông tin đăng ký tùy chọn</li>
+                  <li>✅ Bảo mật và quyền riêng tư được đảm bảo</li>
                 </ul>
+              </div>
+              <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4 border border-green-200/50">
+                <p className="text-xs text-gray-700">
+                  <strong>📞 Liên hệ:</strong> Để biết thêm thông tin về dịch vụ tùy chỉnh và triển khai hệ thống cho trường học/tổ chức của bạn, 
+                  vui lòng liên hệ với chúng tôi.
+                </p>
               </div>
             </div>
           </div>
@@ -326,4 +475,5 @@ export default function GuidePage() {
     </div>
   );
 }
+
 

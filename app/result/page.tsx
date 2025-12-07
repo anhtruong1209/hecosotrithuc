@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 import { getSubmissionById } from '@/lib/db';
 import { universities, studyAbroadCountries } from '@/lib/universities';
 import { aggregateTestResults, recommendMajorGroups, recommendUniversities } from '@/lib/recommendation';
+import RegisterForm from '@/app/components/RegisterForm';
 
 export default async function ResultPage({ 
   searchParams 
@@ -74,13 +75,18 @@ export default async function ResultPage({
           </p>
         </div>
 
+        {/* Form đăng ký để lưu thông tin */}
+        {!(submission.fullname && submission.phone && submission.email) && (
+          <RegisterForm submissionId={id!} />
+        )}
+
         {(submission.fullname || submission.phone || submission.email) && (
           <div className="glass-card rounded-xl p-4 mb-6">
             <h4 className="text-sm font-semibold text-blue-700 mb-2">Thông tin người tham gia</h4>
             <div className="text-xs md:text-sm text-gray-700 space-y-1">
-              <div><strong>Họ tên:</strong> {submission.fullname}</div>
-              <div><strong>SĐT:</strong> {submission.phone}</div>
-              <div><strong>Email:</strong> {submission.email}</div>
+              {submission.fullname && <div><strong>Họ tên:</strong> {submission.fullname}</div>}
+              {submission.phone && <div><strong>SĐT:</strong> {submission.phone}</div>}
+              {submission.email && <div><strong>Email:</strong> {submission.email}</div>}
             </div>
           </div>
         )}

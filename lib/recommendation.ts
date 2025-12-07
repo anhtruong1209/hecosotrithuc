@@ -121,11 +121,25 @@ export function recommendMajorGroups(aggregated: AggregatedTestResults): MajorRe
       }
     };
 
+    // Tính tổng điểm để normalize
+    const totalScore = Object.values(scores).reduce((sum, s) => sum + (s as number), 0);
+    const topScore = sorted[0]?.score || 0;
+    
     for (const { code, score } of sorted.slice(0, 3)) {
       const group = majorGroups[code as keyof typeof majorGroups];
       if (group) {
-        const maxScore = Math.max(...Object.values(scores));
-        const confidence = maxScore > 0 ? (score / maxScore) * 100 : 0;
+        // Tính confidence dựa trên tỷ lệ so với top score và tổng điểm
+        let confidence = 0;
+        if (totalScore > 0) {
+          // Tỷ lệ điểm so với tổng điểm * 100, sau đó scale lên dựa trên top score
+          const percentageOfTotal = (score / totalScore) * 100;
+          const ratioToTop = topScore > 0 ? (score / topScore) : 0;
+          confidence = percentageOfTotal * ratioToTop * 1.5; // Scale để có giá trị hợp lý
+          confidence = Math.min(100, Math.max(10, confidence)); // Đảm bảo từ 10-100%
+        } else {
+          // Nếu không có điểm, chia đều
+          confidence = 33;
+        }
         
         recommendations.push({
           code,
