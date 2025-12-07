@@ -213,8 +213,11 @@ export default function AptitudePage() {
             <button onClick={() => { setResult(null); setCurrentQuestion(0); setAnswers({}); }} className="glass-button text-white px-6 py-3 rounded-xl text-sm md:text-base font-medium">
               Làm lại
             </button>
-            <a href="/tests" className="glass border border-blue-200/50 text-blue-700 px-6 py-3 rounded-xl text-sm md:text-base font-medium hover:bg-blue-50/50 transition">
+            <a href="/tests" className="glass-button text-white px-6 py-3 rounded-xl text-sm md:text-base font-medium transition">
               Về danh sách test
+            </a>
+            <a href="/test" className="glass border border-blue-200/50 text-blue-700 px-6 py-3 rounded-xl text-sm md:text-base font-medium hover:bg-blue-50/50 transition">
+              Điền thông tin và nhận tư vấn chi tiết →
             </a>
           </div>
         </div>

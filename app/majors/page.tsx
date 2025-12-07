@@ -350,43 +350,43 @@ export default function MajorsPage() {
             return (
               <div
                 key={group.code}
-                className="glass-card rounded-2xl border border-white/20 overflow-hidden hover:border-white/30 transition-all cursor-pointer hover:scale-105"
+                className="glass-card rounded-xl overflow-hidden hover:scale-105 transition-all cursor-pointer shadow-lg"
                 onClick={() => setSelectedGroup(group)}
               >
-                <div className="glass-dark p-6 border-b border-white/10">
-                  <div className="flex items-center gap-4 mb-3">
-                    <span className="text-4xl">{group.icon}</span>
-                    <div>
-                      <div className={`inline-block px-3 py-1 rounded-full text-sm font-bold ${colors.badge}`}>
+                <div className="glass-dark p-4 md:p-6 border-b border-blue-200/30">
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className="text-3xl md:text-4xl">{group.icon}</span>
+                    <div className="flex-1 min-w-0">
+                      <div className="inline-block px-2 py-1 rounded-full text-xs font-bold glass border border-blue-200/50 mb-1 text-blue-700">
                         {group.code}
                       </div>
-                      <h2 className={`text-xl font-bold mt-2 ${colors.text}`}>
+                      <h2 className="text-base md:text-lg font-bold mt-1 text-blue-700 truncate">
                         {group.name}
                       </h2>
                     </div>
                   </div>
-                  <p className="text-gray-600 text-sm line-clamp-3">
+                  <p className="text-xs md:text-sm text-gray-600 line-clamp-3">
                     {group.description}
                   </p>
                 </div>
-                <div className="p-6">
+                <div className="p-4 md:p-6">
                   <div className="mb-4">
-                    <h3 className="text-sm font-semibold text-gray-500 mb-2">Một số ngành học:</h3>
-                    <div className="flex flex-wrap gap-2">
+                    <h3 className="text-xs font-semibold text-gray-600 mb-2">Một số ngành học:</h3>
+                    <div className="flex flex-wrap gap-1.5">
                       {group.majors.slice(0, 3).map((major, idx) => (
-                        <span key={idx} className="text-xs px-2 py-1 bg-gray-100 rounded text-gray-700">
+                        <span key={idx} className="text-xs px-2 py-1 glass border border-blue-200/50 rounded text-gray-700">
                           {major}
                         </span>
                       ))}
                       {group.majors.length > 3 && (
-                        <span className="text-xs px-2 py-1 bg-gray-100 rounded text-gray-500">
+                        <span className="text-xs px-2 py-1 glass border border-blue-200/50 rounded text-gray-500">
                           +{group.majors.length - 3} ngành khác
                         </span>
                       )}
                     </div>
                   </div>
                   <button
-                    className="w-full glass-button text-white px-4 py-2 rounded-xl font-semibold transition hover:scale-105"
+                    className="w-full glass-button text-white px-4 py-2 rounded-lg text-xs md:text-sm font-medium transition hover:scale-105"
                     onClick={(e) => {
                       e.stopPropagation();
                       setSelectedGroup(group);

@@ -374,16 +374,16 @@ export default function RIASEC20Page() {
             </div>
 
             <div className="bg-blue-50 rounded-xl p-6 mb-8 border border-blue-200">
-              <h3 className="text-lg font-semibold text-blue-800 mb-2">Gợi ý tiếp theo:</h3>
+              <h3 className="text-lg font-semibold text-blue-800 mb-2">Bước tiếp theo:</h3>
               <p className="text-gray-700 mb-4">
-                Dựa trên kết quả này, bạn có thể thực hiện bài tư vấn chi tiết hơn để nhận được gợi ý ngành học cụ thể.
+                Để nhận được gợi ý ngành học cụ thể và chi tiết hơn, vui lòng điền thông tin và chọn ngành học bạn quan tâm.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <a
-                  href="/test"
+                  href={`/test?riasec=${topType}&scores=${JSON.stringify(scores)}`}
                   className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold text-center transition"
                 >
-                  Làm bài tư vấn chi tiết →
+                  Điền thông tin và nhận tư vấn chi tiết →
                 </a>
                 <a
                   href="/majors"
@@ -402,10 +402,10 @@ export default function RIASEC20Page() {
                 Làm lại bài test
               </button>
               <a
-                href="/"
-                className="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl font-semibold transition"
+                href="/tests"
+                className="px-6 py-3 glass-button text-white rounded-xl font-semibold transition"
               >
-                Về trang chủ
+                Về danh sách test
               </a>
             </div>
           </div>
@@ -501,10 +501,10 @@ export default function RIASEC20Page() {
             ← Câu trước
           </button>
           <a
-            href="/"
-            className="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl font-semibold transition"
+            href="/tests"
+            className="px-6 py-3 glass-button text-white rounded-xl font-semibold transition"
           >
-            Về trang chủ
+            Về danh sách test
           </a>
         </div>
       </div>

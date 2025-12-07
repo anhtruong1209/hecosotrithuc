@@ -9,7 +9,6 @@ export default function Sidebar() {
   const menuItems = [
     { href: '/', label: 'Trang chủ', icon: '🏠' },
     { href: '/test', label: 'Bài tư vấn', icon: '🎯' },
-    { href: '/riasec20', label: 'RIASEC 20', icon: '⚡' },
     { href: '/tests', label: 'Chọn test', icon: '🧪' },
     { href: '/majors', label: 'Ngành học', icon: '📚' },
   ];
@@ -74,7 +73,18 @@ export default function Sidebar() {
           </nav>
 
         {/* Footer */}
-        <div className="pt-4 border-t border-blue-200/30 mt-auto">
+        <div className="pt-4 border-t border-blue-200/30 mt-auto space-y-2">
+          <Link
+            href="/admin/login"
+            className="group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-gray-700 hover:text-blue-700 hover:bg-blue-50/50 border border-transparent hover:border-blue-200/50"
+          >
+            <span className="text-xl group-hover:scale-125 transition-transform duration-300">
+              🔐
+            </span>
+            <span className="text-sm font-medium group-hover:translate-x-1 transition-transform duration-300">
+              Đăng nhập
+            </span>
+          </Link>
           <div className="flex items-center justify-center gap-2 mb-2">
             <div className="w-8 h-8 glass-card rounded-lg flex items-center justify-center text-lg">
               🎯
