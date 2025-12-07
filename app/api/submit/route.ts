@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
       monmanh,
       tinhcach,
       muctieu,
-      r_scores,
+      r_scores: r_scores as unknown as Record<string, number>,
       major,
       description,
       strengths,

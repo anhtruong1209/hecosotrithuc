@@ -299,22 +299,29 @@ export default function MajorsPage() {
   );
 
   return (
-    <div className="bg-gradient-to-b from-blue-50 to-white min-h-screen text-gray-800">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-gray-100 relative overflow-hidden">
+      {/* Animated background */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-20 right-20 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-20 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="relative z-10">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b">
+      <div className="glass-dark border-b border-white/10">
         <div className="max-w-7xl mx-auto px-6 py-6">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold text-blue-700 mb-2">
+              <h1 className="text-3xl md:text-4xl font-bold mb-2 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
                 Thông Tin Ngành Học
               </h1>
-              <p className="text-gray-600">
+              <p className="text-gray-300">
                 Khám phá các nhóm ngành học theo mô hình RIASEC
               </p>
             </div>
             <a
               href="/"
-              className="px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl font-semibold transition"
+              className="glass-button text-white px-6 py-2 rounded-xl font-semibold"
             >
               ← Về trang chủ
             </a>
@@ -324,13 +331,13 @@ export default function MajorsPage() {
 
       {/* Search Bar */}
       <div className="max-w-7xl mx-auto px-6 py-6">
-        <div className="bg-white rounded-2xl shadow-md border border-gray-200 p-4">
+        <div className="glass-card rounded-2xl border border-white/20 p-4">
           <input
             type="text"
             placeholder="Tìm kiếm ngành học, nghề nghiệp..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-3 glass-dark border border-white/20 rounded-xl focus:outline-none focus:border-blue-400/50 focus:bg-white/10 text-white placeholder-gray-400 transition"
           />
         </div>
       </div>
@@ -343,10 +350,10 @@ export default function MajorsPage() {
             return (
               <div
                 key={group.code}
-                className={`bg-white rounded-2xl shadow-lg border-2 ${colors.border} overflow-hidden hover:shadow-xl transition-all cursor-pointer`}
+                className="glass-card rounded-2xl border border-white/20 overflow-hidden hover:border-white/30 transition-all cursor-pointer hover:scale-105"
                 onClick={() => setSelectedGroup(group)}
               >
-                <div className={`${colors.bg} p-6 border-b ${colors.border}`}>
+                <div className="glass-dark p-6 border-b border-white/10">
                   <div className="flex items-center gap-4 mb-3">
                     <span className="text-4xl">{group.icon}</span>
                     <div>
@@ -403,44 +410,45 @@ export default function MajorsPage() {
       {/* Modal Detail */}
       {selectedGroup && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[9999] flex items-center justify-center p-4"
           onClick={() => setSelectedGroup(null)}
+          style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
         >
           <div
-            className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+            className="glass-card rounded-2xl border border-white/20 max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className={`${colorClasses[selectedGroup.color as keyof typeof colorClasses].bg} p-6 border-b ${colorClasses[selectedGroup.color as keyof typeof colorClasses].border}`}>
+            <div className="glass-dark p-6 border-b border-white/10">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-4">
                   <span className="text-5xl">{selectedGroup.icon}</span>
                   <div>
-                    <div className={`inline-block px-3 py-1 rounded-full text-sm font-bold ${colorClasses[selectedGroup.color as keyof typeof colorClasses].badge} mb-2`}>
+                    <div className="inline-block px-3 py-1 rounded-full text-sm font-bold glass-dark border border-white/20 mb-2">
                       Nhóm {selectedGroup.code}
                     </div>
-                    <h2 className={`text-3xl font-bold ${colorClasses[selectedGroup.color as keyof typeof colorClasses].text}`}>
+                    <h2 className="text-3xl font-bold text-white">
                       {selectedGroup.name}
                     </h2>
                   </div>
                 </div>
                 <button
                   onClick={() => setSelectedGroup(null)}
-                  className="text-gray-500 hover:text-gray-700 text-2xl font-bold"
+                  className="text-gray-400 hover:text-white text-2xl font-bold transition"
                 >
                   ×
                 </button>
               </div>
-              <p className="text-gray-700 mt-4 text-lg leading-relaxed">
+              <p className="text-gray-300 mt-4 text-lg leading-relaxed">
                 {selectedGroup.description}
               </p>
             </div>
 
             <div className="p-6 space-y-6">
               <div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-3">Các ngành học phù hợp</h3>
+                <h3 className="text-xl font-semibold text-white mb-3">Các ngành học phù hợp</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                   {selectedGroup.majors.map((major, idx) => (
-                    <div key={idx} className="p-3 bg-gray-50 rounded-lg border border-gray-200">
+                    <div key={idx} className="p-3 glass-dark rounded-lg border border-white/10 text-gray-200">
                       {major}
                     </div>
                   ))}
@@ -448,10 +456,10 @@ export default function MajorsPage() {
               </div>
 
               <div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-3">Nghề nghiệp phù hợp</h3>
+                <h3 className="text-xl font-semibold text-white mb-3">Nghề nghiệp phù hợp</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                   {selectedGroup.jobs.map((job, idx) => (
-                    <div key={idx} className="p-3 bg-gray-50 rounded-lg border border-gray-200">
+                    <div key={idx} className="p-3 glass-dark rounded-lg border border-white/10 text-gray-200">
                       {job}
                     </div>
                   ))}
@@ -459,10 +467,10 @@ export default function MajorsPage() {
               </div>
 
               <div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-3">Điểm mạnh nổi bật</h3>
+                <h3 className="text-xl font-semibold text-white mb-3">Điểm mạnh nổi bật</h3>
                 <div className="flex flex-wrap gap-2">
                   {selectedGroup.strengths.map((strength, idx) => (
-                    <span key={idx} className={`px-4 py-2 rounded-full ${colorClasses[selectedGroup.color as keyof typeof colorClasses].badge} font-medium`}>
+                    <span key={idx} className="px-4 py-2 glass-dark border border-white/20 rounded-full font-medium text-gray-200">
                       {strength}
                     </span>
                   ))}
@@ -470,10 +478,10 @@ export default function MajorsPage() {
               </div>
 
               <div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-3">Khối thi phù hợp</h3>
+                <h3 className="text-xl font-semibold text-white mb-3">Khối thi phù hợp</h3>
                 <div className="flex flex-wrap gap-3">
                   {selectedGroup.examBlocks.map((block, idx) => (
-                    <span key={idx} className="px-4 py-2 bg-blue-100 text-blue-800 rounded-full font-bold text-lg">
+                    <span key={idx} className="px-4 py-2 glass-dark border border-blue-400/30 rounded-full font-bold text-lg text-blue-300">
                       {block}
                     </span>
                   ))}
@@ -483,13 +491,13 @@ export default function MajorsPage() {
               <div className="flex gap-4 pt-4">
                 <a
                   href="/test"
-                  className={`flex-1 ${colorClasses[selectedGroup.color as keyof typeof colorClasses].button} text-white px-6 py-3 rounded-xl font-semibold text-center transition`}
+                  className="flex-1 glass-button text-white px-6 py-3 rounded-xl font-semibold text-center border border-white/20"
                 >
                   Làm bài test ngay →
                 </a>
                 <button
                   onClick={() => setSelectedGroup(null)}
-                  className="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl font-semibold transition"
+                  className="px-6 py-3 glass-dark hover:bg-white/10 text-gray-300 rounded-xl font-semibold transition border border-white/10"
                 >
                   Đóng
                 </button>
@@ -500,12 +508,13 @@ export default function MajorsPage() {
       )}
 
       {/* Footer */}
-      <footer className="text-center py-6 text-gray-500 text-sm bg-white border-t">
+      <footer className="text-center py-8 text-gray-400 text-sm glass-dark border-t border-white/10 mt-12">
         <div className="max-w-7xl mx-auto px-6">
           © 2025 Hệ Chuyên Gia Hướng Nghiệp – All rights reserved.
-          <div className="mt-2 text-gray-400">Bản quyền thuộc về nhóm Học viên CNTT 2025.1</div>
+          <div className="mt-2 text-gray-500">Bản quyền thuộc về nhóm Học viên CNTT 2025.1</div>
         </div>
       </footer>
+      </div>
     </div>
   );
 }

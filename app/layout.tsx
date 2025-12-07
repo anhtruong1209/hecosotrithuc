@@ -1,4 +1,5 @@
 import './globals.css'
+import Sidebar from './components/Sidebar'
 
 export const metadata = {
   title: 'Hệ Chuyên Gia Tư Vấn Chọn Ngành Học',
@@ -15,7 +16,12 @@ export default function RootLayout({
       <head>
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
       </head>
-      <body>{children}</body>
+      <body className="overflow-x-hidden">
+        <Sidebar />
+        <main className="md:ml-64 transition-all duration-300 min-h-screen">
+          {children}
+        </main>
+      </body>
     </html>
   )
 }
