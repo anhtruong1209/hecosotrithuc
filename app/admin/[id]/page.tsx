@@ -3,12 +3,19 @@ import { getSubmissionById } from '@/lib/db';
 import { isAdmin } from '@/lib/auth';
 import Link from 'next/link';
 
-export default async function AdminDetailPage({ params }: { params: { id: string } }) {
+export default async function AdminDetailPage({ params }: { params: Promise<{ id: string }> | { id: string } }) {
+  // Handle both Promise and direct params for Next.js compatibility
+  const resolvedParams = params instanceof Promise ? await params : params;
+  
   if (!isAdmin()) {
     redirect('/admin/login');
   }
 
-  const id = parseInt(params.id);
+  const id = parseInt(resolvedParams.id);
+  if (isNaN(id)) {
+    redirect('/admin');
+  }
+
   const submission = getSubmissionById(id);
 
   if (!submission) {
@@ -45,11 +52,15 @@ export default async function AdminDetailPage({ params }: { params: { id: string
               <div className="mt-3">
                 <strong>Khối thi gợi ý:</strong>
                 <div className="flex flex-wrap gap-2 mt-1">
-                  {submission.suggested_blocks.map((block, i) => (
-                    <span key={i} className="px-2 py-1 bg-blue-50 text-blue-700 rounded">
-                      {block}
-                    </span>
-                  ))}
+                  {submission.suggested_blocks && submission.suggested_blocks.length > 0 ? (
+                    submission.suggested_blocks.map((block, i) => (
+                      <span key={i} className="px-2 py-1 bg-blue-50 text-blue-700 rounded">
+                        {block}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="text-gray-500">Không có dữ liệu</span>
+                  )}
                 </div>
               </div>
             </div>
