@@ -124,6 +124,17 @@ export function createAdmin(username: string, passwordHash: string): number {
   return newId;
 }
 
+export function deleteSubmission(id: number): boolean {
+  const db = readDB();
+  const index = db.submissions.findIndex(s => s.id === id);
+  if (index === -1) {
+    return false;
+  }
+  db.submissions.splice(index, 1);
+  writeDB(db);
+  return true;
+}
+
 // Initialize admin if not exists
 export function initAdmin(): void {
   const db = readDB();
