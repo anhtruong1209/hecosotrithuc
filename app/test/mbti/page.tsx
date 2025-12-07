@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { calculateMBTI, MBTIResult } from '@/lib/mbti';
+import TestInfoForm from '@/app/components/TestInfoForm';
 
 interface Question {
   id: number;
@@ -108,6 +109,8 @@ export default function MBTIPage() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [result, setResult] = useState<MBTIResult | null>(null);
+  const [userInfo, setUserInfo] = useState<{ fullname: string; phone: string; email?: string } | null>(null);
+  const [testSaved, setTestSaved] = useState(false);
 
   const handleAnswer = (questionId: number, answer: string) => {
     setAnswers({ ...answers, [questionId]: answer });
@@ -131,9 +134,47 @@ export default function MBTIPage() {
     }
   };
 
+  const handleSaveTest = async (info: { fullname: string; phone: string; email?: string }) => {
+    if (!result) return;
+    
+    try {
+      const response = await fetch('/api/test-result', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fullname: info.fullname,
+          phone: info.phone,
+          email: info.email,
+          test_type: 'mbti',
+          test_name: 'Test Tính Cách MBTI',
+          result: {
+            type: result.type,
+            name: result.name,
+            description: result.description,
+            strengths: result.strengths,
+            careers: result.careers,
+            majors: result.majors
+          }
+        }),
+      });
+
+      if (response.ok) {
+        setUserInfo(info);
+        setTestSaved(true);
+      } else {
+        alert('Có lỗi xảy ra khi lưu kết quả. Vui lòng thử lại.');
+      }
+    } catch (error) {
+      console.error('Error saving test:', error);
+      alert('Có lỗi xảy ra khi lưu kết quả. Vui lòng thử lại.');
+    }
+  };
+
   if (result) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 text-gray-800 relative overflow-hidden">
+      <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 text-gray-800 relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-20 right-20 w-96 h-96 bg-purple-400/30 rounded-full blur-3xl"></div>
           <div className="absolute bottom-20 left-20 w-96 h-96 bg-blue-400/30 rounded-full blur-3xl"></div>
@@ -146,6 +187,21 @@ export default function MBTIPage() {
             <div className="text-4xl md:text-5xl font-bold text-purple-600 mb-4">{result.type}</div>
             <h2 className="text-xl md:text-2xl font-semibold text-gray-700">{result.name}</h2>
           </div>
+
+          {!testSaved && !userInfo && (
+            <TestInfoForm onSave={handleSaveTest} />
+          )}
+
+          {testSaved && (
+            <div className="glass-card rounded-xl p-4 mb-6 border border-green-300/50 bg-green-50/30">
+              <div className="text-center">
+                <div className="text-3xl mb-2">✅</div>
+                <p className="text-sm md:text-base text-green-700 font-semibold">
+                  Kết quả đã được lưu thành công!
+                </p>
+              </div>
+            </div>
+          )}
 
           <div className="glass-card rounded-xl p-4 md:p-6 mb-6">
             <p className="text-sm md:text-base text-gray-600 leading-relaxed">{result.description}</p>
@@ -204,7 +260,7 @@ export default function MBTIPage() {
   const question = questions[currentQuestion];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 text-gray-800 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 text-gray-800 relative overflow-hidden">
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-20 right-20 w-96 h-96 bg-purple-400/30 rounded-full blur-3xl"></div>
         <div className="absolute bottom-20 left-20 w-96 h-96 bg-blue-400/30 rounded-full blur-3xl"></div>

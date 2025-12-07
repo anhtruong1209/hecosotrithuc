@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import TestInfoForm from '@/app/components/TestInfoForm';
 
 interface Question {
   id: number;
@@ -240,6 +241,8 @@ export default function RIASEC20Page() {
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [scores, setScores] = useState({ R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 });
   const [showResult, setShowResult] = useState(false);
+  const [userInfo, setUserInfo] = useState<{ fullname: string; phone: string; email?: string } | null>(null);
+  const [testSaved, setTestSaved] = useState(false);
 
   const handleAnswer = (questionId: number, optionValue: string, optionScores: any) => {
     const newAnswers = { ...answers, [questionId]: optionValue };
@@ -321,12 +324,47 @@ export default function RIASEC20Page() {
     setShowResult(false);
   };
 
+  const handleSaveTest = async (info: { fullname: string; phone: string; email?: string }) => {
+    const { topType } = getResult();
+    
+    try {
+      const response = await fetch('/api/test-result', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fullname: info.fullname,
+          phone: info.phone,
+          email: info.email,
+          test_type: 'riasec',
+          test_name: 'RIASEC 20 Câu',
+          result: {
+            topType,
+            scores,
+            r_scores: scores
+          }
+        }),
+      });
+
+      if (response.ok) {
+        setUserInfo(info);
+        setTestSaved(true);
+      } else {
+        alert('Có lỗi xảy ra khi lưu kết quả. Vui lòng thử lại.');
+      }
+    } catch (error) {
+      console.error('Error saving test:', error);
+      alert('Có lỗi xảy ra khi lưu kết quả. Vui lòng thử lại.');
+    }
+  };
+
   if (showResult) {
     const { topType, sortedScores, typeInfo } = getResult();
     const topTypeInfo = typeInfo[topType];
 
     return (
-      <div className="bg-gradient-to-b from-blue-50 to-white min-h-screen text-gray-800">
+      <div className="bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 min-h-screen text-gray-800">
         <div className="max-w-4xl mx-auto py-12 px-6">
           <div className="bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-8">
             <h1 className="text-4xl font-bold text-center text-blue-700 mb-6">
@@ -373,6 +411,23 @@ export default function RIASEC20Page() {
               </div>
             </div>
 
+            {!testSaved && !userInfo && (
+              <div className="mb-8">
+                <TestInfoForm onSave={handleSaveTest} />
+              </div>
+            )}
+
+            {testSaved && (
+              <div className="bg-green-50 rounded-xl p-6 mb-8 border border-green-200">
+                <div className="text-center">
+                  <div className="text-4xl mb-2">✅</div>
+                  <p className="text-sm md:text-base text-green-700 font-semibold">
+                    Kết quả đã được lưu thành công!
+                  </p>
+                </div>
+              </div>
+            )}
+
             <div className="bg-blue-50 rounded-xl p-6 mb-8 border border-blue-200">
               <h3 className="text-lg font-semibold text-blue-800 mb-2">Bước tiếp theo:</h3>
               <p className="text-gray-700 mb-4">
@@ -418,7 +473,7 @@ export default function RIASEC20Page() {
   const question = questions[currentQuestion];
 
   return (
-    <div className="bg-gradient-to-b from-blue-50 to-white min-h-screen text-gray-800">
+    <div className="bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 min-h-screen text-gray-800">
       <div className="max-w-4xl mx-auto py-12 px-6">
         {/* Header */}
         <div className="text-center mb-8">

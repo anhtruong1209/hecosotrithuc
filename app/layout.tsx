@@ -22,8 +22,15 @@ export default function RootLayout({
           <div className="flex-1">
             {children}
           </div>
-          <footer className="mt-auto py-4 px-6 text-center text-xs text-gray-500 border-t border-gray-200">
-            <p>Created by <strong>Đỗ Thị Hoa</strong> và <strong>Nguyễn Đinh Anh Trường</strong> - CNTT2025.1</p>
+          <footer className="mt-auto py-6 px-6 text-center glass-card border-t border-white/30">
+            <div className="max-w-7xl mx-auto">
+              <p className="text-xs md:text-sm text-gray-600 mb-2">
+                <strong className="text-blue-700">© 2025 Hệ Chuyên Gia Hướng Nghiệp</strong>
+              </p>
+              <p className="text-xs text-gray-500">
+                Created by <strong className="text-gray-700">Đỗ Thị Hoa</strong> và <strong className="text-gray-700">Nguyễn Đinh Anh Trường</strong> - CNTT2025.1
+              </p>
+            </div>
           </footer>
         </main>
       </body>

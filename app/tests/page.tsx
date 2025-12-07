@@ -219,14 +219,6 @@ export default function TestsPage() {
           </div>
         </div>
       </div>
-
-      {/* Footer */}
-      <footer className="text-center py-6 md:py-8 text-gray-500 text-xs md:text-sm glass-card border-t border-blue-200/30 mt-12">
-        <div className="max-w-7xl mx-auto px-4 md:px-6">
-          © 2025 Hệ Chuyên Gia Hướng Nghiệp
-          <div className="mt-1 text-gray-400 text-xs">CNTT 2025.1</div>
-        </div>
-      </footer>
       </div>
     </div>
   );

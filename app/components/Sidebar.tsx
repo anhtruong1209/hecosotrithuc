@@ -86,14 +86,6 @@ export default function Sidebar() {
               Đăng nhập
             </span>
           </Link>
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <div className="w-8 h-8 glass-card rounded-lg flex items-center justify-center text-lg">
-              🎯
-            </div>
-          </div>
-          <p className="text-xs text-gray-500 text-center">
-            © 2025 CNTT
-          </p>
         </div>
       </div>
     </aside>
