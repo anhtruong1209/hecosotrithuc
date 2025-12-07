@@ -62,6 +62,7 @@ export default async function AdminDetailPage({ params }: { params: { id: string
             </pre>
           </div>
         </div>
+    </div>
   );
 }
 

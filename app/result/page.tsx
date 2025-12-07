@@ -95,6 +95,7 @@ export default async function ResultPage({ searchParams }: { searchParams: { id?
             </a>
           </div>
         </div>
+    </div>
   );
 }
 

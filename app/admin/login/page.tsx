@@ -28,6 +28,7 @@ export default function AdminLoginPage({ searchParams }: { searchParams: { error
             </form>
           </div>
         </div>
+    </div>
   );
 }
 
