@@ -120,105 +120,108 @@ const colorClasses = {
 };
 
 export default function TestsPage() {
+  const colorMap: Record<string, string> = {
+    blue: 'clay-card-blue',
+    green: 'clay-card-green',
+    purple: 'clay-card-purple',
+    red: 'clay-card-pink',
+    orange: 'clay-card-yellow',
+    yellow: 'clay-card-yellow'
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 text-gray-800 relative overflow-hidden">
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 right-20 w-96 h-96 bg-pink-300/40 rounded-full blur-3xl animate-pulse-slow"></div>
-        <div className="absolute bottom-20 left-20 w-96 h-96 bg-purple-300/40 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-300/30 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '2s' }}></div>
+    <div className="min-h-screen bg-gradient-to-br from-pink-200 via-purple-200 via-blue-200 to-yellow-200 text-gray-800 relative overflow-hidden">
+      {/* Animated background blobs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 left-0 w-96 h-96 bg-pink-300/40 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div className="absolute top-1/4 right-0 w-96 h-96 bg-purple-300/40 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-blue-300/40 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-yellow-300/40 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '0.5s' }}></div>
       </div>
 
       <div className="relative z-10">
-      {/* Header */}
-      <div className="glass-card border-b border-blue-200/30">
-        <div className="max-w-7xl mx-auto px-6 py-6">
-          <div className="flex items-center justify-between flex-wrap gap-4">
-            <div>
-              <h1 className="text-2xl md:text-3xl font-bold text-blue-700 mb-2">
-                Chọn Bài Test Phù Hợp
-              </h1>
-              <p className="text-sm md:text-base text-gray-600 max-w-2xl">
-                Khám phá bản thân qua các bài test chuyên nghiệp để tìm ra ngành học và nghề nghiệp phù hợp nhất với bạn
-              </p>
-            </div>
-            <a
-              href="/"
-              className="glass-button text-white px-4 py-2 rounded-xl text-sm font-medium"
-            >
-              ← Về trang chủ
-            </a>
-          </div>
-        </div>
-      </div>
-
-      {/* Test Types Grid */}
-      <div className="max-w-7xl mx-auto px-6 py-8 md:py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-          {testTypes.map((test) => {
-            const colors = colorClasses[test.color as keyof typeof colorClasses];
-            return (
-              <div
-                key={test.id}
-                className="glass-card rounded-xl overflow-hidden hover:scale-105 transition-all cursor-pointer"
+        {/* Header */}
+        <div className="max-w-7xl mx-auto px-6 py-8 md:py-12">
+          <div className="clay-card clay-card-purple p-6 md:p-8 mb-8">
+            <div className="flex items-center justify-between flex-wrap gap-4">
+              <div>
+                <h1 className="text-3xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                  Chọn Bài Test Phù Hợp
+                </h1>
+                <p className="text-base md:text-lg text-gray-700 max-w-2xl leading-relaxed">
+                  Khám phá bản thân qua các bài test chuyên nghiệp để tìm ra ngành học và nghề nghiệp phù hợp nhất với bạn
+                </p>
+              </div>
+              <a
+                href="/"
+                className="clay-button-secondary text-white px-6 py-3 rounded-full text-base font-semibold hover:scale-105 transition-transform"
               >
-                <div className="p-4 md:p-6">
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className="text-3xl md:text-4xl">{test.icon}</span>
-                    <div className="flex-1 min-w-0">
-                      <h2 className="text-base md:text-lg font-bold text-blue-700 mb-1 truncate">
-                        {test.name}
-                      </h2>
-                      <div className="flex items-center gap-2 text-xs text-gray-600">
-                        <span>📝 {test.questions} câu</span>
-                        <span>⏱️ {test.duration}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <p className="text-xs md:text-sm text-gray-600 leading-relaxed line-clamp-2 mb-4">
+                ← Về trang chủ
+              </a>
+            </div>
+          </div>
+
+          {/* Test Types Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12">
+            {testTypes.map((test) => {
+              const clayClass = colorMap[test.color] || 'clay-card';
+              return (
+                <a
+                  key={test.id}
+                  href={test.link}
+                  className={`clay-card ${clayClass} p-6 md:p-8 block`}
+                >
+                  <div className="text-5xl mb-4">{test.icon}</div>
+                  <h2 className="text-xl md:text-2xl font-bold mb-3 text-gray-800">
+                    {test.name}
+                  </h2>
+                  <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-4">
                     {test.description}
                   </p>
-                  <a
-                    href={test.link}
-                    className="block w-full glass-button text-white px-4 py-2 rounded-lg text-xs md:text-sm font-medium text-center"
-                  >
-                    Bắt đầu test →
-                  </a>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+                  <div className="flex items-center justify-between text-xs md:text-sm text-gray-600 mb-4">
+                    <span>📝 {test.questions} câu</span>
+                    <span>⏱️ {test.duration}</span>
+                  </div>
+                  <div className="text-center">
+                    <span className="text-sm font-semibold text-gray-700 hover:text-gray-900 transition">
+                      Bắt đầu test →
+                    </span>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
 
-        {/* Info Section */}
-        <div className="mt-8 md:mt-12 glass-card rounded-xl p-6 md:p-8">
-          <h2 className="text-lg md:text-xl font-bold text-blue-700 mb-4 text-center">
-            Tại sao nên làm nhiều bài test?
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl mb-2">🎯</div>
-              <h3 className="text-sm md:text-base font-semibold text-blue-700 mb-2">Định hướng rõ ràng</h3>
-              <p className="text-xs md:text-sm text-gray-600">
-                Mỗi bài test cung cấp góc nhìn khác nhau về bản thân, giúp bạn có cái nhìn toàn diện hơn
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl mb-2">💡</div>
-              <h3 className="text-sm md:text-base font-semibold text-blue-700 mb-2">Khám phá tiềm năng</h3>
-              <p className="text-xs md:text-sm text-gray-600">
-                Phát hiện những điểm mạnh và sở thích mà bạn có thể chưa nhận ra
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl mb-2">🚀</div>
-              <h3 className="text-sm md:text-base font-semibold text-blue-700 mb-2">Lựa chọn đúng đắn</h3>
-              <p className="text-xs md:text-sm text-gray-600">
-                Kết hợp kết quả từ nhiều bài test giúp đưa ra quyết định chính xác hơn
-              </p>
+          {/* Info Section */}
+          <div className="clay-card clay-card-blue p-8 md:p-10">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-8 text-center">
+              Tại sao nên làm nhiều bài test?
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+              <div className="clay-card clay-card-yellow p-6 text-center">
+                <div className="text-5xl mb-4">🎯</div>
+                <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-3">Định hướng rõ ràng</h3>
+                <p className="text-sm md:text-base text-gray-700 leading-relaxed">
+                  Mỗi bài test cung cấp góc nhìn khác nhau về bản thân, giúp bạn có cái nhìn toàn diện hơn
+                </p>
+              </div>
+              <div className="clay-card clay-card-pink p-6 text-center">
+                <div className="text-5xl mb-4">💡</div>
+                <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-3">Khám phá tiềm năng</h3>
+                <p className="text-sm md:text-base text-gray-700 leading-relaxed">
+                  Phát hiện những điểm mạnh và sở thích mà bạn có thể chưa nhận ra
+                </p>
+              </div>
+              <div className="clay-card clay-card-green p-6 text-center">
+                <div className="text-5xl mb-4">🚀</div>
+                <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-3">Lựa chọn đúng đắn</h3>
+                <p className="text-sm md:text-base text-gray-700 leading-relaxed">
+                  Kết hợp kết quả từ nhiều bài test giúp đưa ra quyết định chính xác hơn
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
       </div>
     </div>
   );

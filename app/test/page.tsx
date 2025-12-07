@@ -288,7 +288,7 @@ export default function TestPage() {
               className="glass-card rounded-xl max-w-lg w-full max-h-[85vh] overflow-y-auto shadow-colored-lg"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="p-6">
+              <div className="p-6" style={ { backgroundColor: 'orange' }}>
                 <div className="text-center mb-6">
                   <div className="text-5xl mb-4">🎉</div>
                   <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
