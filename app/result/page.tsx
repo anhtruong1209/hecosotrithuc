@@ -59,18 +59,20 @@ export default async function ResultPage({
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 text-gray-800 relative overflow-hidden">
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 right-20 w-96 h-96 bg-blue-400/30 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-20 w-96 h-96 bg-purple-400/30 rounded-full blur-3xl"></div>
+    <div className="min-h-screen bg-gradient-to-br from-pink-200 via-purple-200 via-blue-200 to-yellow-200 text-gray-800 relative overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 left-0 w-96 h-96 bg-pink-300/40 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div className="absolute top-1/4 right-0 w-96 h-96 bg-purple-300/40 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-blue-300/40 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-yellow-300/40 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '0.5s' }}></div>
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto py-12 px-6">
-        <div className="glass-card rounded-2xl p-6 md:p-8 mb-6 text-center">
-          <h1 className="text-2xl md:text-3xl font-bold text-blue-700 mb-3">
+      <div className="relative z-10 max-w-7xl mx-auto py-12 px-6">
+        <div className="clay-card clay-card-purple p-6 md:p-8 mb-6 text-center">
+          <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-3">
             Kết Quả Tư Vấn Ngành Học
           </h1>
-          <p className="text-sm md:text-base text-gray-600">
+          <p className="text-base md:text-lg text-gray-700 leading-relaxed">
             Dựa trên thông tin bạn cung cấp, hệ chuyên gia đã phân tích và gợi ý ngành phù hợp nhất.
           </p>
         </div>
@@ -81,8 +83,8 @@ export default async function ResultPage({
         )}
 
         {(submission.fullname || submission.phone || submission.email) && (
-          <div className="glass-card rounded-xl p-4 mb-6">
-            <h4 className="text-sm font-semibold text-blue-700 mb-2">Thông tin người tham gia</h4>
+          <div className="clay-card clay-card-blue rounded-xl p-4 mb-6">
+            <h4 className="text-sm font-semibold text-gray-800 mb-2">Thông tin người tham gia</h4>
             <div className="text-xs md:text-sm text-gray-700 space-y-1">
               {submission.fullname && <div><strong>Họ tên:</strong> {submission.fullname}</div>}
               {submission.phone && <div><strong>SĐT:</strong> {submission.phone}</div>}
@@ -93,16 +95,19 @@ export default async function ResultPage({
 
         {/* Đề xuất nhóm ngành dựa trên quy nạp tất cả bài test */}
         {majorRecommendations.length > 0 && (
-          <div className="glass-card rounded-2xl p-6 md:p-8 mb-6">
-            <h2 className="text-xl md:text-2xl font-bold text-blue-700 mb-4 text-center">
+          <div className="clay-card clay-card-blue rounded-2xl p-6 md:p-8 mb-6">
+            <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 text-center">
               🎯 Đề Xuất Nhóm Ngành Học
             </h2>
-            <p className="text-sm text-gray-600 mb-4 text-center">
+            <p className="text-sm text-gray-700 mb-4 text-center">
               Dựa trên kết quả quy nạp tất cả các bài test của bạn
             </p>
             <div className="space-y-4">
-              {majorRecommendations.map((rec, idx) => (
-                <div key={idx} className="glass-card rounded-xl p-4 border border-white/30">
+              {majorRecommendations.map((rec, idx) => {
+                const colorClasses = ['clay-card-yellow', 'clay-card-pink', 'clay-card-green', 'clay-card-purple'];
+                const cardClass = colorClasses[idx % colorClasses.length];
+                return (
+                <div key={idx} className={`clay-card ${cardClass} rounded-xl p-4`}>
                   <div className="flex items-start justify-between mb-2">
                     <div>
                       <div className="flex items-center gap-2 mb-1">
@@ -158,22 +163,23 @@ export default async function ResultPage({
                     </div>
                   </div>
                 </div>
-              ))}
+              );
+            })}
             </div>
           </div>
         )}
 
         {/* Kết quả từ bài tư vấn chính */}
-        <div className="glass-card rounded-2xl p-6 md:p-8 mb-6 text-center">
-          <h2 className="text-xl md:text-2xl font-bold text-blue-700 mb-3">{submission.major}</h2>
-          <p className="text-sm md:text-base text-gray-600 leading-relaxed">
+        <div className="clay-card clay-card-purple rounded-2xl p-6 md:p-8 mb-6 text-center">
+          <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-3">{submission.major}</h2>
+          <p className="text-sm md:text-base text-gray-700 leading-relaxed">
             {submission.description}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6">
-          <div className="glass-card rounded-xl p-4 md:p-6">
-            <h3 className="text-base md:text-lg font-semibold mb-3 text-blue-700">Điểm mạnh nổi bật</h3>
+          <div className="clay-card clay-card-yellow rounded-xl p-4 md:p-6">
+            <h3 className="text-base md:text-lg font-semibold mb-3 text-gray-800">Điểm mạnh nổi bật</h3>
             <ul className="list-disc ml-5 text-xs md:text-sm text-gray-700 space-y-1">
               {submission.strengths.map((skill, i) => (
                 <li key={i}>{skill}</li>
@@ -181,8 +187,8 @@ export default async function ResultPage({
             </ul>
           </div>
 
-          <div className="glass-card rounded-xl p-4 md:p-6">
-            <h3 className="text-base md:text-lg font-semibold mb-3 text-blue-700">Các nghề nghiệp phù hợp</h3>
+          <div className="clay-card clay-card-pink rounded-xl p-4 md:p-6">
+            <h3 className="text-base md:text-lg font-semibold mb-3 text-gray-800">Các nghề nghiệp phù hợp</h3>
             <ul className="list-disc ml-5 text-xs md:text-sm text-gray-700 space-y-1">
               {submission.jobs.map((job, i) => (
                 <li key={i}>{job}</li>
@@ -191,23 +197,23 @@ export default async function ResultPage({
           </div>
         </div>
 
-        <div className="glass-card rounded-xl p-4 md:p-6 mb-6">
-          <h3 className="text-base md:text-lg font-semibold mb-3 text-blue-700">Một số ngành học liên quan</h3>
+        <div className="clay-card clay-card-green rounded-xl p-4 md:p-6 mb-6">
+          <h3 className="text-base md:text-lg font-semibold mb-3 text-gray-800">Một số ngành học liên quan</h3>
           <div className="flex flex-wrap gap-2">
             {submission.related_majors.map((item, i) => (
-              <span key={i} className="px-3 py-1 glass border border-blue-200/50 rounded-lg text-xs md:text-sm text-gray-700">
+              <span key={i} className="px-3 py-1 bg-white/60 border border-white/80 rounded-lg text-xs md:text-sm text-gray-700">
                 {item}
               </span>
             ))}
           </div>
         </div>
 
-        <div className="glass-card rounded-xl p-4 md:p-6 mb-6">
-          <h3 className="text-base md:text-lg font-semibold mb-3 text-blue-700">Gợi ý khối thi phù hợp</h3>
+        <div className="clay-card clay-card-blue rounded-xl p-4 md:p-6 mb-6">
+          <h3 className="text-base md:text-lg font-semibold mb-3 text-gray-800">Gợi ý khối thi phù hợp</h3>
           {submission.suggested_blocks && submission.suggested_blocks.length > 0 ? (
             <div className="flex flex-wrap gap-2">
               {submission.suggested_blocks.map((block, i) => (
-                <span key={i} className="px-3 py-1.5 glass-dark border border-blue-400/50 rounded-full font-bold text-sm text-blue-600">
+                <span key={i} className="px-3 py-1.5 bg-white/70 border border-white/90 rounded-full font-bold text-sm text-gray-800">
                   {block}
                 </span>
               ))}
@@ -219,16 +225,16 @@ export default async function ResultPage({
 
         {/* Đề xuất trường đại học */}
         {universityRecommendations.length > 0 && (
-          <div className="glass-card rounded-2xl p-6 md:p-8 mb-6">
-            <h2 className="text-xl md:text-2xl font-bold text-blue-700 mb-4 text-center">
+          <div className="clay-card clay-card-blue rounded-2xl p-6 md:p-8 mb-6">
+            <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 text-center">
               🏫 Đề Xuất Trường Đại Học
             </h2>
-            <p className="text-sm text-gray-600 mb-4 text-center">
+            <p className="text-sm text-gray-700 mb-4 text-center">
               Các trường phù hợp với nhóm ngành được đề xuất
             </p>
             <div className="space-y-3">
               {universityRecommendations.slice(0, 5).map((uni, idx) => (
-                <div key={idx} className="glass-card rounded-xl p-4 border border-white/30">
+                <div key={idx} className="clay-card clay-card-yellow rounded-xl p-4">
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
@@ -274,29 +280,29 @@ export default async function ResultPage({
 
         {/* Trường/Quốc gia đã chọn */}
         {(selectedUniversity || selectedCountry) && (
-          <div className="glass-card rounded-xl p-4 md:p-6 mb-6">
-            <h3 className="text-base md:text-lg font-semibold mb-3 text-blue-700">
+          <div className="clay-card clay-card-green rounded-xl p-4 md:p-6 mb-6">
+            <h3 className="text-base md:text-lg font-semibold mb-3 text-gray-800">
               {submission.study_option === 'domestic' ? '🏫 Trường đại học bạn đã chọn' : '✈️ Quốc gia du học bạn đã chọn'}
             </h3>
             {selectedUniversity && (
               <div className="text-sm text-gray-700">
-                <div className="font-semibold text-blue-700">{selectedUniversity.name}</div>
+                <div className="font-semibold text-gray-800">{selectedUniversity.name}</div>
                 <div className="text-xs text-gray-600 mt-1">{selectedUniversity.location}</div>
               </div>
             )}
             {selectedCountry && (
               <div className="text-sm text-gray-700">
-                <div className="font-semibold text-blue-700">{selectedCountry.flag} {selectedCountry.name}</div>
+                <div className="font-semibold text-gray-800">{selectedCountry.flag} {selectedCountry.name}</div>
               </div>
             )}
           </div>
         )}
 
         <div className="text-center mt-6 flex flex-col md:flex-row justify-center items-center gap-3">
-          <a href="/test" className="glass-button text-white px-6 py-3 rounded-xl text-sm md:text-base font-medium">
+          <a href="/test" className="clay-button text-white px-6 py-3 rounded-full text-sm md:text-base font-medium hover:scale-105 transition">
             Thực hiện lại bài tư vấn
           </a>
-          <a href="/" className="glass border border-blue-200/50 text-blue-700 px-6 py-3 rounded-xl text-sm md:text-base font-medium hover:bg-blue-50/50 transition">
+          <a href="/" className="clay-button-secondary text-white px-6 py-3 rounded-full text-sm md:text-base font-medium hover:scale-105 transition">
             Về trang chủ →
           </a>
         </div>

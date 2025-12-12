@@ -8,6 +8,7 @@ interface Question {
   id: number;
   question: string;
   dimension: 'EI' | 'SN' | 'TF' | 'JP';
+  questionType: 'scale' | 'yesno' | 'choice';
   options: {
     value: string;
     label: string;
@@ -16,7 +17,8 @@ interface Question {
 }
 
 const questions: Question[] = [
-  { id: 1, question: 'Bạn cảm thấy năng lượng hơn khi ở trong nhóm đông người?', dimension: 'EI',
+  // Câu hỏi scale (5 mức độ)
+  { id: 1, question: 'Bạn cảm thấy năng lượng hơn khi ở trong nhóm đông người?', dimension: 'EI', questionType: 'scale',
     options: [
       { value: 'strongly_agree', label: 'Rất đồng ý', score: { E: 3 } },
       { value: 'agree', label: 'Đồng ý', score: { E: 2 } },
@@ -25,16 +27,22 @@ const questions: Question[] = [
       { value: 'strongly_disagree', label: 'Hoàn toàn không đồng ý', score: { I: 3 } }
     ]
   },
-  { id: 2, question: 'Bạn thích tập trung vào các chi tiết cụ thể hơn là ý tưởng tổng thể?', dimension: 'SN',
+  // Câu hỏi Yes/No
+  { id: 2, question: 'Bạn thích làm việc độc lập hơn là làm việc nhóm?', dimension: 'EI', questionType: 'yesno',
     options: [
-      { value: 'strongly_agree', label: 'Rất đồng ý', score: { S: 3 } },
-      { value: 'agree', label: 'Đồng ý', score: { S: 2 } },
-      { value: 'neutral', label: 'Trung lập', score: {} },
-      { value: 'disagree', label: 'Không đồng ý', score: { N: 2 } },
-      { value: 'strongly_disagree', label: 'Hoàn toàn không đồng ý', score: { N: 3 } }
+      { value: 'yes', label: 'Có', score: { I: 3 } },
+      { value: 'no', label: 'Không', score: { E: 3 } }
     ]
   },
-  { id: 3, question: 'Bạn thường đưa ra quyết định dựa trên logic hơn là cảm xúc?', dimension: 'TF',
+  // Câu hỏi lựa chọn
+  { id: 3, question: 'Bạn thích tập trung vào điều gì hơn?', dimension: 'SN', questionType: 'choice',
+    options: [
+      { value: 'details', label: 'Chi tiết cụ thể', score: { S: 3 } },
+      { value: 'big_picture', label: 'Bức tranh tổng thể', score: { N: 3 } },
+      { value: 'both', label: 'Cả hai', score: {} }
+    ]
+  },
+  { id: 4, question: 'Bạn thường đưa ra quyết định dựa trên logic hơn là cảm xúc?', dimension: 'TF', questionType: 'scale',
     options: [
       { value: 'strongly_agree', label: 'Rất đồng ý', score: { T: 3 } },
       { value: 'agree', label: 'Đồng ý', score: { T: 2 } },
@@ -43,7 +51,90 @@ const questions: Question[] = [
       { value: 'strongly_disagree', label: 'Hoàn toàn không đồng ý', score: { F: 3 } }
     ]
   },
-  { id: 4, question: 'Bạn thích lập kế hoạch trước hơn là hành động tự phát?', dimension: 'JP',
+  { id: 5, question: 'Bạn thích lập kế hoạch trước hơn là hành động tự phát?', dimension: 'JP', questionType: 'yesno',
+    options: [
+      { value: 'yes', label: 'Có', score: { J: 3 } },
+      { value: 'no', label: 'Không', score: { P: 3 } }
+    ]
+  },
+  { id: 6, question: 'Bạn cảm thấy thoải mái hơn khi ở một mình?', dimension: 'EI', questionType: 'yesno',
+    options: [
+      { value: 'yes', label: 'Có', score: { I: 3 } },
+      { value: 'no', label: 'Không', score: { E: 3 } }
+    ]
+  },
+  { id: 7, question: 'Bạn thích các hoạt động thực tế, cụ thể hơn là các ý tưởng trừu tượng?', dimension: 'SN', questionType: 'scale',
+    options: [
+      { value: 'strongly_agree', label: 'Rất đồng ý', score: { S: 3 } },
+      { value: 'agree', label: 'Đồng ý', score: { S: 2 } },
+      { value: 'neutral', label: 'Trung lập', score: {} },
+      { value: 'disagree', label: 'Không đồng ý', score: { N: 2 } },
+      { value: 'strongly_disagree', label: 'Hoàn toàn không đồng ý', score: { N: 3 } }
+    ]
+  },
+  { id: 8, question: 'Bạn đưa ra quyết định dựa trên điều gì?', dimension: 'TF', questionType: 'choice',
+    options: [
+      { value: 'logic', label: 'Logic và phân tích', score: { T: 3 } },
+      { value: 'feelings', label: 'Cảm xúc và giá trị', score: { F: 3 } },
+      { value: 'both', label: 'Cả hai', score: {} }
+    ]
+  },
+  { id: 9, question: 'Bạn thích hoàn thành công việc trước deadline?', dimension: 'JP', questionType: 'yesno',
+    options: [
+      { value: 'yes', label: 'Có', score: { J: 3 } },
+      { value: 'no', label: 'Không', score: { P: 3 } }
+    ]
+  },
+  { id: 10, question: 'Bạn thích giao tiếp với nhiều người?', dimension: 'EI', questionType: 'scale',
+    options: [
+      { value: 'strongly_agree', label: 'Rất đồng ý', score: { E: 3 } },
+      { value: 'agree', label: 'Đồng ý', score: { E: 2 } },
+      { value: 'neutral', label: 'Trung lập', score: {} },
+      { value: 'disagree', label: 'Không đồng ý', score: { I: 2 } },
+      { value: 'strongly_disagree', label: 'Hoàn toàn không đồng ý', score: { I: 3 } }
+    ]
+  },
+  { id: 11, question: 'Bạn thích các ý tưởng mới và khả năng hơn là kinh nghiệm đã được chứng minh?', dimension: 'SN', questionType: 'yesno',
+    options: [
+      { value: 'yes', label: 'Có', score: { N: 3 } },
+      { value: 'no', label: 'Không', score: { S: 3 } }
+    ]
+  },
+  { id: 12, question: 'Bạn quan tâm đến hòa hợp và cảm xúc của mọi người khi đưa ra quyết định?', dimension: 'TF', questionType: 'scale',
+    options: [
+      { value: 'strongly_agree', label: 'Rất đồng ý', score: { F: 3 } },
+      { value: 'agree', label: 'Đồng ý', score: { F: 2 } },
+      { value: 'neutral', label: 'Trung lập', score: {} },
+      { value: 'disagree', label: 'Không đồng ý', score: { T: 2 } },
+      { value: 'strongly_disagree', label: 'Hoàn toàn không đồng ý', score: { T: 3 } }
+    ]
+  },
+  { id: 13, question: 'Bạn thích khám phá và thử nghiệm hơn là tuân theo kế hoạch?', dimension: 'JP', questionType: 'choice',
+    options: [
+      { value: 'explore', label: 'Khám phá và thử nghiệm', score: { P: 3 } },
+      { value: 'plan', label: 'Tuân theo kế hoạch', score: { J: 3 } },
+      { value: 'both', label: 'Cả hai', score: {} }
+    ]
+  },
+  { id: 14, question: 'Bạn cần thời gian một mình để nạp lại năng lượng?', dimension: 'EI', questionType: 'yesno',
+    options: [
+      { value: 'yes', label: 'Có', score: { I: 3 } },
+      { value: 'no', label: 'Không', score: { E: 3 } }
+    ]
+  },
+  { id: 15, question: 'Bạn tin tưởng vào kinh nghiệm đã được chứng minh hơn là các khả năng mới?', dimension: 'SN', questionType: 'yesno',
+    options: [
+      { value: 'yes', label: 'Có', score: { S: 3 } },
+      { value: 'no', label: 'Không', score: { N: 3 } }
+    ]
+  },
+  { id: 16, question: 'Bạn ưu tiên sự thật và công bằng hơn là cảm xúc?', dimension: 'TF', questionType: 'yesno',
+    options: [
+      { value: 'yes', label: 'Có', score: { T: 3 } },
+      { value: 'no', label: 'Không', score: { F: 3 } }
+    ]
+  },
+  { id: 17, question: 'Bạn thích có cấu trúc và tổ chức trong cuộc sống?', dimension: 'JP', questionType: 'scale',
     options: [
       { value: 'strongly_agree', label: 'Rất đồng ý', score: { J: 3 } },
       { value: 'agree', label: 'Đồng ý', score: { J: 2 } },
@@ -52,57 +143,83 @@ const questions: Question[] = [
       { value: 'strongly_disagree', label: 'Hoàn toàn không đồng ý', score: { P: 3 } }
     ]
   },
-  // Thêm 24 câu hỏi nữa để đủ 28 câu
-  ...Array.from({ length: 24 }, (_, i) => {
-    const qId = i + 5;
-    const dimensions: ('EI' | 'SN' | 'TF' | 'JP')[] = ['EI', 'SN', 'TF', 'JP'];
-    const dimension = dimensions[qId % 4];
-    const questions = [
-      'Bạn thích làm việc độc lập hơn là nhóm?',
-      'Bạn thích tưởng tượng về tương lai hơn là tập trung vào hiện tại?',
-      'Bạn thường cân nhắc cảm xúc của người khác khi quyết định?',
-      'Bạn thích giữ mọi thứ linh hoạt và mở cửa cho các khả năng?',
-      'Bạn cảm thấy thoải mái hơn khi ở một mình?',
-      'Bạn thích các hoạt động thực tế, cụ thể?',
-      'Bạn đưa ra quyết định dựa trên các nguyên tắc khách quan?',
-      'Bạn thích hoàn thành công việc trước deadline?',
-      'Bạn thích giao tiếp với nhiều người?',
-      'Bạn thích các ý tưởng mới và khả năng?',
-      'Bạn quan tâm đến hòa hợp và cảm xúc của mọi người?',
-      'Bạn thích khám phá và thử nghiệm?',
-      'Bạn cần thời gian một mình để nạp lại năng lượng?',
-      'Bạn tin tưởng vào kinh nghiệm đã được chứng minh?',
-      'Bạn ưu tiên sự thật và công bằng?',
-      'Bạn thích có cấu trúc và tổ chức?',
-      'Bạn thích các hoạt động xã hội?',
-      'Bạn thích các mô hình và lý thuyết?',
-      'Bạn đánh giá cao các giá trị cá nhân?',
-      'Bạn thích tự do và linh hoạt?',
-      'Bạn thích suy nghĩ kỹ trước khi nói?',
-      'Bạn thích các sự kiện thực tế?',
-      'Bạn phân tích vấn đề một cách khách quan?',
-      'Bạn thích đưa ra quyết định nhanh chóng?'
-    ];
-    const dimMap: Record<string, { [key: string]: string }> = {
-      'EI': { pos: 'E', neg: 'I' },
-      'SN': { pos: 'S', neg: 'N' },
-      'TF': { pos: 'T', neg: 'F' },
-      'JP': { pos: 'J', neg: 'P' }
-    };
-    const { pos, neg } = dimMap[dimension];
-    return {
-      id: qId,
-      question: questions[i],
-      dimension,
-      options: [
-        { value: 'strongly_agree', label: 'Rất đồng ý', score: { [pos]: 3 } },
-        { value: 'agree', label: 'Đồng ý', score: { [pos]: 2 } },
-        { value: 'neutral', label: 'Trung lập', score: {} },
-        { value: 'disagree', label: 'Không đồng ý', score: { [neg]: 2 } },
-        { value: 'strongly_disagree', label: 'Hoàn toàn không đồng ý', score: { [neg]: 3 } }
-      ]
-    };
-  })
+  { id: 18, question: 'Bạn thích các hoạt động xã hội?', dimension: 'EI', questionType: 'yesno',
+    options: [
+      { value: 'yes', label: 'Có', score: { E: 3 } },
+      { value: 'no', label: 'Không', score: { I: 3 } }
+    ]
+  },
+  { id: 19, question: 'Bạn thích các mô hình và lý thuyết hơn là thực tế?', dimension: 'SN', questionType: 'choice',
+    options: [
+      { value: 'theory', label: 'Mô hình và lý thuyết', score: { N: 3 } },
+      { value: 'practice', label: 'Thực tế', score: { S: 3 } },
+      { value: 'both', label: 'Cả hai', score: {} }
+    ]
+  },
+  { id: 20, question: 'Bạn đánh giá cao các giá trị cá nhân khi đưa ra quyết định?', dimension: 'TF', questionType: 'yesno',
+    options: [
+      { value: 'yes', label: 'Có', score: { F: 3 } },
+      { value: 'no', label: 'Không', score: { T: 3 } }
+    ]
+  },
+  { id: 21, question: 'Bạn thích tự do và linh hoạt hơn là có kế hoạch cụ thể?', dimension: 'JP', questionType: 'yesno',
+    options: [
+      { value: 'yes', label: 'Có', score: { P: 3 } },
+      { value: 'no', label: 'Không', score: { J: 3 } }
+    ]
+  },
+  { id: 22, question: 'Bạn thích suy nghĩ kỹ trước khi nói?', dimension: 'EI', questionType: 'scale',
+    options: [
+      { value: 'strongly_agree', label: 'Rất đồng ý', score: { I: 3 } },
+      { value: 'agree', label: 'Đồng ý', score: { I: 2 } },
+      { value: 'neutral', label: 'Trung lập', score: {} },
+      { value: 'disagree', label: 'Không đồng ý', score: { E: 2 } },
+      { value: 'strongly_disagree', label: 'Hoàn toàn không đồng ý', score: { E: 3 } }
+    ]
+  },
+  { id: 23, question: 'Bạn thích các sự kiện thực tế hơn là các khả năng tương lai?', dimension: 'SN', questionType: 'yesno',
+    options: [
+      { value: 'yes', label: 'Có', score: { S: 3 } },
+      { value: 'no', label: 'Không', score: { N: 3 } }
+    ]
+  },
+  { id: 24, question: 'Bạn phân tích vấn đề một cách khách quan?', dimension: 'TF', questionType: 'yesno',
+    options: [
+      { value: 'yes', label: 'Có', score: { T: 3 } },
+      { value: 'no', label: 'Không', score: { F: 3 } }
+    ]
+  },
+  { id: 25, question: 'Bạn thích đưa ra quyết định nhanh chóng?', dimension: 'JP', questionType: 'choice',
+    options: [
+      { value: 'quick', label: 'Nhanh chóng', score: { J: 3 } },
+      { value: 'slow', label: 'Từ từ, cân nhắc', score: { P: 3 } },
+      { value: 'depends', label: 'Tùy tình huống', score: {} }
+    ]
+  },
+  { id: 26, question: 'Bạn thích tưởng tượng về tương lai hơn là tập trung vào hiện tại?', dimension: 'SN', questionType: 'scale',
+    options: [
+      { value: 'strongly_agree', label: 'Rất đồng ý', score: { N: 3 } },
+      { value: 'agree', label: 'Đồng ý', score: { N: 2 } },
+      { value: 'neutral', label: 'Trung lập', score: {} },
+      { value: 'disagree', label: 'Không đồng ý', score: { S: 2 } },
+      { value: 'strongly_disagree', label: 'Hoàn toàn không đồng ý', score: { S: 3 } }
+    ]
+  },
+  { id: 27, question: 'Bạn thường cân nhắc cảm xúc của người khác khi quyết định?', dimension: 'TF', questionType: 'yesno',
+    options: [
+      { value: 'yes', label: 'Có', score: { F: 3 } },
+      { value: 'no', label: 'Không', score: { T: 3 } }
+    ]
+  },
+  { id: 28, question: 'Bạn thích giữ mọi thứ linh hoạt và mở cửa cho các khả năng?', dimension: 'JP', questionType: 'scale',
+    options: [
+      { value: 'strongly_agree', label: 'Rất đồng ý', score: { P: 3 } },
+      { value: 'agree', label: 'Đồng ý', score: { P: 2 } },
+      { value: 'neutral', label: 'Trung lập', score: {} },
+      { value: 'disagree', label: 'Không đồng ý', score: { J: 2 } },
+      { value: 'strongly_disagree', label: 'Hoàn toàn không đồng ý', score: { J: 3 } }
+    ]
+  }
 ];
 
 export default function MBTIPage() {
@@ -113,7 +230,8 @@ export default function MBTIPage() {
   const [testSaved, setTestSaved] = useState(false);
 
   const handleAnswer = (questionId: number, answer: string) => {
-    setAnswers({ ...answers, [questionId]: answer });
+    const newAnswers = { ...answers, [questionId]: answer };
+    setAnswers(newAnswers);
     
     if (currentQuestion < questions.length - 1) {
       setTimeout(() => setCurrentQuestion(currentQuestion + 1), 300);
@@ -121,7 +239,7 @@ export default function MBTIPage() {
       // Calculate result with question scores
       const questionScores: Record<number, { [key: string]: number }> = {};
       questions.forEach(q => {
-        const answer = answers[q.id];
+        const answer = newAnswers[q.id];
         if (answer) {
           const option = q.options.find(o => o.value === answer);
           if (option) {
@@ -129,7 +247,7 @@ export default function MBTIPage() {
           }
         }
       });
-      const mbtiResult = calculateMBTI(answers, questionScores);
+      const mbtiResult = calculateMBTI(newAnswers, questionScores);
       setResult(mbtiResult);
     }
   };
@@ -287,7 +405,11 @@ export default function MBTIPage() {
           <h2 className="text-lg md:text-xl font-bold text-blue-700 mb-4">Câu {question.id}</h2>
           <p className="text-base md:text-lg text-gray-700 mb-6 leading-relaxed">{question.question}</p>
 
-          <div className="space-y-3">
+          <div className={`space-y-3 ${
+            question.questionType === 'yesno' ? 'grid grid-cols-2 gap-3' : 
+            question.questionType === 'choice' ? 'grid grid-cols-1 md:grid-cols-3 gap-3' : 
+            'space-y-3'
+          }`}>
             {question.options.map((option, idx) => (
               <button
                 key={idx}
@@ -296,10 +418,10 @@ export default function MBTIPage() {
                   answers[question.id] === option.value
                     ? 'border-blue-600 bg-blue-50/50'
                     : 'border-blue-200/50 hover:border-blue-400 hover:bg-blue-50/30'
-                }`}
+                } ${question.questionType === 'yesno' ? 'text-center' : ''}`}
               >
                 <div className="flex items-center">
-                  <div className={`w-5 h-5 rounded-full border-2 mr-3 flex items-center justify-center ${
+                  <div className={`w-5 h-5 rounded-full border-2 mr-3 flex items-center justify-center flex-shrink-0 ${
                     answers[question.id] === option.value
                       ? 'border-blue-600 bg-blue-600'
                       : 'border-gray-300'
