@@ -169,24 +169,34 @@ export default function TestsPage() {
                 <a
                   key={test.id}
                   href={test.link}
-                  className={`clay-card ${clayClass} p-6 md:p-8 block`}
+                  className={`clay-card ${clayClass} p-6 md:p-8 block cursor-pointer`}
                 >
-                  <div className="text-5xl mb-4">{test.icon}</div>
-                  <h2 className="text-xl md:text-2xl font-bold mb-3 text-gray-800">
-                    {test.name}
-                  </h2>
-                  <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-4">
+                  <div className="flex items-start gap-3 mb-4">
+                    <div className="text-4xl md:text-5xl flex-shrink-0">
+                      {test.icon}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h2 className="text-lg md:text-xl font-bold text-gray-800 leading-tight">
+                        {test.name}
+                      </h2>
+                    </div>
+                  </div>
+                  <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-4 line-clamp-3">
                     {test.description}
                   </p>
-                  <div className="flex items-center justify-between text-xs md:text-sm text-gray-600 mb-4">
-                    <span>📝 {test.questions} câu</span>
-                    <span>⏱️ {test.duration}</span>
+                  <div className="mb-4">
+                    <div className="flex flex-wrap gap-2">
+                      <span className="text-xs px-3 py-1 bg-white/60 border border-white/80 rounded-lg text-gray-700 font-medium">
+                        📝 {test.questions} câu
+                      </span>
+                      <span className="text-xs px-3 py-1 bg-white/60 border border-white/80 rounded-lg text-gray-700 font-medium">
+                        ⏱️ {test.duration}
+                      </span>
+                    </div>
                   </div>
-                  <div className="text-center">
-                    <span className="text-sm font-semibold text-gray-700 hover:text-gray-900 transition">
-                      Bắt đầu test →
-                    </span>
-                  </div>
+                  <button className="w-full clay-button-secondary text-white px-4 py-3 rounded-full text-sm md:text-base font-semibold transition-all duration-300 hover:scale-105 min-h-[48px] flex items-center justify-center">
+                    Bắt đầu test →
+                  </button>
                 </a>
               );
             })}

@@ -2,6 +2,27 @@ import { NextRequest, NextResponse } from 'next/server';
 import { calculateRIASECScores, expertSystem, suggestExamBlocks } from '@/lib/riasec';
 import { saveSubmission } from '@/lib/db';
 
+// Helper function to get IP address from request
+function getIpAddress(request: NextRequest): string {
+  // Check various headers for IP address (for proxies/load balancers)
+  const forwarded = request.headers.get('x-forwarded-for');
+  const realIp = request.headers.get('x-real-ip');
+  const cfConnectingIp = request.headers.get('cf-connecting-ip');
+  
+  if (forwarded) {
+    return forwarded.split(',')[0].trim();
+  }
+  if (realIp) {
+    return realIp;
+  }
+  if (cfConnectingIp) {
+    return cfConnectingIp;
+  }
+  
+  // Fallback if no IP found in headers
+  return 'unknown';
+}
+
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
@@ -17,6 +38,9 @@ export async function POST(request: NextRequest) {
     const study_option = formData.get('study_option') as 'domestic' | 'abroad';
     const university_id = formData.get('university_id') as string | null;
     const study_abroad_country = formData.get('study_abroad_country') as string | null;
+
+    // Get IP address for logging
+    const ip_address = getIpAddress(request);
 
     // Calculate RIASEC scores
     const r_scores = calculateRIASECScores(sothich, monmanh, tinhcach, muctieu);
@@ -38,6 +62,7 @@ export async function POST(request: NextRequest) {
       fullname: fullname || '',
       phone: phone || '',
       email: email || '',
+      ip_address: ip_address,
       sothich,
       monmanh,
       tinhcach,

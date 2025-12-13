@@ -18,6 +18,7 @@ export interface Submission {
   fullname: string;
   phone: string;
   email: string;
+  ip_address?: string; // IP address của người dùng để admin check log
   sothich: string;
   monmanh: string[];
   tinhcach: string[];

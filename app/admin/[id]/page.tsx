@@ -44,9 +44,10 @@ export default async function AdminDetailPage({ params }: { params: Promise<{ id
         <div className="glass-card rounded-2xl p-4 md:p-6 mb-6">
           <h3 className="font-semibold mb-3 text-blue-700">Thông tin người tham gia</h3>
           <div className="mt-2 space-y-2 text-sm">
-            <div className="text-gray-700"><strong className="text-blue-700">Họ tên:</strong> {submission.fullname}</div>
-            <div className="text-gray-700"><strong className="text-blue-700">SĐT:</strong> {submission.phone}</div>
-            <div className="text-gray-700"><strong className="text-blue-700">Email:</strong> {submission.email}</div>
+            <div className="text-gray-700"><strong className="text-blue-700">Họ tên:</strong> {submission.fullname || '-'}</div>
+            <div className="text-gray-700"><strong className="text-blue-700">SĐT:</strong> {submission.phone || '-'}</div>
+            <div className="text-gray-700"><strong className="text-blue-700">Email:</strong> {submission.email || '-'}</div>
+            <div className="text-gray-700"><strong className="text-blue-700">IP Address:</strong> <span className="font-mono">{submission.ip_address || '-'}</span></div>
             <div className="text-gray-700"><strong className="text-blue-700">Gửi lúc:</strong> {new Date(submission.created_at).toLocaleString('vi-VN')}</div>
           </div>
         </div>

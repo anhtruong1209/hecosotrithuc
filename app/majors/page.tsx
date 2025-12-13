@@ -394,7 +394,7 @@ export default function MajorsPage() {
                 </div>
               </div>
               <button
-                className="w-full clay-button-secondary text-white px-4 py-3 rounded-full text-sm md:text-base font-semibold transition-all duration-300 hover:scale-105"
+                className="w-full clay-button-secondary text-white px-4 py-3 rounded-full text-sm md:text-base font-semibold transition-all duration-300 hover:scale-105 min-h-[48px] flex items-center justify-center"
                 onClick={(e) => {
                   e.stopPropagation();
                   setSelectedGroup(group);
