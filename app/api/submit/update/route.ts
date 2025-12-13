@@ -70,30 +70,45 @@ export async function POST(request: NextRequest) {
     const submissionIndex = db.submissions.findIndex((s: any) => s.id === submissionId);
 
     if (submissionIndex === -1) {
-      console.error(`Submission not found. ID: ${submissionId}, Available IDs: ${db.submissions.map((s: any) => s.id).join(', ')}`);
-      // On Vercel, database might be reset or in different function instance
-      // Try to find by ID in case it exists but wasn't found by index
-      const submission = db.submissions.find((s: any) => s.id === submissionId);
+      console.log(`Submission not found with ID: ${submissionId}. Creating new submission with user info.`);
       
-      if (!submission) {
-        return NextResponse.json(
-          { error: `Không tìm thấy kết quả tư vấn với ID: ${submissionId}. Vui lòng thử lại sau khi làm lại bài test.` },
-          { status: 404 }
-        );
-      }
+      // If submission not found, create a new one with minimal data
+      // This handles the case where database was reset or submission was lost
+      const newId = db.submissions.length > 0 
+        ? Math.max(...db.submissions.map((s: any) => s.id)) + 1 
+        : submissionId || 1;
       
-      // Found by find, update it
-      submission.fullname = fullname || '';
-      submission.phone = phone || '';
-      submission.email = email || '';
-      submission.ip_address = ip_address;
+      const newSubmission: any = {
+        id: newId,
+        fullname: fullname || '',
+        phone: phone || '',
+        email: email || '',
+        ip_address: ip_address,
+        sothich: '',
+        monmanh: [],
+        tinhcach: [],
+        muctieu: '',
+        study_option: 'domestic',
+        r_scores: {},
+        major: 'Chưa có kết quả',
+        description: 'Thông tin đã được lưu nhưng chưa có kết quả tư vấn. Vui lòng làm lại bài test.',
+        strengths: [],
+        jobs: [],
+        related_majors: [],
+        suggested_blocks: [],
+        created_at: new Date().toISOString()
+      };
+      
+      db.submissions.push(newSubmission);
+      console.log(`Created new submission with ID: ${newId}`);
     } else {
-      // Update submission
+      // Update existing submission
       db.submissions[submissionIndex].fullname = fullname || '';
       db.submissions[submissionIndex].phone = phone || '';
       db.submissions[submissionIndex].email = email || '';
       // Update IP address if not already set or update it for logging
       db.submissions[submissionIndex].ip_address = ip_address;
+      console.log(`Updated submission with ID: ${submissionId}`);
     }
 
     // Write back to database
