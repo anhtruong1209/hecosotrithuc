@@ -1,11 +1,26 @@
 'use client';
 
 import { useState } from 'react';
+import RegisterForm from '@/app/components/RegisterForm';
+
+interface ResultData {
+  id: number;
+  major: string;
+  description: string;
+  strengths: string[];
+  jobs: string[];
+  related_majors: string[];
+  suggested_blocks: string[];
+  r_scores: Record<string, number>;
+  study_option: 'domestic' | 'abroad';
+  university_id?: string;
+  study_abroad_country?: string;
+}
 
 export default function TestPage() {
-  const [showModal, setShowModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submissionId, setSubmissionId] = useState<number | null>(null);
+  const [resultData, setResultData] = useState<ResultData | null>(null);
+  const [showForm, setShowForm] = useState(true);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -30,14 +45,13 @@ export default function TestPage() {
         return;
       }
       
-      if (response.ok && data.success && data.id) {
-        // Redirect directly to result page
-        const resultUrl = `/result?id=${data.id}`;
-        console.log('Redirecting to:', resultUrl);
-        // Use setTimeout to ensure state updates complete before redirect
-        setTimeout(() => {
-          window.location.href = resultUrl;
-        }, 100);
+      if (response.ok && data.success && data.data) {
+        // Save result data and hide form
+        setResultData(data.data);
+        setShowForm(false);
+        setIsSubmitting(false);
+        // Scroll to top to show results
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         console.error('Submit error:', data);
         alert(data.error || 'Có lỗi xảy ra khi xử lý yêu cầu. Vui lòng thử lại.');
@@ -67,19 +81,98 @@ export default function TestPage() {
             <div className="flex items-center justify-between flex-wrap gap-4">
               <div>
                 <h1 className="text-3xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                  Bài Tư Vấn Chọn Ngành Học
+                  {resultData ? 'Kết Quả Tư Vấn Ngành Học' : 'Bài Tư Vấn Chọn Ngành Học'}
                 </h1>
                 <p className="text-base md:text-lg text-gray-700 leading-relaxed">
-                  Vui lòng trả lời các câu hỏi dưới đây để hệ chuyên gia phân tích và đưa ra gợi ý ngành học phù hợp nhất với bạn.
+                  {resultData 
+                    ? 'Dựa trên thông tin bạn cung cấp, hệ chuyên gia đã phân tích và gợi ý ngành phù hợp nhất.'
+                    : 'Vui lòng trả lời các câu hỏi dưới đây để hệ chuyên gia phân tích và đưa ra gợi ý ngành học phù hợp nhất với bạn.'}
                 </p>
               </div>
-              <a href="/tests" className="clay-button-secondary text-white px-6 py-3 rounded-full text-base font-semibold hover:scale-105 transition-transform">
-                ← Về danh sách test
-              </a>
+              <div className="flex gap-3">
+                {resultData && (
+                  <button
+                    onClick={() => {
+                      setResultData(null);
+                      setShowForm(true);
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="clay-button-secondary text-white px-6 py-3 rounded-full text-base font-semibold hover:scale-105 transition-transform"
+                  >
+                    Làm lại
+                  </button>
+                )}
+                <a href="/tests" className="clay-button-secondary text-white px-6 py-3 rounded-full text-base font-semibold hover:scale-105 transition-transform">
+                  ← Về danh sách test
+                </a>
+              </div>
             </div>
           </div>
         </div>
 
+        {/* Results Display */}
+        {resultData && (
+          <div className="space-y-6 mb-8">
+            {/* Form đăng ký để lưu thông tin */}
+            <RegisterForm submissionId={resultData.id} />
+
+            {/* Kết quả từ bài tư vấn chính */}
+            <div className="clay-card clay-card-purple rounded-2xl p-6 md:p-8 text-center">
+              <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-3">{resultData.major}</h2>
+              <p className="text-sm md:text-base text-gray-700 leading-relaxed">
+                {resultData.description}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+              <div className="clay-card clay-card-yellow rounded-xl p-4 md:p-6">
+                <h3 className="text-base md:text-lg font-semibold mb-3 text-gray-800">Điểm mạnh nổi bật</h3>
+                <ul className="list-disc ml-5 text-xs md:text-sm text-gray-700 space-y-1">
+                  {resultData.strengths.map((skill, i) => (
+                    <li key={i}>{skill}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="clay-card clay-card-pink rounded-xl p-4 md:p-6">
+                <h3 className="text-base md:text-lg font-semibold mb-3 text-gray-800">Các nghề nghiệp phù hợp</h3>
+                <ul className="list-disc ml-5 text-xs md:text-sm text-gray-700 space-y-1">
+                  {resultData.jobs.map((job, i) => (
+                    <li key={i}>{job}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="clay-card clay-card-green rounded-xl p-4 md:p-6">
+              <h3 className="text-base md:text-lg font-semibold mb-3 text-gray-800">Một số ngành học liên quan</h3>
+              <div className="flex flex-wrap gap-2">
+                {resultData.related_majors.map((item, i) => (
+                  <span key={i} className="px-3 py-1 bg-white/60 border border-white/80 rounded-lg text-xs md:text-sm text-gray-700">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="clay-card clay-card-blue rounded-xl p-4 md:p-6">
+              <h3 className="text-base md:text-lg font-semibold mb-3 text-gray-800">Gợi ý khối thi phù hợp</h3>
+              {resultData.suggested_blocks && resultData.suggested_blocks.length > 0 ? (
+                <div className="flex flex-wrap gap-2">
+                  {resultData.suggested_blocks.map((block, i) => (
+                    <span key={i} className="px-3 py-1.5 bg-white/70 border border-white/90 rounded-full font-bold text-sm text-gray-800">
+                      {block}
+                    </span>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-sm text-gray-600">Không có gợi ý khối thi cụ thể.</p>
+              )}
+            </div>
+          </div>
+        )}
+
+        {showForm && (
           <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className="clay-card clay-card-blue p-6 md:p-8">
               <div className="flex items-center gap-3 mb-4">
@@ -288,61 +381,6 @@ export default function TestPage() {
               </button>
             </div>
           </form>
-
-        {/* Modal */}
-        {showModal && (
-          <div
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] flex items-center justify-center p-4"
-            onClick={() => setShowModal(false)}
-          >
-            <div
-              className="clay-card clay-card-purple rounded-3xl max-w-lg w-full max-h-[85vh] overflow-y-auto"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="p-6">
-                <div className="text-center mb-6">
-                  <div className="text-5xl mb-4">🎉</div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
-                    Kết quả tư vấn đã sẵn sàng!
-                  </h2>
-                  <p className="text-sm md:text-base text-gray-600">
-                    Hệ thống đã phân tích và đưa ra gợi ý ngành học phù hợp với bạn.
-                  </p>
-                </div>
-
-                <div className="space-y-4 mb-6">
-                  <div className="clay-card clay-card-yellow rounded-xl p-4">
-                    <h3 className="font-semibold text-gray-800 mb-3">💡 Để xem kết quả chi tiết và nhận đề xuất tốt nhất:</h3>
-                    <ul className="text-sm text-gray-700 space-y-2 mb-4">
-                      <li>• Đăng ký tài khoản để lưu kết quả</li>
-                      <li>• Xem đề xuất nhóm ngành học phù hợp</li>
-                      <li>• Nhận gợi ý trường đại học tốt nhất</li>
-                      <li>• Quy nạp tất cả các bài test để đánh giá chuẩn nhất</li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="flex flex-col gap-3">
-                  <button
-                    onClick={() => {
-                      if (submissionId) {
-                        window.location.href = `/result?id=${submissionId}`;
-                      }
-                    }}
-                    className="clay-button text-white px-6 py-3 rounded-full text-base font-semibold text-center hover:scale-105 transition"
-                  >
-                    🎯 Xem kết quả ngay →
-                  </button>
-                  <button
-                    onClick={() => setShowModal(false)}
-                    className="px-6 py-3 bg-white/60 border border-white/80 hover:bg-white/80 text-gray-700 rounded-full text-base font-medium transition"
-                  >
-                    Đóng
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
         )}
 
         <script dangerouslySetInnerHTML={{ __html: `

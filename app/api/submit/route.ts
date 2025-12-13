@@ -83,10 +83,23 @@ export async function POST(request: NextRequest) {
       created_at: new Date().toISOString(),
     });
 
-    // Return JSON with submission ID instead of redirect
+    // Return JSON with full submission data
     return NextResponse.json({ 
       success: true,
-      id: submissionId 
+      id: submissionId,
+      data: {
+        id: submissionId,
+        major,
+        description,
+        strengths,
+        jobs,
+        related_majors,
+        suggested_blocks,
+        r_scores,
+        study_option: study_option || 'domestic',
+        university_id: university_id || undefined,
+        study_abroad_country: study_abroad_country || undefined,
+      }
     });
   } catch (error) {
     console.error('Error processing submission:', error);
