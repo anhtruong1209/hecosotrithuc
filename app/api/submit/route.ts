@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { calculateRIASECScores, expertSystem, suggestExamBlocks } from '@/lib/riasec';
 import { saveSubmission } from '@/lib/db';
 
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
 // Helper function to get IP address from request
 function getIpAddress(request: NextRequest): string {
   // Check various headers for IP address (for proxies/load balancers)

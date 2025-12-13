@@ -17,24 +17,35 @@ export default function TestPage() {
       const response = await fetch('/api/submit', {
         method: 'POST',
         body: formData,
+        credentials: 'include',
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success && data.id) {
-          // Redirect directly to result page on Vercel
-          window.location.href = `/result?id=${data.id}`;
-        } else {
-          alert('Có lỗi xảy ra khi xử lý yêu cầu. Vui lòng thử lại.');
-        }
+      let data;
+      try {
+        data = await response.json();
+      } catch (parseError) {
+        console.error('Failed to parse response:', parseError);
+        alert('Có lỗi xảy ra khi xử lý phản hồi từ server. Vui lòng thử lại.');
+        setIsSubmitting(false);
+        return;
+      }
+      
+      if (response.ok && data.success && data.id) {
+        // Redirect directly to result page
+        const resultUrl = `/result?id=${data.id}`;
+        console.log('Redirecting to:', resultUrl);
+        // Use setTimeout to ensure state updates complete before redirect
+        setTimeout(() => {
+          window.location.href = resultUrl;
+        }, 100);
       } else {
-        const errorData = await response.json().catch(() => ({}));
-        alert(errorData.error || 'Có lỗi xảy ra khi xử lý yêu cầu. Vui lòng thử lại.');
+        console.error('Submit error:', data);
+        alert(data.error || 'Có lỗi xảy ra khi xử lý yêu cầu. Vui lòng thử lại.');
+        setIsSubmitting(false);
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Submit error:', error);
       alert('Có lỗi xảy ra khi xử lý yêu cầu. Vui lòng thử lại.');
-    } finally {
       setIsSubmitting(false);
     }
   };
