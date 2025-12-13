@@ -4,6 +4,9 @@ import { universities, studyAbroadCountries } from '@/lib/universities';
 import { aggregateTestResults, recommendMajorGroups, recommendUniversities } from '@/lib/recommendation';
 import RegisterForm from '@/app/components/RegisterForm';
 
+// Force dynamic rendering to ensure searchParams are available
+export const dynamic = 'force-dynamic';
+
 export default async function ResultPage({ 
   searchParams 
 }: { 
