@@ -1,3 +1,5 @@
+import LoginForm from '@/app/components/LoginForm';
+
 export default async function AdminLoginPage({ 
   searchParams 
 }: { 
@@ -20,21 +22,7 @@ export default async function AdminLoginPage({
               </div>
             )}
 
-            <form method="POST" action="/api/admin/login">
-              <div className="mb-3">
-                <label className="block text-sm font-medium text-gray-700">Tài khoản</label>
-                <input name="username" required className="w-full p-3 border rounded-xl" />
-              </div>
-              <div className="mb-3">
-                <label className="block text-sm font-medium text-gray-700">Mật khẩu</label>
-                <input name="password" type="password" required className="w-full p-3 border rounded-xl" />
-              </div>
-              <div className="text-center mt-4">
-                <button type="submit" className="px-6 py-3 bg-blue-600 text-white rounded-2xl">
-                  Đăng nhập
-                </button>
-              </div>
-            </form>
+            <LoginForm />
           </div>
         </div>
     </div>
