@@ -2,7 +2,13 @@
 
 import { useState } from 'react';
 
-export default function RegisterForm({ submissionId }: { submissionId: number }) {
+export default function RegisterForm({ 
+  submissionId, 
+  onSuccess 
+}: { 
+  submissionId: number;
+  onSuccess?: (data: { fullname: string; phone: string; email: string }) => void;
+}) {
   const [showForm, setShowForm] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -38,9 +44,19 @@ export default function RegisterForm({ submissionId }: { submissionId: number })
       
       if (response.ok && data.success) {
         setSuccess(true);
+        // Call onSuccess callback to update parent state
+        if (onSuccess) {
+          onSuccess({
+            fullname: formData.fullname || '',
+            phone: formData.phone || '',
+            email: formData.email || ''
+          });
+        }
+        // Hide form after success
         setTimeout(() => {
-          window.location.reload();
-        }, 1500);
+          setShowForm(false);
+          setSuccess(false);
+        }, 2000);
       } else {
         const errorMessage = data.error || 'Có lỗi xảy ra khi cập nhật thông tin. Vui lòng thử lại.';
         console.error('Update error:', data);

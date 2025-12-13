@@ -4,6 +4,8 @@ import { isAdmin } from '@/lib/auth';
 import Link from 'next/link';
 import DeleteButtonDetail from '../../components/DeleteButtonDetail';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminDetailPage({ params }: { params: Promise<{ id: string }> | { id: string } }) {
   // Handle both Promise and direct params for Next.js compatibility
   const resolvedParams = params instanceof Promise ? await params : params;
@@ -17,9 +19,16 @@ export default async function AdminDetailPage({ params }: { params: Promise<{ id
     redirect('/admin');
   }
 
-  const submission = getSubmissionById(id);
+  let submission;
+  try {
+    submission = getSubmissionById(id);
+  } catch (error) {
+    console.error('Error fetching submission:', error);
+    redirect('/admin');
+  }
 
   if (!submission) {
+    console.error(`Submission not found with ID: ${id}`);
     redirect('/admin');
   }
 

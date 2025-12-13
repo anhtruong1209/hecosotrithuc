@@ -93,8 +93,19 @@ export function getSubmissions(limit: number = 200): Submission[] {
 }
 
 export function getSubmissionById(id: number): Submission | null {
-  const db = readDB();
-  return db.submissions.find(s => s.id === id) || null;
+  try {
+    const db = readDB();
+    console.log(`Looking for submission ID: ${id}, Total submissions: ${db.submissions.length}`);
+    console.log(`Available IDs: ${db.submissions.map(s => s.id).join(', ')}`);
+    const submission = db.submissions.find(s => s.id === id);
+    if (!submission) {
+      console.error(`Submission with ID ${id} not found`);
+    }
+    return submission || null;
+  } catch (error) {
+    console.error('Error in getSubmissionById:', error);
+    return null;
+  }
 }
 
 export function getSubmissionsByEmail(email: string): Submission[] {

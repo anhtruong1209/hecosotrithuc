@@ -15,6 +15,9 @@ interface ResultData {
   study_option: 'domestic' | 'abroad';
   university_id?: string;
   study_abroad_country?: string;
+  fullname?: string;
+  phone?: string;
+  email?: string;
 }
 
 export default function TestPage() {
@@ -114,7 +117,30 @@ export default function TestPage() {
         {resultData && (
           <div className="space-y-6 mb-8">
             {/* Form đăng ký để lưu thông tin */}
-            <RegisterForm submissionId={resultData.id} />
+            <RegisterForm 
+              submissionId={resultData.id}
+              onSuccess={(userInfo) => {
+                // Update resultData with user info
+                setResultData({
+                  ...resultData,
+                  fullname: userInfo.fullname,
+                  phone: userInfo.phone,
+                  email: userInfo.email
+                });
+              }}
+            />
+
+            {/* Thông tin người tham gia (nếu đã đăng ký) */}
+            {(resultData.fullname || resultData.phone || resultData.email) && (
+              <div className="clay-card clay-card-blue rounded-xl p-4 mb-6">
+                <h4 className="text-sm font-semibold text-gray-800 mb-2">Thông tin người tham gia</h4>
+                <div className="text-xs md:text-sm text-gray-700 space-y-1">
+                  {resultData.fullname && <div><strong>Họ tên:</strong> {resultData.fullname}</div>}
+                  {resultData.phone && <div><strong>SĐT:</strong> {resultData.phone}</div>}
+                  {resultData.email && <div><strong>Email:</strong> {resultData.email}</div>}
+                </div>
+              </div>
+            )}
 
             {/* Kết quả từ bài tư vấn chính */}
             <div className="clay-card clay-card-purple rounded-2xl p-6 md:p-8 text-center">
