@@ -25,6 +25,9 @@ export default function AdminPage() {
   const [sortBy, setSortBy] = useState<'id' | 'created_at' | 'fullname'>('id');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
+  const [selectedSubmission, setSelectedSubmission] = useState<Submission | null>(null);
+  const [loadingDetail, setLoadingDetail] = useState(false);
+  const [exporting, setExporting] = useState(false);
   const [stats, setStats] = useState({
     total: 0,
     withEmail: 0,
@@ -151,10 +154,32 @@ export default function AdminPage() {
     }
   };
 
-  const exportToExcel = () => {
-    const dataToExport = selectedIds.length > 0
-      ? filteredSubmissions.filter(s => selectedIds.includes(s.id))
-      : filteredSubmissions;
+  const exportToExcel = async () => {
+    setExporting(true);
+    try {
+      const dataToExport = selectedIds.length > 0
+        ? filteredSubmissions.filter(s => selectedIds.includes(s.id))
+        : filteredSubmissions;
+
+      if (dataToExport.length === 0) {
+        alert('Không có dữ liệu để xuất');
+        return;
+      }
+
+      // Fetch full details for each submission
+      const submissionsWithDetails = await Promise.all(
+      dataToExport.map(async (sub) => {
+        try {
+          const response = await fetch(`/api/admin/submissions/${sub.id}`);
+          if (response.ok) {
+            return await response.json();
+          }
+        } catch (error) {
+          console.error(`Error fetching details for submission ${sub.id}:`, error);
+        }
+        return sub; // Fallback to basic data
+      })
+    );
 
     // Create CSV content with proper formatting
     const escapeCSV = (str: string) => {
@@ -167,18 +192,54 @@ export default function AdminPage() {
       return stringValue;
     };
 
-    const headers = ['ID', 'Họ tên', 'SĐT', 'Email', 'IP Address', 'Ngành gợi ý', 'Ngày gửi'];
-    const rows = dataToExport.map(s => [
+    // Enhanced headers with more details
+    const headers = [
+      'ID',
+      'Họ tên',
+      'SĐT',
+      'Email',
+      'IP Address',
+      'Sở thích',
+      'Môn mạnh',
+      'Tính cách',
+      'Mục tiêu nghề nghiệp',
+      'Ngành gợi ý',
+      'Mô tả ngành',
+      'Điểm mạnh',
+      'Nghề nghiệp phù hợp',
+      'Ngành học liên quan',
+      'Khối thi gợi ý',
+      'Lựa chọn học tập',
+      'Trường đại học',
+      'Quốc gia du học',
+      'Số bài test đã làm',
+      'Ngày gửi'
+    ];
+
+    const rows = submissionsWithDetails.map(s => [
       s.id,
       s.fullname || '',
       s.phone || '',
       s.email || '',
       s.ip_address || '',
+      s.sothich || '',
+      Array.isArray(s.monmanh) ? s.monmanh.join('; ') : '',
+      Array.isArray(s.tinhcach) ? s.tinhcach.join('; ') : '',
+      s.muctieu || '',
       s.major || '',
+      s.description || '',
+      Array.isArray(s.strengths) ? s.strengths.join('; ') : '',
+      Array.isArray(s.jobs) ? s.jobs.join('; ') : '',
+      Array.isArray(s.related_majors) ? s.related_majors.join('; ') : '',
+      Array.isArray(s.suggested_blocks) ? s.suggested_blocks.join('; ') : '',
+      s.study_option === 'domestic' ? 'Trong nước' : s.study_option === 'abroad' ? 'Du học' : '',
+      s.university_id || '',
+      s.study_abroad_country || '',
+      s.tests_completed ? s.tests_completed.length : 0,
       new Date(s.created_at).toLocaleString('vi-VN')
     ]);
 
-    // Create CSV content
+    // Create CSV content with header row
     const csvRows = [
       headers.map(h => escapeCSV(h)).join(','),
       ...rows.map(row => row.map(cell => escapeCSV(String(cell))).join(','))
@@ -191,21 +252,53 @@ export default function AdminPage() {
     const blob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
     const url = URL.createObjectURL(blob);
+    const timestamp = new Date().toISOString().split('T')[0];
+    const filename = `Ket_Qua_Tu_Van_${timestamp}.csv`;
     link.setAttribute('href', url);
-    link.setAttribute('download', `submissions_${new Date().toISOString().split('T')[0]}.csv`);
+    link.setAttribute('download', filename);
     link.style.visibility = 'hidden';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
     
-    // Clean up
-    setTimeout(() => {
-      URL.revokeObjectURL(url);
-    }, 100);
+      // Clean up
+      setTimeout(() => {
+        URL.revokeObjectURL(url);
+      }, 100);
+      
+      alert(`Đã xuất thành công ${submissionsWithDetails.length} bản ghi!`);
+    } catch (error) {
+      console.error('Error exporting:', error);
+      alert('Có lỗi xảy ra khi xuất dữ liệu. Vui lòng thử lại.');
+    } finally {
+      setExporting(false);
+    }
   };
 
   const getUniqueMajors = () => {
     return Array.from(new Set(submissions.map(s => s.major).filter(Boolean))).sort();
+  };
+
+  const handleViewDetail = async (id: number) => {
+    setLoadingDetail(true);
+    try {
+      const response = await fetch(`/api/admin/submissions/${id}`);
+      if (response.ok) {
+        const data = await response.json();
+        setSelectedSubmission(data);
+        // Scroll to detail section
+        setTimeout(() => {
+          document.getElementById('detail-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      } else {
+        alert('Không thể tải chi tiết. Vui lòng thử lại.');
+      }
+    } catch (error) {
+      console.error('Error fetching detail:', error);
+      alert('Có lỗi xảy ra khi tải chi tiết.');
+    } finally {
+      setLoadingDetail(false);
+    }
   };
 
   if (loading) {
@@ -331,9 +424,10 @@ export default function AdminPage() {
           <div className="flex flex-wrap gap-3">
             <button
               onClick={exportToExcel}
-              className="clay-button-secondary text-white px-6 py-2 rounded-full text-sm font-medium hover:scale-105 transition"
+              disabled={exporting}
+              className="clay-button-secondary text-white px-6 py-2 rounded-full text-sm font-medium hover:scale-105 transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              📥 Xuất Excel {selectedIds.length > 0 && `(${selectedIds.length})`}
+              {exporting ? '⏳ Đang xuất...' : `📥 Xuất Excel ${selectedIds.length > 0 ? `(${selectedIds.length})` : `(${filteredSubmissions.length})`}`}
             </button>
             {selectedIds.length > 0 && (
               <button
@@ -406,9 +500,13 @@ export default function AdminPage() {
                       <td className="p-3 text-gray-600 text-xs">{new Date(sub.created_at).toLocaleString('vi-VN')}</td>
                       <td className="p-3">
                         <div className="flex gap-2">
-                          <Link href={`/admin/${sub.id}`} className="clay-button-secondary text-white px-3 py-1 rounded-lg text-xs font-medium hover:scale-105 transition">
-                            Xem
-                          </Link>
+                          <button
+                            onClick={() => handleViewDetail(sub.id)}
+                            disabled={loadingDetail}
+                            className="clay-button-secondary text-white px-3 py-1 rounded-lg text-xs font-medium hover:scale-105 transition disabled:opacity-50"
+                          >
+                            {loadingDetail ? '...' : 'Xem'}
+                          </button>
                           <DeleteButton id={sub.id} />
                         </div>
                       </td>
@@ -419,6 +517,132 @@ export default function AdminPage() {
             </table>
           </div>
         </div>
+
+        {/* Detail Section */}
+        {selectedSubmission && (
+          <div id="detail-section" className="mt-8 clay-card clay-card-purple rounded-2xl p-6">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-xl md:text-2xl font-bold text-gray-800">
+                Chi tiết kết quả tư vấn #{selectedSubmission.id}
+              </h2>
+              <button
+                onClick={() => setSelectedSubmission(null)}
+                className="px-4 py-2 bg-white/60 border border-white/80 hover:bg-white/80 text-gray-700 rounded-xl text-sm font-medium transition"
+              >
+                ✕ Đóng
+              </button>
+            </div>
+
+            <div className="space-y-6">
+              {/* Thông tin người tham gia */}
+              <div className="clay-card clay-card-blue rounded-xl p-4">
+                <h3 className="font-semibold mb-3 text-blue-700">Thông tin người tham gia</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                  <div><strong className="text-blue-700">Họ tên:</strong> {selectedSubmission.fullname || '-'}</div>
+                  <div><strong className="text-blue-700">SĐT:</strong> {selectedSubmission.phone || '-'}</div>
+                  <div><strong className="text-blue-700">Email:</strong> {selectedSubmission.email || '-'}</div>
+                  <div><strong className="text-blue-700">IP Address:</strong> <span className="font-mono">{selectedSubmission.ip_address || '-'}</span></div>
+                  <div className="md:col-span-2"><strong className="text-blue-700">Gửi lúc:</strong> {new Date(selectedSubmission.created_at).toLocaleString('vi-VN')}</div>
+                </div>
+              </div>
+
+              {/* Kết quả */}
+              <div className="clay-card clay-card-yellow rounded-xl p-4">
+                <h3 className="font-semibold mb-3 text-blue-700">Kết quả</h3>
+                <div className="space-y-2 text-sm">
+                  <div><strong className="text-blue-700">Sở thích:</strong> {selectedSubmission.sothich || '-'}</div>
+                  <div><strong className="text-blue-700">Mục tiêu:</strong> {selectedSubmission.muctieu || '-'}</div>
+                  <div><strong className="text-blue-700">Ngành gợi ý:</strong> {selectedSubmission.major || '-'}</div>
+                  <div><strong className="text-blue-700">Mô tả:</strong> {selectedSubmission.description || '-'}</div>
+                  {selectedSubmission.suggested_blocks && selectedSubmission.suggested_blocks.length > 0 && (
+                    <div className="mt-3">
+                      <strong className="text-blue-700">Khối thi gợi ý:</strong>
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {selectedSubmission.suggested_blocks.map((block: string, i: number) => (
+                          <span key={i} className="px-3 py-1 bg-white/60 border border-white/80 text-blue-600 rounded-lg text-xs font-medium">
+                            {block}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Điểm mạnh và nghề nghiệp */}
+              {(selectedSubmission.strengths?.length > 0 || selectedSubmission.jobs?.length > 0) && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {selectedSubmission.strengths?.length > 0 && (
+                    <div className="clay-card clay-card-green rounded-xl p-4">
+                      <h3 className="font-semibold mb-3 text-blue-700">Điểm mạnh nổi bật</h3>
+                      <ul className="list-disc ml-5 text-sm space-y-1">
+                        {selectedSubmission.strengths.map((skill: string, i: number) => (
+                          <li key={i}>{skill}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {selectedSubmission.jobs?.length > 0 && (
+                    <div className="clay-card clay-card-pink rounded-xl p-4">
+                      <h3 className="font-semibold mb-3 text-blue-700">Các nghề nghiệp phù hợp</h3>
+                      <ul className="list-disc ml-5 text-sm space-y-1">
+                        {selectedSubmission.jobs.map((job: string, i: number) => (
+                          <li key={i}>{job}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Tests completed */}
+              {selectedSubmission.tests_completed && selectedSubmission.tests_completed.length > 0 && (
+                <div className="clay-card clay-card-blue rounded-xl p-4">
+                  <h3 className="font-semibold mb-3 text-blue-700">Các bài test đã làm</h3>
+                  <div className="space-y-3">
+                    {selectedSubmission.tests_completed.map((test: any, index: number) => {
+                      const testNames: Record<string, string> = {
+                        'mbti': 'Test Tính Cách MBTI',
+                        'interest': 'Test Sở Thích Nghề Nghiệp',
+                        'aptitude': 'Test Năng Lực Học Tập',
+                        'riasec': 'Test RIASEC 20'
+                      };
+                      return (
+                        <div key={index} className="border border-blue-200/50 rounded-xl p-3 bg-blue-50/30">
+                          <div className="font-semibold text-gray-800 mb-1">
+                            {test.test_name || testNames[test.test_type] || 'Bài test'}
+                          </div>
+                          <div className="text-xs text-gray-600 mb-2">
+                            Hoàn thành: {new Date(test.completed_at).toLocaleString('vi-VN')}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* Raw data */}
+              <div className="clay-card clay-card-blue rounded-xl p-4">
+                <h3 className="font-semibold mb-3 text-blue-700">Chi tiết dữ liệu thu thập</h3>
+                <pre className="mt-3 text-xs text-gray-700 overflow-auto bg-white/50 p-4 rounded-lg border border-blue-200/50 max-h-96">
+                  {JSON.stringify(selectedSubmission, null, 2)}
+                </pre>
+              </div>
+
+              {/* Actions */}
+              <div className="flex gap-3 flex-wrap">
+                <Link 
+                  href={`/result?id=${selectedSubmission.id}`} 
+                  className="clay-button text-white px-6 py-3 rounded-xl text-sm font-medium hover:scale-105 transition bg-green-500/40 border-green-400/40"
+                >
+                  🎯 Xem kết quả tư vấn
+                </Link>
+                <DeleteButton id={selectedSubmission.id} />
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
