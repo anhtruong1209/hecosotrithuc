@@ -5,10 +5,11 @@ import { useState } from 'react';
 interface TestInfoFormProps {
   onSave: (data: { fullname: string; phone: string; email?: string }) => void;
   onSkip?: () => void;
+  defaultShowForm?: boolean;
 }
 
-export default function TestInfoForm({ onSave, onSkip }: TestInfoFormProps) {
-  const [showForm, setShowForm] = useState(false);
+export default function TestInfoForm({ onSave, onSkip, defaultShowForm = false }: TestInfoFormProps) {
+  const [showForm, setShowForm] = useState(defaultShowForm);
   const [formData, setFormData] = useState({
     fullname: '',
     phone: '',
@@ -103,7 +104,12 @@ export default function TestInfoForm({ onSave, onSkip }: TestInfoFormProps) {
           </button>
           <button
             type="button"
-            onClick={() => setShowForm(false)}
+            onClick={() => {
+              setShowForm(false);
+              if (onSkip) {
+                onSkip();
+              }
+            }}
             className="px-4 py-2 bg-white/20 backdrop-blur-sm border border-white/40 hover:bg-white/30 text-gray-700 rounded-lg text-xs md:text-sm font-medium transition"
           >
             Hủy

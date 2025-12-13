@@ -243,6 +243,9 @@ export default function RIASEC20Page() {
   const [showResult, setShowResult] = useState(false);
   const [userInfo, setUserInfo] = useState<{ fullname: string; phone: string; email?: string } | null>(null);
   const [testSaved, setTestSaved] = useState(false);
+  const [showInfoForm, setShowInfoForm] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionId, setSubmissionId] = useState<number | null>(null);
 
   const handleAnswer = (questionId: number, optionValue: string, optionScores: any) => {
     const newAnswers = { ...answers, [questionId]: optionValue };
@@ -359,6 +362,41 @@ export default function RIASEC20Page() {
     }
   };
 
+  const handleSubmitAndRedirect = async (info: { fullname: string; phone: string; email?: string }) => {
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch('/api/submit/from-riasec', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fullname: info.fullname,
+          phone: info.phone,
+          email: info.email,
+          r_scores: scores
+        }),
+      });
+
+      const data = await response.json();
+      
+      if (response.ok && data.success && data.id) {
+        setSubmissionId(data.id);
+        setUserInfo(info);
+        // Redirect to result page
+        window.location.href = `/result?id=${data.id}`;
+      } else {
+        alert(data.error || 'Có lỗi xảy ra khi tạo submission. Vui lòng thử lại.');
+        setIsSubmitting(false);
+      }
+    } catch (error) {
+      console.error('Error creating submission:', error);
+      alert('Có lỗi xảy ra khi tạo submission. Vui lòng thử lại.');
+      setIsSubmitting(false);
+    }
+  };
+
   if (showResult) {
     const { topType, sortedScores, typeInfo } = getResult();
     const topTypeInfo = typeInfo[topType];
@@ -411,7 +449,64 @@ export default function RIASEC20Page() {
               </div>
             </div>
 
-            {!testSaved && !userInfo && (
+            {/* Form nhập thông tin và tạo submission */}
+            {!submissionId && !isSubmitting && (
+              <div className="mb-8">
+                {!showInfoForm ? (
+                  <div className="bg-blue-50 rounded-xl p-6 mb-8 border border-blue-200">
+                    <div className="text-center">
+                      <div className="text-4xl mb-3">📝</div>
+                      <h3 className="text-lg font-semibold text-blue-800 mb-2">
+                        Điền thông tin và nhận tư vấn chi tiết
+                      </h3>
+                      <p className="text-gray-700 mb-4">
+                        Điền thông tin để lưu kết quả và nhận tư vấn ngành học cụ thể từ hệ thống.
+                      </p>
+                      <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                        <button
+                          onClick={() => setShowInfoForm(true)}
+                          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition"
+                        >
+                          Điền thông tin và nhận tư vấn →
+                        </button>
+                        <a
+                          href="/majors"
+                          className="bg-white border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-xl font-semibold text-center transition"
+                        >
+                          Xem thông tin ngành học →
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="bg-white rounded-xl p-6 mb-8 border-2 border-blue-200">
+                    <h3 className="text-lg font-semibold text-blue-800 mb-4 text-center">
+                      📝 Thông tin của bạn
+                    </h3>
+                    <TestInfoForm 
+                      onSave={handleSubmitAndRedirect}
+                      onSkip={() => setShowInfoForm(false)}
+                      defaultShowForm={true}
+                    />
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Hiển thị khi đang submit */}
+            {isSubmitting && (
+              <div className="bg-blue-50 rounded-xl p-6 mb-8 border border-blue-200">
+                <div className="text-center">
+                  <div className="text-4xl mb-2">⏳</div>
+                  <p className="text-sm md:text-base text-blue-700 font-semibold">
+                    Đang xử lý và tạo tư vấn chi tiết...
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Form lưu kết quả test (tùy chọn) */}
+            {!testSaved && !userInfo && !showInfoForm && (
               <div className="mb-8">
                 <TestInfoForm onSave={handleSaveTest} />
               </div>
@@ -428,26 +523,20 @@ export default function RIASEC20Page() {
               </div>
             )}
 
-            <div className="bg-blue-50 rounded-xl p-6 mb-8 border border-blue-200">
-              <h3 className="text-lg font-semibold text-blue-800 mb-2">Bước tiếp theo:</h3>
-              <p className="text-gray-700 mb-4">
-                Để nhận được gợi ý ngành học cụ thể và chi tiết hơn, vui lòng điền thông tin và chọn ngành học bạn quan tâm.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <a
-                  href={`/test?riasec=${topType}&scores=${JSON.stringify(scores)}`}
-                  className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold text-center transition"
-                >
-                  Điền thông tin và nhận tư vấn chi tiết →
-                </a>
-                <a
-                  href="/majors"
-                  className="flex-1 bg-white border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-xl font-semibold text-center transition"
-                >
-                  Xem thông tin ngành học →
-                </a>
+            {/* Nút xem thông tin ngành học */}
+            {!showInfoForm && (
+              <div className="bg-blue-50 rounded-xl p-6 mb-8 border border-blue-200">
+                <h3 className="text-lg font-semibold text-blue-800 mb-2">Xem thêm:</h3>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <a
+                    href="/majors"
+                    className="flex-1 bg-white border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-xl font-semibold text-center transition"
+                  >
+                    Xem thông tin ngành học →
+                  </a>
+                </div>
               </div>
-            </div>
+            )}
 
             <div className="flex justify-center gap-4">
               <button
