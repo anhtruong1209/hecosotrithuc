@@ -29,18 +29,22 @@ export default function RegisterForm({ submissionId }: { submissionId: number })
         }),
       });
 
-      if (response.ok) {
+      const data = await response.json();
+      
+      if (response.ok && data.success) {
         setSuccess(true);
         setTimeout(() => {
           window.location.reload();
         }, 1500);
       } else {
-        alert('Có lỗi xảy ra khi cập nhật thông tin. Vui lòng thử lại.');
+        const errorMessage = data.error || 'Có lỗi xảy ra khi cập nhật thông tin. Vui lòng thử lại.';
+        console.error('Update error:', data);
+        alert(errorMessage);
+        setIsSubmitting(false);
       }
     } catch (error) {
       console.error('Error:', error);
       alert('Có lỗi xảy ra khi cập nhật thông tin. Vui lòng thử lại.');
-    } finally {
       setIsSubmitting(false);
     }
   };

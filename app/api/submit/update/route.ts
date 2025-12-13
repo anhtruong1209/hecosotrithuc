@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { readDB, writeDB } from '@/lib/db';
 
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
 // Helper function to get IP address from request
 function getIpAddress(request: NextRequest): string {
   // Check various headers for IP address (for proxies/load balancers)
@@ -24,7 +27,17 @@ function getIpAddress(request: NextRequest): string {
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    let body;
+    try {
+      body = await request.json();
+    } catch (parseError) {
+      console.error('Error parsing request body:', parseError);
+      return NextResponse.json(
+        { error: 'Invalid request format' },
+        { status: 400 }
+      );
+    }
+
     const { id, fullname, phone, email } = body;
 
     if (!id) {
@@ -38,12 +51,22 @@ export async function POST(request: NextRequest) {
     const ip_address = getIpAddress(request);
 
     // Read database
-    const db = readDB();
+    let db;
+    try {
+      db = readDB();
+    } catch (dbError) {
+      console.error('Error reading database:', dbError);
+      return NextResponse.json(
+        { error: 'Có lỗi xảy ra khi đọc dữ liệu' },
+        { status: 500 }
+      );
+    }
+
     const submissionIndex = db.submissions.findIndex((s: any) => s.id === parseInt(id));
 
     if (submissionIndex === -1) {
       return NextResponse.json(
-        { error: 'Submission not found' },
+        { error: 'Không tìm thấy kết quả tư vấn' },
         { status: 404 }
       );
     }
@@ -56,7 +79,15 @@ export async function POST(request: NextRequest) {
     db.submissions[submissionIndex].ip_address = ip_address;
 
     // Write back to database
-    writeDB(db);
+    try {
+      writeDB(db);
+    } catch (writeError) {
+      console.error('Error writing database:', writeError);
+      return NextResponse.json(
+        { error: 'Có lỗi xảy ra khi lưu dữ liệu' },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({ 
       success: true,
@@ -65,7 +96,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Error updating submission:', error);
     return NextResponse.json(
-      { error: 'Có lỗi xảy ra khi cập nhật thông tin' },
+      { error: 'Có lỗi xảy ra khi cập nhật thông tin. Vui lòng thử lại.' },
       { status: 500 }
     );
   }

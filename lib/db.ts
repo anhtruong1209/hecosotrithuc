@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 // For Vercel, use /tmp directory which is writable
-const DB_PATH = process.env.VERCEL 
+const DB_PATH = (process.env.VERCEL === '1' || process.env.VERCEL_ENV)
   ? '/tmp/db.json'
   : path.join(process.cwd(), 'lib', 'db.json');
 
@@ -69,15 +69,20 @@ export function readDB(): Database {
 
 export function writeDB(data: Database): void {
   try {
-    // Ensure directory exists
-    const dir = path.dirname(DB_PATH);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
+    // For Vercel /tmp, directory always exists, no need to create
+    if (DB_PATH.startsWith('/tmp')) {
+      fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
+    } else {
+      // Ensure directory exists for local development
+      const dir = path.dirname(DB_PATH);
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+      fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
     }
-    
-    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
   } catch (error) {
     console.error('Error writing DB:', error);
+    console.error('DB_PATH:', DB_PATH);
     throw error;
   }
 }
