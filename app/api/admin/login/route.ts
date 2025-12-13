@@ -18,8 +18,9 @@ export async function POST(request: NextRequest) {
       const response = NextResponse.redirect(new URL('/admin', request.url));
       response.cookies.set('admin_token', token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
+        secure: process.env.NODE_ENV === 'production' || process.env.VERCEL === '1',
         sameSite: 'lax',
+        path: '/',
         maxAge: 60 * 60 * 24 * 7, // 7 days
       });
       
@@ -35,8 +36,9 @@ export async function POST(request: NextRequest) {
         const response = NextResponse.redirect(new URL('/admin', request.url));
         response.cookies.set('admin_token', token, {
           httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
+          secure: process.env.NODE_ENV === 'production' || process.env.VERCEL === '1',
           sameSite: 'lax',
+          path: '/',
           maxAge: 60 * 60 * 24 * 7,
         });
         return response;
