@@ -17,6 +17,8 @@ export default function RegisterForm({ submissionId }: { submissionId: number })
     e.preventDefault();
     setIsSubmitting(true);
 
+    console.log('Submitting update with ID:', submissionId, 'Data:', formData);
+
     try {
       const response = await fetch('/api/submit/update', {
         method: 'POST',
@@ -25,8 +27,11 @@ export default function RegisterForm({ submissionId }: { submissionId: number })
         },
         body: JSON.stringify({
           id: submissionId,
-          ...formData
+          fullname: formData.fullname || '',
+          phone: formData.phone || '',
+          email: formData.email || ''
         }),
+        credentials: 'include',
       });
 
       const data = await response.json();

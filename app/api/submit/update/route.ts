@@ -47,6 +47,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const submissionId = typeof id === 'string' ? parseInt(id) : id;
+    console.log('Updating submission with ID:', submissionId);
+
     // Get IP address for logging
     const ip_address = getIpAddress(request);
 
@@ -54,6 +57,8 @@ export async function POST(request: NextRequest) {
     let db;
     try {
       db = readDB();
+      console.log('Total submissions in DB:', db.submissions.length);
+      console.log('Submission IDs:', db.submissions.map((s: any) => s.id));
     } catch (dbError) {
       console.error('Error reading database:', dbError);
       return NextResponse.json(
@@ -62,21 +67,34 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const submissionIndex = db.submissions.findIndex((s: any) => s.id === parseInt(id));
+    const submissionIndex = db.submissions.findIndex((s: any) => s.id === submissionId);
 
     if (submissionIndex === -1) {
-      return NextResponse.json(
-        { error: 'Không tìm thấy kết quả tư vấn' },
-        { status: 404 }
-      );
+      console.error(`Submission not found. ID: ${submissionId}, Available IDs: ${db.submissions.map((s: any) => s.id).join(', ')}`);
+      // On Vercel, database might be reset or in different function instance
+      // Try to find by ID in case it exists but wasn't found by index
+      const submission = db.submissions.find((s: any) => s.id === submissionId);
+      
+      if (!submission) {
+        return NextResponse.json(
+          { error: `Không tìm thấy kết quả tư vấn với ID: ${submissionId}. Vui lòng thử lại sau khi làm lại bài test.` },
+          { status: 404 }
+        );
+      }
+      
+      // Found by find, update it
+      submission.fullname = fullname || '';
+      submission.phone = phone || '';
+      submission.email = email || '';
+      submission.ip_address = ip_address;
+    } else {
+      // Update submission
+      db.submissions[submissionIndex].fullname = fullname || '';
+      db.submissions[submissionIndex].phone = phone || '';
+      db.submissions[submissionIndex].email = email || '';
+      // Update IP address if not already set or update it for logging
+      db.submissions[submissionIndex].ip_address = ip_address;
     }
-
-    // Update submission
-    db.submissions[submissionIndex].fullname = fullname || '';
-    db.submissions[submissionIndex].phone = phone || '';
-    db.submissions[submissionIndex].email = email || '';
-    // Update IP address if not already set or update it for logging
-    db.submissions[submissionIndex].ip_address = ip_address;
 
     // Write back to database
     try {
