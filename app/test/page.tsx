@@ -22,8 +22,8 @@ export default function TestPage() {
       if (response.ok) {
         const data = await response.json();
         if (data.success && data.id) {
-          setSubmissionId(data.id);
-          setShowModal(true);
+          // Redirect directly to result page on Vercel
+          window.location.href = `/result?id=${data.id}`;
         } else {
           alert('Có lỗi xảy ra khi xử lý yêu cầu. Vui lòng thử lại.');
         }
@@ -312,12 +312,16 @@ export default function TestPage() {
                 </div>
 
                 <div className="flex flex-col gap-3">
-                  <a
-                    href={`/result?id=${submissionId}`}
+                  <button
+                    onClick={() => {
+                      if (submissionId) {
+                        window.location.href = `/result?id=${submissionId}`;
+                      }
+                    }}
                     className="clay-button text-white px-6 py-3 rounded-full text-base font-semibold text-center hover:scale-105 transition"
                   >
                     🎯 Xem kết quả ngay →
-                  </a>
+                  </button>
                   <button
                     onClick={() => setShowModal(false)}
                     className="px-6 py-3 bg-white/60 border border-white/80 hover:bg-white/80 text-gray-700 rounded-full text-base font-medium transition"
