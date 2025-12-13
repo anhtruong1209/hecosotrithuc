@@ -365,15 +365,15 @@ export default function TestPage() {
             const abroadRadio = document.querySelector('input[value="abroad"]');
 
             function updateStudyOptions() {
-              if (domesticRadio && (domesticRadio as HTMLInputElement).checked) {
+              if (domesticRadio && domesticRadio.checked) {
                 domesticOptions?.classList.remove('hidden');
                 abroadOptions?.classList.add('hidden');
-                const abroadSelect = document.querySelector('select[name="study_abroad_country"]') as HTMLSelectElement;
+                const abroadSelect = document.querySelector('select[name="study_abroad_country"]');
                 if (abroadSelect) abroadSelect.value = '';
-              } else if (abroadRadio && (abroadRadio as HTMLInputElement).checked) {
+              } else if (abroadRadio && abroadRadio.checked) {
                 abroadOptions?.classList.remove('hidden');
                 domesticOptions?.classList.add('hidden');
-                const domesticSelect = document.querySelector('select[name="university_id"]') as HTMLSelectElement;
+                const domesticSelect = document.querySelector('select[name="university_id"]');
                 if (domesticSelect) domesticSelect.value = '';
               }
             }
