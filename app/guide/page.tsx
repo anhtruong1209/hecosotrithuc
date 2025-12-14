@@ -28,9 +28,8 @@ export default function GuidePage() {
         <div className="space-y-8">
           {/* 1. Tổng quan hệ thống */}
           <div className="clay-card clay-card-blue p-6 md:p-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 flex items-center gap-3">
-              <span className="text-4xl">1️⃣</span>
-              <span>Tổng Quan Hệ Thống</span>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">
+              1. Tổng Quan Hệ Thống
             </h2>
             <div className="space-y-4 text-base md:text-lg text-gray-700 leading-relaxed">
               <p>
@@ -38,7 +37,7 @@ export default function GuidePage() {
                 giúp học sinh, sinh viên tìm ra ngành học phù hợp nhất với tính cách, sở thích và năng lực của mình.
               </p>
               <div className="clay-card clay-card-yellow p-5 mt-4">
-                <h3 className="font-bold text-lg mb-3 text-gray-800">🎯 Mục tiêu của hệ thống:</h3>
+                <h3 className="font-bold text-lg mb-3 text-gray-800">Mục tiêu của hệ thống:</h3>
                 <ul className="list-disc ml-6 space-y-2 text-base">
                   <li>Phân tích tính cách, sở thích và năng lực của người dùng một cách toàn diện</li>
                   <li>Đề xuất nhóm ngành học phù hợp dựa trên mô hình RIASEC đã được kiểm chứng</li>
@@ -52,9 +51,8 @@ export default function GuidePage() {
 
           {/* 2. Mô hình RIASEC */}
           <div className="clay-card clay-card-pink p-6 md:p-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 flex items-center gap-3">
-              <span className="text-4xl">2️⃣</span>
-              <span>Mô Hình RIASEC</span>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">
+              2. Mô Hình RIASEC
             </h2>
             <div className="space-y-4 text-base md:text-lg text-gray-700 leading-relaxed">
               <p>
@@ -65,9 +63,8 @@ export default function GuidePage() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
                 <div className="clay-card clay-card-yellow p-5">
-                  <h3 className="font-bold text-lg text-orange-700 mb-2 flex items-center gap-2">
-                    <span>🔧</span>
-                    <span>R - Realistic (Thực tế)</span>
+                  <h3 className="font-bold text-lg text-orange-700 mb-2">
+                    R - Realistic (Thực tế)
                   </h3>
                   <p className="text-sm leading-relaxed">
                     Người thích làm việc với máy móc, công cụ, thực hành. Phù hợp với các ngành kỹ thuật, cơ khí, điện tử, xây dựng, nông nghiệp.
@@ -77,9 +74,8 @@ export default function GuidePage() {
                   </div>
                 </div>
                 <div className="clay-card clay-card-blue p-5">
-                  <h3 className="font-bold text-lg text-blue-700 mb-2 flex items-center gap-2">
-                    <span>🔬</span>
-                    <span>I - Investigative (Nghiên cứu)</span>
+                  <h3 className="font-bold text-lg text-blue-700 mb-2">
+                    I - Investigative (Nghiên cứu)
                   </h3>
                   <p className="text-sm leading-relaxed">
                     Người thích phân tích, nghiên cứu, tìm hiểu. Phù hợp với các ngành khoa học, công nghệ, nghiên cứu, y học.
@@ -89,9 +85,8 @@ export default function GuidePage() {
                   </div>
                 </div>
                 <div className="clay-card clay-card-purple p-5">
-                  <h3 className="font-bold text-lg text-purple-700 mb-2 flex items-center gap-2">
-                    <span>🎨</span>
-                    <span>A - Artistic (Nghệ thuật)</span>
+                  <h3 className="font-bold text-lg text-purple-700 mb-2">
+                    A - Artistic (Nghệ thuật)
                   </h3>
                   <p className="text-sm leading-relaxed">
                     Người có trí tưởng tượng phong phú, sáng tạo. Phù hợp với các ngành nghệ thuật, thiết kế, sáng tạo, văn học.
@@ -101,9 +96,8 @@ export default function GuidePage() {
                   </div>
                 </div>
                 <div className="clay-card clay-card-pink p-5">
-                  <h3 className="font-bold text-lg text-red-700 mb-2 flex items-center gap-2">
-                    <span>❤️</span>
-                    <span>S - Social (Xã hội)</span>
+                  <h3 className="font-bold text-lg text-red-700 mb-2">
+                    S - Social (Xã hội)
                   </h3>
                   <p className="text-sm leading-relaxed">
                     Người thích giúp đỡ, giao tiếp với người khác. Phù hợp với các ngành giáo dục, y tế, công tác xã hội, tâm lý.
@@ -113,9 +107,8 @@ export default function GuidePage() {
                   </div>
                 </div>
                 <div className="clay-card clay-card-green p-5">
-                  <h3 className="font-bold text-lg text-green-700 mb-2 flex items-center gap-2">
-                    <span>💼</span>
-                    <span>E - Enterprising (Kinh doanh)</span>
+                  <h3 className="font-bold text-lg text-green-700 mb-2">
+                    E - Enterprising (Kinh doanh)
                   </h3>
                   <p className="text-sm leading-relaxed">
                     Người có tố chất lãnh đạo, thuyết phục. Phù hợp với các ngành kinh doanh, quản lý, marketing, luật.
@@ -125,9 +118,8 @@ export default function GuidePage() {
                   </div>
                 </div>
                 <div className="clay-card clay-card-yellow p-5">
-                  <h3 className="font-bold text-lg text-yellow-700 mb-2 flex items-center gap-2">
-                    <span>📊</span>
-                    <span>C - Conventional (Truyền thống)</span>
+                  <h3 className="font-bold text-lg text-yellow-700 mb-2">
+                    C - Conventional (Truyền thống)
                   </h3>
                   <p className="text-sm leading-relaxed">
                     Người tỉ mỉ, làm việc có tổ chức. Phù hợp với các ngành kế toán, hành chính, văn phòng, thống kê.
@@ -142,16 +134,14 @@ export default function GuidePage() {
 
           {/* 3. Các bài test trong hệ thống */}
           <div className="clay-card clay-card-blue p-6 md:p-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 flex items-center gap-3">
-              <span className="text-4xl">3️⃣</span>
-              <span>Các Bài Test Trong Hệ Thống</span>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">
+              3. Các Bài Test Trong Hệ Thống
             </h2>
             <div className="space-y-6 text-base md:text-lg text-gray-700 leading-relaxed">
               
               <div className="clay-card clay-card-purple p-5">
-                <h3 className="font-bold text-xl mb-3 text-gray-800 flex items-center gap-2">
-                  <span>🎯</span>
-                  <span>Bài Tư Vấn Chọn Ngành Học (RIASEC Full)</span>
+                <h3 className="font-bold text-xl mb-3 text-gray-800">
+                  Bài Tư Vấn Chọn Ngành Học (RIASEC Full)
                 </h3>
                 <p className="mb-3 text-base">
                   Bài test chính của hệ thống, gồm các câu hỏi về sở thích, môn học mạnh, tính cách và mục tiêu nghề nghiệp.
@@ -168,35 +158,42 @@ export default function GuidePage() {
               </div>
 
               <div className="clay-card clay-card-pink p-5">
-                <h3 className="font-bold text-xl mb-3 text-gray-800 flex items-center gap-2">
-                  <span>⚡</span>
-                  <span>RIASEC 20 Câu</span>
+                <h3 className="font-bold text-xl mb-3 text-gray-800">
+                  RIASEC 20 Câu
                 </h3>
                 <p className="mb-3 text-base">
                   Bài test nhanh với 20 câu hỏi đánh giá 6 nhóm tính cách RIASEC một cách trực tiếp.
                 </p>
                 <div className="clay-card clay-card-yellow p-4 mt-3">
-                  <p className="text-sm font-semibold mb-2">📊 Logic tính toán:</p>
+                  <p className="text-sm font-semibold mb-2">Logic tính toán:</p>
                   <ul className="list-disc ml-5 space-y-1 text-sm">
-                    <li>Mỗi câu trả lời được gán điểm cho các nhóm RIASEC tương ứng</li>
+                    <li>Mỗi câu trả lời được gán điểm cho các nhóm RIASEC tương ứng (0-3 điểm tùy mức độ đồng ý)</li>
                     <li>Tính tổng điểm cho từng nhóm (R, I, A, S, E, C)</li>
                     <li>Nhóm có điểm cao nhất là nhóm tính cách chủ đạo</li>
-                    <li>Hiển thị top 3 nhóm có điểm cao nhất</li>
+                    <li>Hiển thị top 3 nhóm có điểm cao nhất với thanh progress bar</li>
+                  </ul>
+                </div>
+                <div className="clay-card clay-card-green p-4 mt-3">
+                  <p className="text-sm font-semibold mb-2">Tính năng đặc biệt:</p>
+                  <ul className="list-disc ml-5 space-y-1 text-sm">
+                    <li><strong>Tự động tạo submission:</strong> Sau khi hoàn thành test, bạn có thể nhập thông tin ngay tại trang kết quả</li>
+                    <li><strong>Tự động redirect:</strong> Sau khi nhập thông tin và submit, hệ thống tự động tạo submission và chuyển đến trang kết quả tư vấn chi tiết</li>
+                    <li><strong>Quy nạp tự động:</strong> Nếu bạn đã làm các test khác với cùng email, hệ thống sẽ tự động quy nạp tất cả kết quả</li>
+                    <li><strong>Lưu kết quả test:</strong> Bạn có thể lưu kết quả test riêng (tùy chọn) hoặc tạo submission đầy đủ để nhận tư vấn</li>
                   </ul>
                 </div>
               </div>
 
               <div className="clay-card clay-card-purple p-5">
-                <h3 className="font-bold text-xl mb-3 text-gray-800 flex items-center gap-2">
-                  <span>🧠</span>
-                  <span>Test MBTI (Myers-Briggs Type Indicator)</span>
+                <h3 className="font-bold text-xl mb-3 text-gray-800">
+                  Test MBTI (Myers-Briggs Type Indicator)
                 </h3>
                 <p className="mb-3 text-base">
                   Đánh giá tính cách dựa trên 4 chiều: Hướng ngoại/Hướng nội (E/I), Cảm giác/Trực giác (S/N), 
                   Suy nghĩ/Cảm xúc (T/F), Đánh giá/Nhận thức (J/P). Kết quả là một trong 16 loại tính cách MBTI.
                 </p>
                 <div className="clay-card clay-card-yellow p-4 mt-3">
-                  <p className="text-sm font-semibold mb-2">📊 Logic tính toán:</p>
+                  <p className="text-sm font-semibold mb-2">Logic tính toán:</p>
                   <ul className="list-disc ml-5 space-y-1 text-sm">
                     <li>Mỗi câu hỏi có điểm số cho các chiều khác nhau (E/I, S/N, T/F, J/P)</li>
                     <li>Tính tổng điểm cho mỗi chiều</li>
@@ -207,15 +204,14 @@ export default function GuidePage() {
               </div>
 
               <div className="clay-card clay-card-pink p-5">
-                <h3 className="font-bold text-xl mb-3 text-gray-800 flex items-center gap-2">
-                  <span>❤️</span>
-                  <span>Test Sở Thích Nghề Nghiệp</span>
+                <h3 className="font-bold text-xl mb-3 text-gray-800">
+                  Test Sở Thích Nghề Nghiệp
                 </h3>
                 <p className="mb-3 text-base">
                   Đánh giá sở thích và hứng thú của người dùng với các lĩnh vực nghề nghiệp khác nhau dựa trên mô hình RIASEC.
                 </p>
                 <div className="clay-card clay-card-yellow p-4 mt-3">
-                  <p className="text-sm font-semibold mb-2">📊 Logic tính toán:</p>
+                  <p className="text-sm font-semibold mb-2">Logic tính toán:</p>
                   <ul className="list-disc ml-5 space-y-1 text-sm">
                     <li>Câu hỏi được phân loại theo 6 nhóm RIASEC</li>
                     <li>Tính tổng điểm cho mỗi nhóm dựa trên câu trả lời</li>
@@ -226,15 +222,14 @@ export default function GuidePage() {
               </div>
 
               <div className="clay-card clay-card-blue p-5">
-                <h3 className="font-bold text-xl mb-3 text-gray-800 flex items-center gap-2">
-                  <span>📚</span>
-                  <span>Test Năng Lực Học Tập</span>
+                <h3 className="font-bold text-xl mb-3 text-gray-800">
+                  Test Năng Lực Học Tập
                 </h3>
                 <p className="mb-3 text-base">
                   Đánh giá năng lực và điểm mạnh trong các môn học khác nhau (Toán, Lý, Hóa, Văn, Anh, Sử, Địa, Tin, Mỹ thuật).
                 </p>
                 <div className="clay-card clay-card-yellow p-4 mt-3">
-                  <p className="text-sm font-semibold mb-2">📊 Logic tính toán:</p>
+                  <p className="text-sm font-semibold mb-2">Logic tính toán:</p>
                   <ul className="list-disc ml-5 space-y-1 text-sm">
                     <li>Câu hỏi được phân loại theo các môn học</li>
                     <li>Tính điểm cho từng môn dựa trên câu trả lời</li>
@@ -249,9 +244,8 @@ export default function GuidePage() {
 
           {/* 4. Logic quy nạp và đánh giá */}
           <div className="clay-card clay-card-green p-6 md:p-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 flex items-center gap-3">
-              <span className="text-4xl">4️⃣</span>
-              <span>Logic Quy Nạp Và Đánh Giá</span>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">
+              4. Logic Quy Nạp Và Đánh Giá
             </h2>
             <div className="space-y-4 text-base md:text-lg text-gray-700 leading-relaxed">
               <p>
@@ -260,9 +254,8 @@ export default function GuidePage() {
               </p>
 
               <div className="clay-card clay-card-blue p-5">
-                <h3 className="font-bold text-lg mb-3 text-gray-800 flex items-center gap-2">
-                  <span>📥</span>
-                  <span>Bước 1: Thu thập dữ liệu</span>
+                <h3 className="font-bold text-lg mb-3 text-gray-800">
+                  Bước 1: Thu thập dữ liệu
                 </h3>
                 <ul className="list-disc ml-6 space-y-2 text-base">
                   <li>Thu thập kết quả từ bài test RIASEC (điểm số R, I, A, S, E, C)</li>
@@ -278,11 +271,22 @@ export default function GuidePage() {
                   <span>Bước 2: Quy nạp dữ liệu</span>
                 </h3>
                 <ul className="list-disc ml-6 space-y-2 text-base">
-                  <li><strong>Tổng hợp điểm số RIASEC:</strong> Cộng dồn điểm từ tất cả các test có liên quan</li>
-                  <li><strong>Điều chỉnh dựa trên MBTI:</strong> Ví dụ, INTJ tăng điểm cho nhóm I (Investigative)</li>
-                  <li><strong>Kết hợp với sở thích:</strong> Xác nhận nhóm RIASEC chủ đạo dựa trên sở thích nghề nghiệp</li>
-                  <li><strong>Xem xét năng lực:</strong> Đề xuất khối thi phù hợp dựa trên điểm mạnh môn học</li>
+                  <li><strong>Tổng hợp điểm số RIASEC:</strong> Cộng dồn điểm từ tất cả các test có liên quan (Bài tư vấn chính, RIASEC 20, Test Sở thích)</li>
+                  <li><strong>Điều chỉnh dựa trên MBTI:</strong> Ví dụ, INTJ tăng điểm cho nhóm I (Investigative), ENFP tăng điểm cho nhóm E (Enterprising)</li>
+                  <li><strong>Kết hợp với sở thích:</strong> Xác nhận nhóm RIASEC chủ đạo dựa trên sở thích nghề nghiệp từ Test Sở thích</li>
+                  <li><strong>Xem xét năng lực:</strong> Đề xuất khối thi phù hợp dựa trên điểm mạnh môn học từ Test Năng lực</li>
+                  <li><strong>Ưu tiên dữ liệu:</strong> Dữ liệu từ bài test chính (Bài tư vấn chọn ngành) được ưu tiên, sau đó là các test bổ sung</li>
                 </ul>
+                <div className="clay-card clay-card-blue p-4 mt-3">
+                  <p className="text-sm font-semibold mb-2">💡 Ví dụ quy nạp:</p>
+                  <ul className="list-disc ml-5 space-y-1 text-xs">
+                    <li>Bài tư vấn chính: I=15, A=12, S=10 → Nhóm I cao nhất</li>
+                    <li>RIASEC 20: I=32, A=25, S=20 → Nhóm I vẫn cao nhất</li>
+                    <li>MBTI: INTJ → Tăng điểm cho nhóm I</li>
+                    <li>Test Sở thích: Top interest = I → Xác nhận nhóm I</li>
+                    <li><strong>Kết quả quy nạp:</strong> Nhóm I (Investigative) với độ phù hợp cao nhất (95%)</li>
+                  </ul>
+                </div>
               </div>
 
               <div className="clay-card clay-card-pink p-5">
@@ -414,16 +418,44 @@ export default function GuidePage() {
             <div className="space-y-4 text-base md:text-lg text-gray-700 leading-relaxed">
               <div className="clay-card clay-card-blue p-5">
                 <h3 className="font-bold text-lg mb-4 text-gray-800">🔄 Quy trình từ đầu đến cuối:</h3>
-                <ol className="list-decimal ml-6 space-y-3 text-base">
-                  <li><strong>Người dùng điền form:</strong> Trả lời các câu hỏi về sở thích, môn học mạnh, tính cách, mục tiêu</li>
-                  <li><strong>Gửi dữ liệu:</strong> Form được submit đến API route <code className="bg-gray-100 px-2 py-1 rounded">/api/submit</code></li>
-                  <li><strong>Tính toán RIASEC:</strong> Hàm <code className="bg-gray-100 px-2 py-1 rounded">calculateRIASECScores()</code> tính điểm cho 6 nhóm</li>
-                  <li><strong>Hệ thống chuyên gia:</strong> Hàm <code className="bg-gray-100 px-2 py-1 rounded">expertSystem()</code> áp dụng quy tắc để đề xuất ngành học</li>
-                  <li><strong>Đề xuất khối thi:</strong> Hàm <code className="bg-gray-100 px-2 py-1 rounded">suggestExamBlocks()</code> gợi ý khối thi phù hợp</li>
-                  <li><strong>Lưu kết quả:</strong> Dữ liệu được lưu vào <code className="bg-gray-100 px-2 py-1 rounded">db.json</code></li>
-                  <li><strong>Quy nạp (nếu có nhiều test):</strong> Hàm <code className="bg-gray-100 px-2 py-1 rounded">aggregateTestResults()</code> tổng hợp kết quả từ tất cả các bài test</li>
-                  <li><strong>Đề xuất ngành và trường:</strong> Hiển thị kết quả với đề xuất chi tiết trên trang <code className="bg-gray-100 px-2 py-1 rounded">/result</code></li>
-                </ol>
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-semibold text-base mb-2 text-blue-700">📋 Luồng 1: Bài Tư Vấn Chọn Ngành Học (Form đầy đủ)</h4>
+                    <ol className="list-decimal ml-6 space-y-2 text-sm">
+                      <li><strong>Người dùng điền form:</strong> Trả lời các câu hỏi về sở thích, môn học mạnh, tính cách, mục tiêu, lựa chọn học tập</li>
+                      <li><strong>Gửi dữ liệu:</strong> Form được submit đến API route <code className="bg-gray-100 px-2 py-1 rounded text-xs">/api/submit</code></li>
+                      <li><strong>Tính toán RIASEC:</strong> Hàm <code className="bg-gray-100 px-2 py-1 rounded text-xs">calculateRIASECScores()</code> tính điểm cho 6 nhóm</li>
+                      <li><strong>Hệ thống chuyên gia:</strong> Hàm <code className="bg-gray-100 px-2 py-1 rounded text-xs">expertSystem()</code> áp dụng quy tắc để đề xuất ngành học</li>
+                      <li><strong>Đề xuất khối thi:</strong> Hàm <code className="bg-gray-100 px-2 py-1 rounded text-xs">suggestExamBlocks()</code> gợi ý khối thi phù hợp</li>
+                      <li><strong>Lưu submission:</strong> Dữ liệu được lưu vào <code className="bg-gray-100 px-2 py-1 rounded text-xs">db.json</code> với submission ID</li>
+                      <li><strong>Hiển thị kết quả:</strong> Redirect đến trang <code className="bg-gray-100 px-2 py-1 rounded text-xs">/result?id=123</code> (với ID là submission ID)</li>
+                      <li><strong>Quy nạp (nếu có test khác):</strong> Hàm <code className="bg-gray-100 px-2 py-1 rounded text-xs">aggregateTestResults()</code> tổng hợp kết quả từ tất cả các bài test đã làm</li>
+                    </ol>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-base mb-2 text-purple-700">⚡ Luồng 2: Test RIASEC 20 (Tự động tạo submission)</h4>
+                    <ol className="list-decimal ml-6 space-y-2 text-sm">
+                      <li><strong>Người dùng làm test:</strong> Trả lời 20 câu hỏi về tính cách RIASEC</li>
+                      <li><strong>Tính điểm:</strong> Tính tổng điểm cho 6 nhóm RIASEC (R, I, A, S, E, C)</li>
+                      <li><strong>Hiển thị kết quả:</strong> Hiển thị top 3 nhóm có điểm cao nhất với progress bar</li>
+                      <li><strong>Nhập thông tin (tùy chọn):</strong> Người dùng có thể nhập họ tên, SĐT, email ngay tại trang kết quả</li>
+                      <li><strong>Tạo submission tự động:</strong> Khi submit, gọi API <code className="bg-gray-100 px-2 py-1 rounded text-xs">/api/submit/from-riasec</code></li>
+                      <li><strong>Hệ thống chuyên gia:</strong> Áp dụng <code className="bg-gray-100 px-2 py-1 rounded text-xs">expertSystem()</code> dựa trên điểm RIASEC để đề xuất ngành học</li>
+                      <li><strong>Lưu và redirect:</strong> Tạo submission đầy đủ và tự động redirect đến <code className="bg-gray-100 px-2 py-1 rounded text-xs">/result?id=123</code> (với ID là submission ID)</li>
+                      <li><strong>Quy nạp tự động:</strong> Nếu có email, hệ thống tự động quy nạp với các test khác đã làm</li>
+                    </ol>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-base mb-2 text-green-700">🧪 Luồng 3: Các Test Khác (MBTI, Interest, Aptitude)</h4>
+                    <ol className="list-decimal ml-6 space-y-2 text-sm">
+                      <li><strong>Người dùng làm test:</strong> Trả lời các câu hỏi của test</li>
+                      <li><strong>Tính toán kết quả:</strong> Tính điểm/loại tính cách dựa trên logic của từng test</li>
+                      <li><strong>Lưu test result:</strong> Gọi API <code className="bg-gray-100 px-2 py-1 rounded text-xs">/api/test-result</code> để lưu kết quả</li>
+                      <li><strong>Liên kết với submission:</strong> Nếu có email, test result được liên kết với submission có cùng email</li>
+                      <li><strong>Quy nạp tự động:</strong> Khi xem kết quả submission, hệ thống tự động quy nạp tất cả test results</li>
+                    </ol>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -502,10 +534,15 @@ export default function GuidePage() {
                   <li><strong>Test RIASEC 20:</strong> Bài test chi tiết về 6 nhóm tính cách RIASEC (20 câu, 5-10 phút)</li>
                 </ul>
                 <div className="clay-card clay-card-yellow p-4 mt-4">
-                  <p className="text-sm font-semibold text-gray-800">
-                    💡 <strong>Lưu ý quan trọng:</strong> Sau mỗi bài test, bạn có thể điền thông tin (tùy chọn) để lưu kết quả. 
-                    Nếu bạn điền cùng một email, hệ thống sẽ tự động quy nạp tất cả các kết quả test để đưa ra đề xuất chính xác nhất!
+                  <p className="text-sm font-semibold text-gray-800 mb-2">
+                    💡 <strong>Lưu ý quan trọng:</strong>
                   </p>
+                  <ul className="list-disc ml-5 space-y-1 text-sm">
+                    <li>Sau mỗi bài test, bạn có thể điền thông tin (tùy chọn) để lưu kết quả</li>
+                    <li><strong>Nếu bạn điền cùng một email</strong>, hệ thống sẽ tự động quy nạp tất cả các kết quả test để đưa ra đề xuất chính xác nhất!</li>
+                    <li><strong>Test RIASEC 20 đặc biệt:</strong> Sau khi hoàn thành, bạn có thể nhập thông tin ngay tại trang kết quả và hệ thống sẽ tự động tạo submission đầy đủ, sau đó redirect đến trang kết quả tư vấn chi tiết</li>
+                    <li>Bạn có thể lưu kết quả test riêng (chỉ lưu test result) hoặc tạo submission đầy đủ (để nhận tư vấn ngành học chi tiết)</li>
+                  </ul>
                 </div>
               </div>
 

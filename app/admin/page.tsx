@@ -28,6 +28,9 @@ export default function AdminPage() {
   const [selectedSubmission, setSelectedSubmission] = useState<Submission | null>(null);
   const [loadingDetail, setLoadingDetail] = useState(false);
   const [exporting, setExporting] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(25);
+  const [paginatedSubmissions, setPaginatedSubmissions] = useState<Submission[]>([]);
   const [stats, setStats] = useState({
     total: 0,
     withEmail: 0,
@@ -44,6 +47,18 @@ export default function AdminPage() {
   useEffect(() => {
     filterAndSort();
   }, [submissions, searchTerm, filterMajor, filterDate, sortBy, sortOrder]);
+
+  useEffect(() => {
+    // Calculate pagination
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    setPaginatedSubmissions(filteredSubmissions.slice(startIndex, endIndex));
+    // Reset to page 1 if current page is out of range
+    const totalPages = Math.ceil(filteredSubmissions.length / itemsPerPage);
+    if (currentPage > totalPages && totalPages > 0) {
+      setCurrentPage(1);
+    }
+  }, [filteredSubmissions, currentPage, itemsPerPage]);
 
   const fetchSubmissions = async () => {
     try {
@@ -147,10 +162,21 @@ export default function AdminPage() {
   };
 
   const toggleSelectAll = () => {
-    if (selectedIds.length === filteredSubmissions.length) {
+    if (selectedIds.length === paginatedSubmissions.length) {
       setSelectedIds([]);
     } else {
-      setSelectedIds(filteredSubmissions.map(s => s.id));
+      setSelectedIds(paginatedSubmissions.map(s => s.id));
+    }
+  };
+
+  const totalPages = Math.ceil(filteredSubmissions.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = Math.min(startIndex + itemsPerPage, filteredSubmissions.length);
+
+  const goToPage = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -245,15 +271,63 @@ export default function AdminPage() {
       ...rows.map(row => row.map(cell => escapeCSV(String(cell))).join(','))
     ];
 
-    const csvContent = csvRows.join('\n');
+    // Create HTML table for better Excel formatting
+    const createHTMLTable = () => {
+      let html = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; }
+    table { border-collapse: collapse; width: 100%; font-size: 11px; }
+    th { background-color: #4472C4; color: white; font-weight: bold; padding: 8px; text-align: left; border: 1px solid #2F5597; }
+    td { padding: 6px; border: 1px solid #D0D0D0; }
+    tr:nth-child(even) { background-color: #F2F2F2; }
+    tr:hover { background-color: #E6E6E6; }
+    .number { text-align: right; }
+    .center { text-align: center; }
+  </style>
+</head>
+<body>
+  <h2>Kết Quả Tư Vấn Ngành Học</h2>
+  <p>Xuất ngày: ${new Date().toLocaleString('vi-VN')}</p>
+  <p>Tổng số bản ghi: ${submissionsWithDetails.length}</p>
+  <table>
+    <thead>
+      <tr>
+        ${headers.map(h => `<th>${h}</th>`).join('')}
+      </tr>
+    </thead>
+    <tbody>
+      ${rows.map(row => `
+        <tr>
+          ${row.map((cell, idx) => {
+            const cellValue = String(cell || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            const isNumber = idx === 0 || idx === 18; // ID and test count
+            const className = isNumber ? 'number' : '';
+            return `<td class="${className}">${cellValue}</td>`;
+          }).join('')}
+        </tr>
+      `).join('')}
+    </tbody>
+  </table>
+</body>
+</html>`;
+      return html;
+    };
 
-    // Create blob with UTF-8 BOM for Excel compatibility
+    // Create both CSV and HTML versions
+    const csvContent = csvRows.join('\n');
+    const htmlContent = createHTMLTable();
+    
+    // Export as HTML (Excel can open this with better formatting)
     const BOM = '\uFEFF';
-    const blob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const blob = new Blob([BOM + htmlContent], { type: 'application/vnd.ms-excel;charset=utf-8;' });
     const link = document.createElement('a');
     const url = URL.createObjectURL(blob);
     const timestamp = new Date().toISOString().split('T')[0];
-    const filename = `Ket_Qua_Tu_Van_${timestamp}.csv`;
+    const filename = `Ket_Qua_Tu_Van_${timestamp}.xls`;
     link.setAttribute('href', url);
     link.setAttribute('download', filename);
     link.style.visibility = 'hidden';
@@ -261,12 +335,12 @@ export default function AdminPage() {
     link.click();
     document.body.removeChild(link);
     
-      // Clean up
-      setTimeout(() => {
-        URL.revokeObjectURL(url);
-      }, 100);
-      
-      alert(`Đã xuất thành công ${submissionsWithDetails.length} bản ghi!`);
+    // Clean up
+    setTimeout(() => {
+      URL.revokeObjectURL(url);
+    }, 100);
+    
+    alert(`Đã xuất thành công ${submissionsWithDetails.length} bản ghi!\n\nFile Excel đã được tạo với định dạng đẹp.`);
     } catch (error) {
       console.error('Error exporting:', error);
       alert('Có lỗi xảy ra khi xuất dữ liệu. Vui lòng thử lại.');
@@ -368,23 +442,23 @@ export default function AdminPage() {
 
         {/* Filters and Actions */}
         <div className="clay-card clay-card-blue p-6 mb-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">🔍 Tìm kiếm</label>
+              <label className="block text-xs font-semibold text-gray-700 mb-1.5">🔍 Tìm kiếm</label>
               <input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Tên, email, SĐT, IP, ngành..."
-                className="w-full p-3 bg-white/80 border border-white/60 rounded-xl text-gray-800 focus:outline-none focus:border-white/80"
+                placeholder="Tên, email, SĐT, IP..."
+                className="w-full p-2.5 bg-white/80 border border-white/60 rounded-lg text-sm text-gray-800 focus:outline-none focus:border-blue-400 focus:bg-white transition"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">📚 Lọc theo ngành</label>
+              <label className="block text-xs font-semibold text-gray-700 mb-1.5">📚 Lọc theo ngành</label>
               <select
                 value={filterMajor}
                 onChange={(e) => setFilterMajor(e.target.value)}
-                className="w-full p-3 bg-white/80 border border-white/60 rounded-xl text-gray-800 focus:outline-none focus:border-white/80"
+                className="w-full p-2.5 bg-white/80 border border-white/60 rounded-lg text-sm text-gray-800 focus:outline-none focus:border-blue-400 focus:bg-white transition"
               >
                 <option value="">Tất cả ngành</option>
                 {getUniqueMajors().map(major => (
@@ -393,16 +467,16 @@ export default function AdminPage() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">📅 Lọc theo ngày</label>
+              <label className="block text-xs font-semibold text-gray-700 mb-1.5">📅 Lọc theo ngày</label>
               <input
                 type="date"
                 value={filterDate}
                 onChange={(e) => setFilterDate(e.target.value)}
-                className="w-full p-3 bg-white/80 border border-white/60 rounded-xl text-gray-800 focus:outline-none focus:border-white/80"
+                className="w-full p-2.5 bg-white/80 border border-white/60 rounded-lg text-sm text-gray-800 focus:outline-none focus:border-blue-400 focus:bg-white transition"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">📊 Sắp xếp</label>
+              <label className="block text-xs font-semibold text-gray-700 mb-1.5">📊 Sắp xếp</label>
               <select
                 value={`${sortBy}-${sortOrder}`}
                 onChange={(e) => {
@@ -410,7 +484,7 @@ export default function AdminPage() {
                   setSortBy(field as 'id' | 'created_at' | 'fullname');
                   setSortOrder(order as 'asc' | 'desc');
                 }}
-                className="w-full p-3 bg-white/80 border border-white/60 rounded-xl text-gray-800 focus:outline-none focus:border-white/80"
+                className="w-full p-2.5 bg-white/80 border border-white/60 rounded-lg text-sm text-gray-800 focus:outline-none focus:border-blue-400 focus:bg-white transition"
               >
                 <option value="id-desc">ID: Mới nhất</option>
                 <option value="id-asc">ID: Cũ nhất</option>
@@ -420,28 +494,116 @@ export default function AdminPage() {
                 <option value="fullname-desc">Tên: Z-A</option>
               </select>
             </div>
+            <div>
+              <label className="block text-xs font-semibold text-gray-700 mb-1.5">📄 Số dòng/trang</label>
+              <select
+                value={itemsPerPage}
+                onChange={(e) => {
+                  setItemsPerPage(Number(e.target.value));
+                  setCurrentPage(1);
+                }}
+                className="w-full p-2.5 bg-white/80 border border-white/60 rounded-lg text-sm text-gray-800 focus:outline-none focus:border-blue-400 focus:bg-white transition"
+              >
+                <option value={10}>10</option>
+                <option value={25}>25</option>
+                <option value={50}>50</option>
+                <option value={100}>100</option>
+              </select>
+            </div>
           </div>
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-white/40">
             <button
               onClick={exportToExcel}
               disabled={exporting}
-              className="clay-button-secondary text-white px-6 py-2 rounded-full text-sm font-medium hover:scale-105 transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="clay-button-secondary text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:scale-105 transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {exporting ? '⏳ Đang xuất...' : `📥 Xuất Excel ${selectedIds.length > 0 ? `(${selectedIds.length})` : `(${filteredSubmissions.length})`}`}
             </button>
             {selectedIds.length > 0 && (
               <button
                 onClick={() => setSelectedIds([])}
-                className="px-6 py-2 bg-white/60 border border-white/80 hover:bg-white/80 text-gray-700 rounded-full text-sm font-medium transition"
+                className="px-5 py-2.5 bg-white/60 border border-white/80 hover:bg-white/80 text-gray-700 rounded-lg text-sm font-medium transition"
               >
                 Bỏ chọn tất cả
               </button>
             )}
-            <div className="ml-auto text-sm text-gray-600 flex items-center">
-              Hiển thị: <strong className="ml-1">{filteredSubmissions.length}</strong> / {submissions.length}
+            <div className="ml-auto text-xs text-gray-600 font-medium">
+              Hiển thị: <strong className="text-blue-600">{startIndex + 1}-{endIndex}</strong> / <strong className="text-blue-600">{filteredSubmissions.length}</strong> 
+              <span className="text-gray-500 ml-1">(Tổng: {submissions.length})</span>
             </div>
           </div>
         </div>
+
+        {/* Pagination - Above Table */}
+        {totalPages > 1 && (
+          <div className="clay-card clay-card-blue p-4 mb-4">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div className="text-xs text-gray-600 font-medium">
+                Trang <strong className="text-blue-600">{currentPage}</strong> / <strong className="text-blue-600">{totalPages}</strong>
+                <span className="text-gray-500 ml-1">({filteredSubmissions.length} bản ghi)</span>
+              </div>
+              <div className="flex gap-1.5 flex-wrap justify-center">
+                <button
+                  onClick={() => goToPage(1)}
+                  disabled={currentPage === 1}
+                  className="px-3 py-1.5 bg-white/60 border border-white/80 hover:bg-white/80 text-gray-700 rounded-lg text-xs font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  « Đầu
+                </button>
+                <button
+                  onClick={() => goToPage(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className="px-3 py-1.5 bg-white/60 border border-white/80 hover:bg-white/80 text-gray-700 rounded-lg text-xs font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  ‹ Trước
+                </button>
+                
+                {/* Page numbers */}
+                {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                  let pageNum;
+                  if (totalPages <= 5) {
+                    pageNum = i + 1;
+                  } else if (currentPage <= 3) {
+                    pageNum = i + 1;
+                  } else if (currentPage >= totalPages - 2) {
+                    pageNum = totalPages - 4 + i;
+                  } else {
+                    pageNum = currentPage - 2 + i;
+                  }
+                  
+                  return (
+                    <button
+                      key={pageNum}
+                      onClick={() => goToPage(pageNum)}
+                      className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition min-w-[36px] ${
+                        currentPage === pageNum
+                          ? 'clay-button text-white shadow-md'
+                          : 'bg-white/60 border border-white/80 hover:bg-white/80 text-gray-700'
+                      }`}
+                    >
+                      {pageNum}
+                    </button>
+                  );
+                })}
+                
+                <button
+                  onClick={() => goToPage(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  className="px-3 py-1.5 bg-white/60 border border-white/80 hover:bg-white/80 text-gray-700 rounded-lg text-xs font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Sau ›
+                </button>
+                <button
+                  onClick={() => goToPage(totalPages)}
+                  disabled={currentPage === totalPages}
+                  className="px-3 py-1.5 bg-white/60 border border-white/80 hover:bg-white/80 text-gray-700 rounded-lg text-xs font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Cuối »
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Table */}
         <div className="clay-card clay-card-blue overflow-hidden">
@@ -452,7 +614,8 @@ export default function AdminPage() {
                   <th className="p-3">
                     <input
                       type="checkbox"
-                      checked={selectedIds.length === filteredSubmissions.length && filteredSubmissions.length > 0}
+                      checked={paginatedSubmissions.length > 0 && selectedIds.length === paginatedSubmissions.length && 
+                        paginatedSubmissions.every(s => selectedIds.includes(s.id))}
                       onChange={toggleSelectAll}
                       className="w-4 h-4"
                     />
@@ -481,7 +644,7 @@ export default function AdminPage() {
                     </td>
                   </tr>
                 ) : (
-                  filteredSubmissions.map((sub) => (
+                  paginatedSubmissions.map((sub) => (
                     <tr key={sub.id} className="border-t border-white/30 hover:bg-white/20 transition">
                       <td className="p-3">
                         <input
@@ -517,6 +680,7 @@ export default function AdminPage() {
             </table>
           </div>
         </div>
+
 
         {/* Detail Section */}
         {selectedSubmission && (

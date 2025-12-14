@@ -199,13 +199,13 @@ export default function TestPage() {
         )}
 
         {showForm && (
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="clay-card clay-card-blue p-6 md:p-8">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="text-2xl">1️⃣</span>
-                <h2 className="text-lg md:text-xl font-semibold text-gray-800">Bạn thích hoạt động nào nhất?</h2>
+          <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div className="clay-card clay-card-blue p-4 md:p-6">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-xl">1️⃣</span>
+                <h2 className="text-base md:text-lg font-semibold text-gray-800">Bạn thích hoạt động nào nhất?</h2>
               </div>
-              <select name="sothich" required defaultValue="" className="w-full p-3 bg-white/80 border border-white/60 rounded-xl text-gray-800 focus:outline-none focus:border-white/80 focus:bg-white transition">
+              <select name="sothich" required defaultValue="" className="w-full p-2.5 bg-white/80 border border-white/60 rounded-lg text-sm text-gray-800 focus:outline-none focus:border-blue-400 focus:bg-white transition">
                 <option value="" disabled>-- Chọn sở thích --</option>
                 <option value="kythuat">Làm việc với máy móc, kỹ thuật</option>
                 <option value="sangtao">Các hoạt động sáng tạo, thiết kế</option>
@@ -220,12 +220,12 @@ export default function TestPage() {
               </select>
             </div>
 
-            <div className="clay-card clay-card-pink p-6 md:p-8">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="text-2xl">2️⃣</span>
-                <h2 className="text-lg md:text-xl font-semibold text-gray-800">Môn học nào bạn học tốt nhất? (Tối đa 3 môn)</h2>
+            <div className="clay-card clay-card-pink p-4 md:p-6">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-xl">2️⃣</span>
+                <h2 className="text-base md:text-lg font-semibold text-gray-800">Môn học nào bạn học tốt nhất? (Tối đa 3 môn)</h2>
               </div>
-              <div className="grid grid-cols-1 gap-3 mt-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-3">
                 {['toan', 'ly', 'hoa', 'van', 'anh', 'sinh', 'tinhoc', 'congnghe', 'lichsu', 'dialy', 'gdtc', 'mythuat', 'amnhac'].map(subject => {
                   const labels: Record<string, string> = {
                     toan: 'Toán', ly: 'Vật lý', hoa: 'Hóa học', van: 'Ngữ văn', anh: 'Tiếng Anh',
@@ -233,21 +233,21 @@ export default function TestPage() {
                     dialy: 'Địa lý', gdtc: 'Giáo dục thể chất', mythuat: 'Mỹ thuật', amnhac: 'Âm nhạc'
                   };
                   return (
-                    <label key={subject} className="flex items-center p-3 bg-white/60 border border-white/80 rounded-xl hover:bg-white/80 cursor-pointer transition">
-                      <input type="checkbox" name="monmanh" value={subject} className="mr-3 w-5 h-5 text-pink-600 accent-pink-600" />
-                      <span className="text-gray-700">{labels[subject]}</span>
+                    <label key={subject} className="flex items-center p-2 bg-white/60 border border-white/80 rounded-lg hover:bg-white/80 cursor-pointer transition">
+                      <input type="checkbox" name="monmanh" value={subject} className="mr-2 w-4 h-4 text-pink-600 accent-pink-600" />
+                      <span className="text-gray-700 text-sm">{labels[subject]}</span>
                     </label>
                   );
                 })}
               </div>
             </div>
 
-            <div className="clay-card clay-card-purple p-6 md:p-8 lg:col-span-2">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="text-2xl">3️⃣</span>
-                <h2 className="text-lg md:text-xl font-semibold text-gray-800">Tính cách nào mô tả bạn nhất? (Có thể chọn nhiều)</h2>
+            <div className="clay-card clay-card-purple p-4 md:p-6 lg:col-span-2">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-xl">3️⃣</span>
+                <h2 className="text-base md:text-lg font-semibold text-gray-800">Tính cách nào mô tả bạn nhất? (Có thể chọn nhiều)</h2>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mt-3">
                 {[
                   { value: 'logic', label: 'Tư duy logic' },
                   { value: 'sangtao', label: 'Sáng tạo, tưởng tượng phong phú' },
@@ -273,20 +273,20 @@ export default function TestPage() {
                   { value: 'dangtincay', label: 'Đáng tin cậy, trung thực' },
                   { value: 'tuanthu', label: 'Tuân thủ quy tắc, kỷ luật' }
                 ].map(trait => (
-                  <label key={trait.value} className="flex items-center p-3 bg-white/60 border border-white/80 rounded-xl hover:bg-white/80 cursor-pointer transition">
-                    <input type="checkbox" name="tinhcach" value={trait.value} className="mr-3 w-5 h-5 text-purple-600 accent-purple-600" />
-                    <span className="text-gray-700 text-sm">{trait.label}</span>
+                  <label key={trait.value} className="flex items-center p-2 bg-white/60 border border-white/80 rounded-lg hover:bg-white/80 cursor-pointer transition">
+                    <input type="checkbox" name="tinhcach" value={trait.value} className="mr-2 w-4 h-4 text-purple-600 accent-purple-600" />
+                    <span className="text-gray-700 text-xs">{trait.label}</span>
                   </label>
                 ))}
               </div>
             </div>
 
-            <div className="clay-card clay-card-yellow p-6 md:p-8">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="text-2xl">4️⃣</span>
-                <h2 className="text-lg md:text-xl font-semibold text-gray-800">Mục tiêu nghề nghiệp của bạn là gì?</h2>
+            <div className="clay-card clay-card-yellow p-4 md:p-6">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-xl">4️⃣</span>
+                <h2 className="text-base md:text-lg font-semibold text-gray-800">Mục tiêu nghề nghiệp của bạn là gì?</h2>
               </div>
-              <select name="muctieu" required defaultValue="" className="w-full p-3 bg-white/80 border border-white/60 rounded-xl text-gray-800 focus:outline-none focus:border-white/80 focus:bg-white transition">
+              <select name="muctieu" required defaultValue="" className="w-full p-2.5 bg-white/80 border border-white/60 rounded-lg text-sm text-gray-800 focus:outline-none focus:border-blue-400 focus:bg-white transition">
                 <option value="" disabled>-- Chọn mục tiêu nghề nghiệp --</option>
                 <option value="nghiencuu">Nghiên cứu, phát triển</option>
                 <option value="kinhdoanh">Kinh doanh, khởi nghiệp</option>
@@ -299,31 +299,31 @@ export default function TestPage() {
               </select>
             </div>
 
-            <div className="clay-card clay-card-green p-6 md:p-8">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="text-2xl">5️⃣</span>
-                <h2 className="text-lg md:text-xl font-semibold text-gray-800">Bạn muốn học trong nước hay du học?</h2>
+            <div className="clay-card clay-card-green p-4 md:p-6">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-xl">5️⃣</span>
+                <h2 className="text-base md:text-lg font-semibold text-gray-800">Bạn muốn học trong nước hay du học?</h2>
               </div>
-              <div className="space-y-4">
-                <label className="flex items-start p-4 bg-white/60 border border-white/80 rounded-xl hover:bg-white/80 cursor-pointer transition">
-                  <input type="radio" name="study_option" value="domestic" defaultChecked className="mt-1 mr-3 w-5 h-5 text-green-600 accent-green-600" />
+              <div className="space-y-3">
+                <label className="flex items-start p-3 bg-white/60 border border-white/80 rounded-lg hover:bg-white/80 cursor-pointer transition">
+                  <input type="radio" name="study_option" value="domestic" defaultChecked className="mt-1 mr-2 w-4 h-4 text-green-600 accent-green-600" />
                   <div>
-                    <div className="font-semibold text-gray-800">🇻🇳 Học trong nước</div>
-                    <div className="text-sm text-gray-600">Các trường đại học tại Việt Nam</div>
+                    <div className="font-semibold text-sm text-gray-800">🇻🇳 Học trong nước</div>
+                    <div className="text-xs text-gray-600">Các trường đại học tại Việt Nam</div>
                   </div>
                 </label>
-                <label className="flex items-start p-4 bg-white/60 border border-white/80 rounded-xl hover:bg-white/80 cursor-pointer transition">
-                  <input type="radio" name="study_option" value="abroad" className="mt-1 mr-3 w-5 h-5 text-green-600 accent-green-600" />
+                <label className="flex items-start p-3 bg-white/60 border border-white/80 rounded-lg hover:bg-white/80 cursor-pointer transition">
+                  <input type="radio" name="study_option" value="abroad" className="mt-1 mr-2 w-4 h-4 text-green-600 accent-green-600" />
                   <div>
-                    <div className="font-semibold text-gray-800">✈️ Du học</div>
-                    <div className="text-sm text-gray-600">Học tập tại nước ngoài</div>
+                    <div className="font-semibold text-sm text-gray-800">✈️ Du học</div>
+                    <div className="text-xs text-gray-600">Học tập tại nước ngoài</div>
                   </div>
                 </label>
 
                 {/* Trong nước */}
                 <div id="domestic-options">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Chọn trường đại học mong muốn:</label>
-                  <select name="university_id" className="w-full p-3 bg-white/80 border border-white/60 rounded-xl text-gray-800 focus:outline-none focus:border-white/80 focus:bg-white transition">
+                  <label className="block text-xs font-medium text-gray-700 mb-1.5">Chọn trường đại học mong muốn:</label>
+                  <select name="university_id" className="w-full p-2.5 bg-white/80 border border-white/60 rounded-lg text-sm text-gray-800 focus:outline-none focus:border-blue-400 focus:bg-white transition">
                     <option value="">-- Chọn trường đại học --</option>
                     <optgroup label="Trường công lập - Hà Nội">
                       <option value="hust">Đại học Bách khoa Hà Nội (HUST)</option>
@@ -370,8 +370,8 @@ export default function TestPage() {
 
                 {/* Du học */}
                 <div id="abroad-options" className="hidden">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Chọn quốc gia muốn du học:</label>
-                  <select name="study_abroad_country" className="w-full p-3 bg-white/80 border border-white/60 rounded-xl text-gray-800 focus:outline-none focus:border-white/80 focus:bg-white transition">
+                  <label className="block text-xs font-medium text-gray-700 mb-1.5">Chọn quốc gia muốn du học:</label>
+                  <select name="study_abroad_country" className="w-full p-2.5 bg-white/80 border border-white/60 rounded-lg text-sm text-gray-800 focus:outline-none focus:border-blue-400 focus:bg-white transition">
                     <option value="">-- Chọn quốc gia --</option>
                     <optgroup label="Phổ biến">
                       <option value="us">🇺🇸 Hoa Kỳ</option>
@@ -397,11 +397,11 @@ export default function TestPage() {
               </div>
             </div>
 
-            <div className="lg:col-span-2 text-center pt-4">
+            <div className="lg:col-span-2 text-center pt-2">
               <button 
                 type="submit" 
                 disabled={isSubmitting}
-                className="clay-button px-8 md:px-12 py-3 md:py-4 text-white rounded-full text-base md:text-lg font-semibold hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed"
+                className="clay-button px-6 md:px-8 py-2.5 md:py-3 text-white rounded-lg text-sm md:text-base font-semibold hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? 'Đang xử lý...' : '🚀 Xem kết quả tư vấn →'}
               </button>
