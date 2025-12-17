@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check database admins
-    const admin = getAdminByUsername(username);
+    const admin = await getAdminByUsername(username);
     if (admin) {
       const isValid = await bcrypt.compare(password, admin.password_hash);
       if (isValid) {

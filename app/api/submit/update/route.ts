@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { readDB, writeDB } from '@/lib/db';
+import { getSubmissionById, updateSubmission, saveSubmission } from '@/lib/db';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -53,33 +53,15 @@ export async function POST(request: NextRequest) {
     // Get IP address for logging
     const ip_address = getIpAddress(request);
 
-    // Read database
-    let db;
-    try {
-      db = readDB();
-      console.log('Total submissions in DB:', db.submissions.length);
-      console.log('Submission IDs:', db.submissions.map((s: any) => s.id));
-    } catch (dbError) {
-      console.error('Error reading database:', dbError);
-      return NextResponse.json(
-        { error: 'Có lỗi xảy ra khi đọc dữ liệu' },
-        { status: 500 }
-      );
-    }
+    // Check if submission exists
+    const existingSubmission = await getSubmissionById(submissionId);
 
-    const submissionIndex = db.submissions.findIndex((s: any) => s.id === submissionId);
-
-    if (submissionIndex === -1) {
+    if (!existingSubmission) {
       console.log(`Submission not found with ID: ${submissionId}. Creating new submission with user info.`);
       
       // If submission not found, create a new one with minimal data
       // This handles the case where database was reset or submission was lost
-      const newId = db.submissions.length > 0 
-        ? Math.max(...db.submissions.map((s: any) => s.id)) + 1 
-        : submissionId || 1;
-      
-      const newSubmission: any = {
-        id: newId,
+      const newId = await saveSubmission({
         fullname: fullname || '',
         phone: phone || '',
         email: email || '',
@@ -97,29 +79,26 @@ export async function POST(request: NextRequest) {
         related_majors: [],
         suggested_blocks: [],
         created_at: new Date().toISOString()
-      };
+      });
       
-      db.submissions.push(newSubmission);
       console.log(`Created new submission with ID: ${newId}`);
     } else {
       // Update existing submission
-      db.submissions[submissionIndex].fullname = fullname || '';
-      db.submissions[submissionIndex].phone = phone || '';
-      db.submissions[submissionIndex].email = email || '';
-      // Update IP address if not already set or update it for logging
-      db.submissions[submissionIndex].ip_address = ip_address;
+      const success = await updateSubmission(submissionId, {
+        fullname: fullname || '',
+        phone: phone || '',
+        email: email || '',
+        ip_address: ip_address
+      });
+      
+      if (!success) {
+        return NextResponse.json(
+          { error: 'Không thể cập nhật thông tin' },
+          { status: 500 }
+        );
+      }
+      
       console.log(`Updated submission with ID: ${submissionId}`);
-    }
-
-    // Write back to database
-    try {
-      writeDB(db);
-    } catch (writeError) {
-      console.error('Error writing database:', writeError);
-      return NextResponse.json(
-        { error: 'Có lỗi xảy ra khi lưu dữ liệu' },
-        { status: 500 }
-      );
     }
 
     return NextResponse.json({ 

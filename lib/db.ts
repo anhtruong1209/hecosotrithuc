@@ -1,10 +1,4 @@
-import fs from 'fs';
-import path from 'path';
-
-// For Vercel, use /tmp directory which is writable
-const DB_PATH = (process.env.VERCEL === '1' || process.env.VERCEL_ENV)
-  ? '/tmp/db.json'
-  : path.join(process.cwd(), 'lib', 'db.json');
+import { MongoClient, Db, Collection } from 'mongodb';
 
 export interface TestResult {
   test_type: 'mbti' | 'interest' | 'aptitude' | 'riasec';
@@ -49,151 +43,215 @@ interface Database {
   admins: Admin[];
 }
 
-export function readDB(): Database {
-  try {
-    // Ensure directory exists
-    const dir = path.dirname(DB_PATH);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-    
-    if (fs.existsSync(DB_PATH)) {
-      const data = fs.readFileSync(DB_PATH, 'utf-8');
-      return JSON.parse(data);
-    }
-  } catch (error) {
-    console.error('Error reading DB:', error);
+// MongoDB connection
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://admin:PEiD7OdhscOeawTy@warrantly-verhical.hsdx3um.mongodb.net/?appName=hecosotrithuc';
+const DB_NAME = process.env.MONGODB_DB_NAME || 'hecosotrithuc';
+
+let client: MongoClient | null = null;
+let db: Db | null = null;
+
+async function getClient(): Promise<MongoClient> {
+  if (!client) {
+    client = new MongoClient(MONGODB_URI);
+    await client.connect();
   }
+  return client;
+}
+
+async function getDb(): Promise<Db> {
+  if (!db) {
+    const client = await getClient();
+    db = client.db(DB_NAME);
+  }
+  return db;
+}
+
+async function getSubmissionsCollection(): Promise<Collection<Submission>> {
+  const database = await getDb();
+  return database.collection<Submission>('submissions');
+}
+
+async function getAdminsCollection(): Promise<Collection<Admin>> {
+  const database = await getDb();
+  return database.collection<Admin>('admins');
+}
+
+// Legacy functions for backward compatibility (not used but kept for interface)
+export function readDB(): Database {
   return { submissions: [], admins: [] };
 }
 
 export function writeDB(data: Database): void {
+  // No-op for MongoDB
+}
+
+export async function getSubmissions(limit: number = 200): Promise<Submission[]> {
   try {
-    // For Vercel /tmp, directory always exists, no need to create
-    if (DB_PATH.startsWith('/tmp')) {
-      fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
-    } else {
-      // Ensure directory exists for local development
-      const dir = path.dirname(DB_PATH);
-      if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
-      }
-      fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
-    }
+    const collection = await getSubmissionsCollection();
+    const submissions = await collection
+      .find({})
+      .sort({ created_at: -1 })
+      .limit(limit)
+      .toArray();
+    return submissions;
   } catch (error) {
-    console.error('Error writing DB:', error);
-    console.error('DB_PATH:', DB_PATH);
-    throw error;
+    console.error('Error getting submissions:', error);
+    return [];
   }
 }
 
-export function getSubmissions(limit: number = 200): Submission[] {
-  const db = readDB();
-  return db.submissions.slice(0, limit).reverse();
-}
-
-export function getSubmissionById(id: number): Submission | null {
+export async function getSubmissionById(id: number): Promise<Submission | null> {
   try {
-    const db = readDB();
-    console.log(`Looking for submission ID: ${id}, Total submissions: ${db.submissions.length}`);
-    console.log(`Available IDs: ${db.submissions.map(s => s.id).join(', ')}`);
-    const submission = db.submissions.find(s => s.id === id);
+    const collection = await getSubmissionsCollection();
+    const submission = await collection.findOne({ id });
     if (!submission) {
       console.error(`Submission with ID ${id} not found`);
     }
-    return submission || null;
+    return submission;
   } catch (error) {
     console.error('Error in getSubmissionById:', error);
     return null;
   }
 }
 
-export function getSubmissionsByEmail(email: string): Submission[] {
-  const db = readDB();
-  return db.submissions.filter(s => s.email === email);
+export async function getSubmissionsByEmail(email: string): Promise<Submission[]> {
+  try {
+    const collection = await getSubmissionsCollection();
+    const submissions = await collection.find({ email }).toArray();
+    return submissions;
+  } catch (error) {
+    console.error('Error getting submissions by email:', error);
+    return [];
+  }
 }
 
-export function addTestResult(email: string, testResult: TestResult): boolean {
-  const db = readDB();
-  const submission = db.submissions.find(s => s.email === email);
-  if (!submission) {
+export async function addTestResult(email: string, testResult: TestResult): Promise<boolean> {
+  try {
+    const collection = await getSubmissionsCollection();
+    const submission = await collection.findOne({ email });
+    if (!submission) {
+      return false;
+    }
+    
+    const tests_completed = submission.tests_completed || [];
+    tests_completed.push(testResult);
+    
+    await collection.updateOne(
+      { email },
+      { $set: { tests_completed } }
+    );
+    return true;
+  } catch (error) {
+    console.error('Error adding test result:', error);
     return false;
   }
-  
-  if (!submission.tests_completed) {
-    submission.tests_completed = [];
+}
+
+export async function saveSubmission(submission: Omit<Submission, 'id'>): Promise<number> {
+  try {
+    const collection = await getSubmissionsCollection();
+    // Get the highest ID
+    const lastSubmission = await collection
+      .findOne({}, { sort: { id: -1 } });
+    const newId = lastSubmission ? lastSubmission.id + 1 : 1;
+    
+    const newSubmission: Submission = {
+      ...submission,
+      id: newId
+    };
+    
+    await collection.insertOne(newSubmission);
+    return newId;
+  } catch (error) {
+    console.error('Error saving submission:', error);
+    throw error;
   }
-  
-  submission.tests_completed.push(testResult);
-  writeDB(db);
-  return true;
 }
 
-export function saveSubmission(submission: Omit<Submission, 'id'>): number {
-  const db = readDB();
-  const newId = db.submissions.length > 0 
-    ? Math.max(...db.submissions.map(s => s.id)) + 1 
-    : 1;
-  
-  const newSubmission: Submission = {
-    ...submission,
-    id: newId
-  };
-  
-  db.submissions.push(newSubmission);
-  writeDB(db);
-  return newId;
+export async function getAdminByUsername(username: string): Promise<Admin | null> {
+  try {
+    const collection = await getAdminsCollection();
+    const admin = await collection.findOne({ username });
+    return admin || null;
+  } catch (error) {
+    console.error('Error getting admin by username:', error);
+    return null;
+  }
 }
 
-export function getAdminByUsername(username: string): Admin | null {
-  const db = readDB();
-  return db.admins.find(a => a.username === username) || null;
+export async function getAllAdmins(): Promise<Admin[]> {
+  try {
+    const collection = await getAdminsCollection();
+    const admins = await collection.find({}).toArray();
+    return admins;
+  } catch (error) {
+    console.error('Error getting all admins:', error);
+    return [];
+  }
 }
 
-export function getAllAdmins(): Admin[] {
-  const db = readDB();
-  return db.admins;
+export async function createAdmin(username: string, passwordHash: string): Promise<number> {
+  try {
+    const collection = await getAdminsCollection();
+    // Get the highest ID
+    const lastAdmin = await collection
+      .findOne({}, { sort: { id: -1 } });
+    const newId = lastAdmin ? lastAdmin.id + 1 : 1;
+    
+    const newAdmin: Admin = {
+      id: newId,
+      username,
+      password_hash: passwordHash,
+      created_at: new Date().toISOString()
+    };
+    
+    await collection.insertOne(newAdmin);
+    return newId;
+  } catch (error) {
+    console.error('Error creating admin:', error);
+    throw error;
+  }
 }
 
-export function createAdmin(username: string, passwordHash: string): number {
-  const db = readDB();
-  const newId = db.admins.length > 0 
-    ? Math.max(...db.admins.map(a => a.id)) + 1 
-    : 1;
-  
-  const newAdmin: Admin = {
-    id: newId,
-    username,
-    password_hash: passwordHash,
-    created_at: new Date().toISOString()
-  };
-  
-  db.admins.push(newAdmin);
-  writeDB(db);
-  return newId;
-}
-
-export function deleteSubmission(id: number): boolean {
-  const db = readDB();
-  const index = db.submissions.findIndex(s => s.id === id);
-  if (index === -1) {
+export async function deleteSubmission(id: number): Promise<boolean> {
+  try {
+    const collection = await getSubmissionsCollection();
+    const result = await collection.deleteOne({ id });
+    return result.deletedCount > 0;
+  } catch (error) {
+    console.error('Error deleting submission:', error);
     return false;
   }
-  db.submissions.splice(index, 1);
-  writeDB(db);
-  return true;
+}
+
+export async function updateSubmission(id: number, updates: Partial<Submission>): Promise<boolean> {
+  try {
+    const collection = await getSubmissionsCollection();
+    const result = await collection.updateOne(
+      { id },
+      { $set: updates }
+    );
+    return result.matchedCount > 0;
+  } catch (error) {
+    console.error('Error updating submission:', error);
+    return false;
+  }
 }
 
 // Initialize admin if not exists
-export function initAdmin(): void {
-  const db = readDB();
-  const existingAdmin = db.admins.find(a => a.username === 'admin');
-  if (!existingAdmin) {
-    // Password: admin@123
-    // Hash will be set via environment variable or generated
-    const bcrypt = require('bcryptjs');
-    const hash = process.env.ADMIN_PASS_HASH || bcrypt.hashSync('admin@123', 10);
-    createAdmin('admin', hash);
+export async function initAdmin(): Promise<void> {
+  try {
+    const existingAdmin = await getAdminByUsername('admin');
+    if (!existingAdmin) {
+      // Password: admin@123
+      // Hash will be set via environment variable or generated
+      const bcrypt = require('bcryptjs');
+      const hash = process.env.ADMIN_PASS_HASH || bcrypt.hashSync('admin@123', 10);
+      await createAdmin('admin', hash);
+    }
+  } catch (error) {
+    console.error('Error initializing admin:', error);
   }
 }
+
 

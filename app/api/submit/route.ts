@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
     const suggested_blocks = suggestExamBlocks(r_scores, monmanh);
 
     // Save submission
-    const submissionId = saveSubmission({
+    const submissionId = await saveSubmission({
       fullname: fullname || '',
       phone: phone || '',
       email: email || '',

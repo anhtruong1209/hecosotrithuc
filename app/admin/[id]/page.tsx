@@ -21,7 +21,7 @@ export default async function AdminDetailPage({ params }: { params: Promise<{ id
 
   let submission;
   try {
-    submission = getSubmissionById(id);
+    submission = await getSubmissionById(id);
   } catch (error) {
     console.error('Error fetching submission:', error);
     redirect('/admin');

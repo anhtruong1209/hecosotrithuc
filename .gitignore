@@ -30,7 +30,6 @@ yarn-error.log*
 .vercel
 
 # Database (keep structure but ignore data in dev)
-lib/db.json
 
 # TypeScript
 *.tsbuildinfo

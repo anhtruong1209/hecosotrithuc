@@ -23,7 +23,7 @@ export default async function ResultPage({
     redirect('/test');
   }
 
-  const submission = getSubmissionById(id);
+  const submission = await getSubmissionById(id);
   
   if (!submission) {
     redirect('/test');

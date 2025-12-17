@@ -19,7 +19,7 @@ export async function POST(
       return NextResponse.json({ error: 'Invalid ID' }, { status: 400 });
     }
 
-    const success = deleteSubmission(id);
+    const success = await deleteSubmission(id);
 
     if (!success) {
       return NextResponse.json({ error: 'Submission not found' }, { status: 404 });

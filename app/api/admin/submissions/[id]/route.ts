@@ -10,7 +10,7 @@ export async function GET(
     await requireAdmin();
     const resolvedParams = params instanceof Promise ? await params : params;
     const id = parseInt(resolvedParams.id);
-    const submission = getSubmissionById(id);
+    const submission = await getSubmissionById(id);
     
     if (!submission) {
       return NextResponse.json(

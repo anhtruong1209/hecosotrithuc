@@ -16,12 +16,12 @@ export async function POST(request: NextRequest) {
     // Nếu có email, tìm submission theo email
     let submissionId: number | null = null;
     if (email) {
-      const submissions = getSubmissionsByEmail(email);
+      const submissions = await getSubmissionsByEmail(email);
       if (submissions.length > 0) {
         // Lưu vào submission mới nhất
         const latestSubmission = submissions[submissions.length - 1];
         submissionId = latestSubmission.id;
-        const success = addTestResult(email, {
+        const success = await addTestResult(email, {
           test_type,
           test_name: test_name || test_type,
           result,
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Nếu không có email hoặc không tìm thấy submission, tạo submission mới
-    submissionId = saveSubmission({
+    submissionId = await saveSubmission({
       fullname: fullname || '',
       phone: phone || '',
       email: email || '',
