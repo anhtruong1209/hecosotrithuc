@@ -333,22 +333,22 @@
     }
   }
   
-  /* Santa running across the top of the screen */
+  /* Santa running across the top of the screen - from right to left */
   @keyframes santaRunTop {
     0% {
-      transform: translateX(-20vw) translateY(0);
+      transform: translateX(120vw) translateY(0);
     }
     25% {
-      transform: translateX(10vw) translateY(-5px);
+      transform: translateX(70vw) translateY(-5px);
     }
     50% {
       transform: translateX(40vw) translateY(0);
     }
     75% {
-      transform: translateX(70vw) translateY(-5px);
+      transform: translateX(10vw) translateY(-5px);
     }
     100% {
-      transform: translateX(120vw) translateY(0);
+      transform: translateX(-20vw) translateY(0);
     }
   }
   
@@ -367,7 +367,7 @@
   .santa-claus {
     position: fixed;
     top: 0px;
-    left: -200px;
+    right: -200px;
     font-size: 2.5rem;
     z-index: 999;
     animation: santaRunTop 16s linear infinite;
