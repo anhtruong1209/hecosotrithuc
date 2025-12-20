@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import TestInfoForm from '@/app/components/TestInfoForm';
 
 interface Question {
@@ -13,7 +13,8 @@ interface Question {
   }[];
 }
 
-const questions: Question[] = [
+// Fallback questions if API fails
+const fallbackQuestions: Question[] = [
   {
     id: 1,
     question: 'Bạn thích làm việc với máy móc, công cụ hơn là làm việc với con người?',
@@ -236,7 +237,12 @@ const questions: Question[] = [
   }
 ];
 
+// Export for potential use in migration script
+export { fallbackQuestions };
+
 export default function RIASEC20Page() {
+  const [questions, setQuestions] = useState<Question[]>(fallbackQuestions);
+  const [loading, setLoading] = useState(true);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [scores, setScores] = useState({ R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 });
@@ -246,6 +252,27 @@ export default function RIASEC20Page() {
   const [showInfoForm, setShowInfoForm] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionId, setSubmissionId] = useState<number | null>(null);
+
+  useEffect(() => {
+    // Fetch questions from API
+    async function fetchQuestions() {
+      try {
+        const response = await fetch('/api/data/questions/riasec20');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.questions && data.questions.length > 0) {
+            setQuestions(data.questions);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching questions:', error);
+        // Use fallback questions
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchQuestions();
+  }, []);
 
   const handleAnswer = (questionId: number, optionValue: string, optionScores: any) => {
     const newAnswers = { ...answers, [questionId]: optionValue };
@@ -553,6 +580,17 @@ export default function RIASEC20Page() {
               </a>
             </div>
           </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 min-h-screen text-gray-800 flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-4xl mb-4">⏳</div>
+          <p className="text-lg text-gray-600">Đang tải câu hỏi...</p>
         </div>
       </div>
     );

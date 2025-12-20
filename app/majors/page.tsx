@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface MajorGroup {
   code: string;
@@ -14,7 +14,8 @@ interface MajorGroup {
   strengths: string[];
 }
 
-const majorGroups: MajorGroup[] = [
+// Fallback data
+const fallbackMajorGroups: MajorGroup[] = [
   {
     code: 'R',
     name: 'Kỹ thuật – Cơ khí – Điện tử',
@@ -243,6 +244,9 @@ const majorGroups: MajorGroup[] = [
   }
 ];
 
+// Export for potential use in migration script
+export { fallbackMajorGroups };
+
 const colorClasses = {
   orange: {
     bg: 'bg-orange-50',
@@ -289,8 +293,31 @@ const colorClasses = {
 };
 
 export default function MajorsPage() {
+  const [majorGroups, setMajorGroups] = useState<MajorGroup[]>(fallbackMajorGroups);
+  const [loading, setLoading] = useState(true);
   const [selectedGroup, setSelectedGroup] = useState<MajorGroup | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+
+  useEffect(() => {
+    // Fetch major groups from API
+    async function fetchMajorGroups() {
+      try {
+        const response = await fetch('/api/data/major-groups');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.majorGroups && data.majorGroups.length > 0) {
+            setMajorGroups(data.majorGroups);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching major groups:', error);
+        // Use fallback data
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchMajorGroups();
+  }, []);
 
   const filteredGroups = majorGroups.filter(group =>
     group.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -306,6 +333,17 @@ export default function MajorsPage() {
     green: 'clay-card-green',
     yellow: 'clay-card-yellow'
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-pink-200 via-purple-200 via-blue-200 to-yellow-200 text-gray-800 flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-4xl mb-4">⏳</div>
+          <p className="text-lg text-gray-600">Đang tải dữ liệu...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-200 via-purple-200 via-blue-200 to-yellow-200 text-gray-800 relative overflow-hidden">
