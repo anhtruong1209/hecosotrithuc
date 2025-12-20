@@ -1095,7 +1095,6 @@ export default function GuidePage() {
                   <span>Công nghệ mở rộng:</span>
                 </h3>
                 <ul className="list-disc ml-6 space-y-2 text-base">
-                  <li><strong>Database nâng cao:</strong> Chuyển từ JSON sang PostgreSQL/MySQL cho dữ liệu lớn và hiệu năng tốt hơn</li>
                   <li><strong>Authentication:</strong> Hệ thống đăng nhập cho học sinh, giáo viên, admin với OAuth2</li>
                   <li><strong>Real-time:</strong> Cập nhật kết quả real-time với WebSocket hoặc Server-Sent Events</li>
                   <li><strong>Cloud Deployment:</strong> Triển khai trên cloud (AWS, Azure, GCP) với auto-scaling và load balancing</li>
