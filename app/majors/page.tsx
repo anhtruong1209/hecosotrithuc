@@ -456,16 +456,16 @@ export default function MajorsPage() {
           onClick={() => setSelectedGroup(null)}
         >
           <div
-            className="clay-card clay-card-purple rounded-3xl max-w-lg w-full h-[32rem] overflow-y-auto"
+            className="bg-white rounded-3xl max-w-lg w-full h-[32rem] overflow-y-auto shadow-2xl border-2 border-gray-200"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header Compact */}
-            <div className="p-5 border-b border-white/40 sticky top-0 bg-white/30 backdrop-blur-sm rounded-t-3xl">
+            <div className="p-5 border-b border-gray-200 sticky top-0 bg-white rounded-t-3xl z-10">
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-3 flex-1 min-w-0">
                   <span className="text-4xl flex-shrink-0">{selectedGroup.icon}</span>
                   <div className="min-w-0 flex-1">
-                    <div className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-white/60 border border-white/80 mb-2 text-gray-800">
+                    <div className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-gray-100 border border-gray-300 mb-2 text-gray-800">
                       {selectedGroup.code}
                     </div>
                     <h2 className="text-lg md:text-xl font-bold text-gray-800 leading-tight">
@@ -475,7 +475,7 @@ export default function MajorsPage() {
                 </div>
                 <button
                   onClick={() => setSelectedGroup(null)}
-                  className="text-gray-600 hover:text-gray-800 text-2xl font-bold transition flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/50"
+                  className="text-gray-600 hover:text-gray-800 text-2xl font-bold transition flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100"
                 >
                   ×
                 </button>
@@ -497,12 +497,12 @@ export default function MajorsPage() {
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {selectedGroup.majors.slice(0, 6).map((major, idx) => (
-                    <span key={idx} className="px-3 py-1.5 bg-white/60 border border-white/80 rounded-lg text-gray-800 text-xs md:text-sm font-medium">
+                    <span key={idx} className="px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 text-xs md:text-sm font-medium">
                       {major}
                     </span>
                   ))}
                   {selectedGroup.majors.length > 6 && (
-                    <span className="px-3 py-1.5 bg-white/40 border border-white/60 rounded-lg text-gray-600 text-xs md:text-sm font-medium">
+                    <span className="px-3 py-1.5 bg-gray-100 border border-gray-300 rounded-lg text-gray-600 text-xs md:text-sm font-medium">
                       +{selectedGroup.majors.length - 6} ngành
                     </span>
                   )}
@@ -517,12 +517,12 @@ export default function MajorsPage() {
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {selectedGroup.jobs.slice(0, 5).map((job, idx) => (
-                    <span key={idx} className="px-3 py-1.5 bg-white/60 border border-white/80 rounded-lg text-gray-800 text-xs md:text-sm font-medium">
+                    <span key={idx} className="px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 text-xs md:text-sm font-medium">
                       {job}
                     </span>
                   ))}
                   {selectedGroup.jobs.length > 5 && (
-                    <span className="px-3 py-1.5 bg-white/40 border border-white/60 rounded-lg text-gray-600 text-xs md:text-sm font-medium">
+                    <span className="px-3 py-1.5 bg-gray-100 border border-gray-300 rounded-lg text-gray-600 text-xs md:text-sm font-medium">
                       +{selectedGroup.jobs.length - 5} nghề
                     </span>
                   )}
@@ -537,7 +537,7 @@ export default function MajorsPage() {
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {selectedGroup.strengths.map((strength, idx) => (
-                    <span key={idx} className="px-3 py-1.5 bg-white/60 border border-white/80 rounded-full text-gray-800 text-xs md:text-sm font-medium">
+                    <span key={idx} className="px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-full text-gray-800 text-xs md:text-sm font-medium">
                       {strength}
                     </span>
                   ))}
@@ -552,7 +552,7 @@ export default function MajorsPage() {
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {selectedGroup.examBlocks.map((block, idx) => (
-                    <span key={idx} className="px-4 py-2 bg-white/70 border border-white/90 rounded-full font-bold text-sm text-gray-800">
+                    <span key={idx} className="px-4 py-2 bg-gray-100 border border-gray-300 rounded-full font-bold text-sm text-gray-800">
                       {block}
                     </span>
                   ))}
@@ -560,7 +560,7 @@ export default function MajorsPage() {
               </div>
 
               {/* Actions */}
-              <div className="flex gap-3 pt-4 border-t border-white/40">
+              <div className="flex gap-3 pt-4 border-t border-gray-200">
                 <a
                   href="/test"
                   className="flex-1 clay-button text-white px-4 py-3 rounded-full text-sm md:text-base font-semibold text-center hover:scale-105 transition-transform"
@@ -569,7 +569,7 @@ export default function MajorsPage() {
                 </a>
                 <button
                   onClick={() => setSelectedGroup(null)}
-                  className="px-6 py-3 bg-white/50 border border-white/70 hover:bg-white/70 text-gray-700 rounded-full text-sm md:text-base font-semibold transition"
+                  className="px-6 py-3 bg-gray-100 border border-gray-300 hover:bg-gray-200 text-gray-700 rounded-full text-sm md:text-base font-semibold transition"
                 >
                   Đóng
                 </button>
