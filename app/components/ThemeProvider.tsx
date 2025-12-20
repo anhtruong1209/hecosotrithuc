@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
-export type Theme = 'ocean' | 'sunset' | 'midnight';
+export type Theme = 'ocean' | 'sunset' | 'midnight' | 'christmas';
 
 interface ThemeContextType {
   theme: Theme;
@@ -12,15 +12,18 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>('ocean');
+  const [theme, setThemeState] = useState<Theme>('christmas');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    // Load theme from localStorage
+    // Load theme from localStorage, default to christmas
     const savedTheme = localStorage.getItem('theme') as Theme;
-    if (savedTheme && ['ocean', 'sunset', 'midnight'].includes(savedTheme)) {
+    if (savedTheme && ['ocean', 'sunset', 'midnight', 'christmas'].includes(savedTheme)) {
       setThemeState(savedTheme);
+    } else {
+      // Default to christmas theme
+      setThemeState('christmas');
     }
   }, []);
 

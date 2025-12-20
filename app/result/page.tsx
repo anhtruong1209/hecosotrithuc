@@ -71,7 +71,7 @@ export default async function ResultPage({
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto py-12 px-6">
-        <div className="clay-card clay-card-purple p-6 md:p-8 mb-6 text-center">
+        <div className="clay-card clay-card-purple p-6 md:p-8 mb-6 text-center clay-card-animated">
           <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-3">
             Kết Quả Tư Vấn Ngành Học
           </h1>
@@ -86,7 +86,7 @@ export default async function ResultPage({
         )}
 
         {(submission.fullname || submission.phone || submission.email) && (
-          <div className="clay-card clay-card-blue rounded-xl p-4 mb-6">
+          <div className="clay-card clay-card-blue rounded-xl p-4 mb-6 clay-card-animated">
             <h4 className="text-sm font-semibold text-gray-800 mb-2">Thông tin người tham gia</h4>
             <div className="text-xs md:text-sm text-gray-700 space-y-1">
               {submission.fullname && <div><strong>Họ tên:</strong> {submission.fullname}</div>}
@@ -98,7 +98,7 @@ export default async function ResultPage({
 
         {/* Đề xuất nhóm ngành dựa trên quy nạp tất cả bài test */}
         {majorRecommendations.length > 0 && (
-          <div className="clay-card clay-card-blue rounded-2xl p-6 md:p-8 mb-6">
+          <div className="clay-card clay-card-blue rounded-2xl p-6 md:p-8 mb-6 clay-card-animated">
             <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 text-center">
               🎯 Đề Xuất Nhóm Ngành Học
             </h2>
@@ -110,7 +110,7 @@ export default async function ResultPage({
                 const colorClasses = ['clay-card-yellow', 'clay-card-pink', 'clay-card-green', 'clay-card-purple'];
                 const cardClass = colorClasses[idx % colorClasses.length];
                 return (
-                <div key={idx} className={`clay-card ${cardClass} rounded-xl p-4`}>
+                <div key={idx} className={`clay-card ${cardClass} rounded-xl p-4 clay-card-animated clay-card-bounce`} style={{ animationDelay: `${idx * 0.1}s` }}>
                   <div className="flex items-start justify-between mb-2">
                     <div>
                       <div className="flex items-center gap-2 mb-1">
@@ -173,7 +173,7 @@ export default async function ResultPage({
         )}
 
         {/* Kết quả từ bài tư vấn chính */}
-        <div className="clay-card clay-card-purple rounded-2xl p-6 md:p-8 mb-6 text-center">
+        <div className="clay-card clay-card-purple rounded-2xl p-6 md:p-8 mb-6 text-center clay-card-animated">
           <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-3">{submission.major}</h2>
           <p className="text-sm md:text-base text-gray-700 leading-relaxed">
             {submission.description}
@@ -181,7 +181,7 @@ export default async function ResultPage({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6">
-          <div className="clay-card clay-card-yellow rounded-xl p-4 md:p-6">
+          <div className="clay-card clay-card-yellow rounded-xl p-4 md:p-6 clay-card-animated">
             <h3 className="text-base md:text-lg font-semibold mb-3 text-gray-800">Điểm mạnh nổi bật</h3>
             <ul className="list-disc ml-5 text-xs md:text-sm text-gray-700 space-y-1">
               {submission.strengths.map((skill, i) => (
@@ -190,7 +190,7 @@ export default async function ResultPage({
             </ul>
           </div>
 
-          <div className="clay-card clay-card-pink rounded-xl p-4 md:p-6">
+          <div className="clay-card clay-card-pink rounded-xl p-4 md:p-6 clay-card-animated">
             <h3 className="text-base md:text-lg font-semibold mb-3 text-gray-800">Các nghề nghiệp phù hợp</h3>
             <ul className="list-disc ml-5 text-xs md:text-sm text-gray-700 space-y-1">
               {submission.jobs.map((job, i) => (
@@ -200,7 +200,7 @@ export default async function ResultPage({
           </div>
         </div>
 
-        <div className="clay-card clay-card-green rounded-xl p-4 md:p-6 mb-6">
+        <div className="clay-card clay-card-green rounded-xl p-4 md:p-6 mb-6 clay-card-animated">
           <h3 className="text-base md:text-lg font-semibold mb-3 text-gray-800">Một số ngành học liên quan</h3>
           <div className="flex flex-wrap gap-2">
             {submission.related_majors.map((item, i) => (
@@ -211,7 +211,7 @@ export default async function ResultPage({
           </div>
         </div>
 
-        <div className="clay-card clay-card-blue rounded-xl p-4 md:p-6 mb-6">
+        <div className="clay-card clay-card-blue rounded-xl p-4 md:p-6 mb-6 clay-card-animated">
           <h3 className="text-base md:text-lg font-semibold mb-3 text-gray-800">Gợi ý khối thi phù hợp</h3>
           {submission.suggested_blocks && submission.suggested_blocks.length > 0 ? (
             <div className="flex flex-wrap gap-2">
@@ -228,7 +228,7 @@ export default async function ResultPage({
 
         {/* Đề xuất trường đại học */}
         {universityRecommendations.length > 0 && (
-          <div className="clay-card clay-card-blue rounded-2xl p-6 md:p-8 mb-6">
+          <div className="clay-card clay-card-blue rounded-2xl p-6 md:p-8 mb-6 clay-card-animated">
             <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 text-center">
               🏫 Đề Xuất Trường Đại Học
             </h2>
@@ -237,7 +237,7 @@ export default async function ResultPage({
             </p>
             <div className="space-y-3">
               {universityRecommendations.slice(0, 5).map((uni, idx) => (
-                <div key={idx} className="clay-card clay-card-yellow rounded-xl p-4">
+                <div key={idx} className="clay-card clay-card-yellow rounded-xl p-4 clay-card-animated" style={{ animationDelay: `${idx * 0.1}s` }}>
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
@@ -283,7 +283,7 @@ export default async function ResultPage({
 
         {/* Trường/Quốc gia đã chọn */}
         {(selectedUniversity || selectedCountry) && (
-          <div className="clay-card clay-card-green rounded-xl p-4 md:p-6 mb-6">
+          <div className="clay-card clay-card-green rounded-xl p-4 md:p-6 mb-6 clay-card-animated">
             <h3 className="text-base md:text-lg font-semibold mb-3 text-gray-800">
               {submission.study_option === 'domestic' ? '🏫 Trường đại học bạn đã chọn' : '✈️ Quốc gia du học bạn đã chọn'}
             </h3>

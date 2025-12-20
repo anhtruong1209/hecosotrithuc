@@ -36,15 +36,26 @@
   --theme-sidebar-bg: linear-gradient(to bottom right, rgba(221, 160, 221, 0.9), rgba(147, 112, 219, 0.9), rgba(99, 102, 241, 0.9));
 }
 
-/* Default theme (ocean) */
+:root[data-theme="christmas"] {
+  /* Merry Christmas - Đỏ xanh nhẹ nhàng */
+  --theme-primary: 239, 68, 68;
+  --theme-secondary: 34, 197, 94;
+  --theme-accent: 251, 191, 36;
+  --theme-gradient-from: 239, 68, 68;
+  --theme-gradient-via: 34, 197, 94;
+  --theme-gradient-to: 251, 191, 36;
+  --theme-sidebar-bg: linear-gradient(to bottom right, rgba(239, 68, 68, 0.85), rgba(34, 197, 94, 0.85), rgba(251, 191, 36, 0.85));
+}
+
+/* Default theme (christmas) */
 :root:not([data-theme]) {
-  --theme-primary: 173, 216, 230;
-  --theme-secondary: 135, 206, 250;
-  --theme-accent: 64, 224, 208;
-  --theme-gradient-from: 59, 130, 246;
-  --theme-gradient-via: 139, 92, 246;
-  --theme-gradient-to: 59, 130, 246;
-  --theme-sidebar-bg: linear-gradient(to bottom right, rgba(173, 216, 230, 0.9), rgba(221, 160, 221, 0.9), rgba(255, 182, 193, 0.9));
+  --theme-primary: 239, 68, 68;
+  --theme-secondary: 34, 197, 94;
+  --theme-accent: 251, 191, 36;
+  --theme-gradient-from: 239, 68, 68;
+  --theme-gradient-via: 34, 197, 94;
+  --theme-gradient-to: 251, 191, 36;
+  --theme-sidebar-bg: linear-gradient(to bottom right, rgba(239, 68, 68, 0.85), rgba(34, 197, 94, 0.85), rgba(251, 191, 36, 0.85));
 }
 
 @layer utilities {
@@ -154,14 +165,71 @@
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: cardFadeIn 0.6s ease-out;
   }
   
   .clay-card:hover {
     background: rgba(255, 255, 255, 0.2);
     border-color: rgba(255, 255, 255, 0.4);
     box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.2);
-    transform: translateY(-2px);
+    transform: translateY(-4px) scale(1.02);
+  }
+  
+  /* Card animations */
+  @keyframes cardFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  
+  @keyframes cardBounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  @keyframes cardPulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+  }
+  
+  @keyframes cardShake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+  }
+  
+  .clay-card-animated {
+    animation: cardFadeIn 0.6s ease-out;
+  }
+  
+  .clay-card-animated:hover {
+    animation: cardBounce 0.6s ease-in-out;
+  }
+  
+  .clay-card-bounce:hover {
+    animation: cardBounce 0.6s ease-in-out;
+  }
+  
+  .clay-card-pulse {
+    animation: cardPulse 2s ease-in-out infinite;
+  }
+  
+  .clay-card-shake:hover {
+    animation: cardShake 0.5s ease-in-out;
   }
   
   .clay-card-pink {
@@ -246,5 +314,73 @@
       0 2px 8px rgba(255, 105, 135, 0.3);
     transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
+  
+  /* Snow animation for Christmas theme */
+  @keyframes snowFall {
+    0% {
+      transform: translateY(-100vh) translateX(0) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh) translateX(var(--snow-drift)) rotate(360deg);
+      opacity: 0;
+    }
+  }
+  
+  /* Santa running across the top of the screen */
+  @keyframes santaRunTop {
+    0% {
+      transform: translateX(-20vw) translateY(0);
+    }
+    25% {
+      transform: translateX(10vw) translateY(-5px);
+    }
+    50% {
+      transform: translateX(40vw) translateY(0);
+    }
+    75% {
+      transform: translateX(70vw) translateY(-5px);
+    }
+    100% {
+      transform: translateX(120vw) translateY(0);
+    }
+  }
+  
+  .snowflake {
+    position: fixed;
+    top: -10px;
+    color: white;
+    font-size: 1em;
+    font-family: Arial;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+    animation: snowFall linear infinite;
+    pointer-events: none;
+    z-index: 1000;
+  }
+  
+  .santa-claus {
+    position: fixed;
+    top: 0px;
+    left: -200px;
+    font-size: 2.5rem;
+    z-index: 999;
+    animation: santaRunTop 16s linear infinite;
+    pointer-events: none;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+  }
+  
+  /* Stagger animation for cards */
+  .clay-card:nth-child(1) { animation-delay: 0.1s; }
+  .clay-card:nth-child(2) { animation-delay: 0.2s; }
+  .clay-card:nth-child(3) { animation-delay: 0.3s; }
+  .clay-card:nth-child(4) { animation-delay: 0.4s; }
+  .clay-card:nth-child(5) { animation-delay: 0.5s; }
+  .clay-card:nth-child(6) { animation-delay: 0.6s; }
 }
 

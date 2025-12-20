@@ -107,7 +107,7 @@ export default function Home() {
         {/* Hero Section */}
         <section className="text-center py-16 md:py-24 px-4">
           <div className="max-w-5xl mx-auto">
-            <div className="clay-card clay-card-pink p-8 md:p-12 mb-8">
+            <div className="clay-card clay-card-pink p-8 md:p-12 mb-8 clay-card-animated">
               <div className="text-6xl md:text-8xl mb-6 animate-bounce">🎓</div>
               <h1 className="text-4xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 bg-clip-text text-transparent" style={{ lineHeight: '2' }}>
                 Hệ Chuyên Gia Tư Vấn Chọn Ngành Học
@@ -142,7 +142,7 @@ export default function Home() {
               {courses.map((course) => {
                 const colorClass = `clay-card-${course.color}`;
                 return (
-                  <a key={course.id} href={course.link} className={`clay-card ${colorClass} p-6 md:p-8 block`}>
+                  <a key={course.id} href={course.link} className={`clay-card ${colorClass} p-6 md:p-8 block clay-card-animated clay-card-bounce`} style={{ animationDelay: `${course.id * 0.1}s` }}>
                     <div className="text-5xl mb-4">{course.icon}</div>
                     <h3 className="text-xl md:text-2xl font-bold mb-3 text-gray-800">{course.title}</h3>
                     <p className="text-sm md:text-base text-gray-700 mb-4 leading-relaxed">{course.description}</p>
@@ -165,7 +165,7 @@ export default function Home() {
         {/* Progress Tracking Demo */}
         <section className="py-12 md:py-16 px-4 md:px-6">
           <div className="max-w-5xl mx-auto">
-            <div className="clay-card clay-card-blue p-8 md:p-12">
+            <div className="clay-card clay-card-blue p-8 md:p-12 clay-card-animated">
               <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center text-gray-800">
                 📊 Theo Dõi Tiến Độ Học Tập
               </h2>
@@ -212,7 +212,7 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
               {testimonials.map((testimonial) => (
-                <div key={testimonial.id} className="clay-card clay-card-yellow p-6 md:p-8">
+                <div key={testimonial.id} className="clay-card clay-card-yellow p-6 md:p-8 clay-card-animated clay-card-bounce" style={{ animationDelay: `${testimonial.id * 0.1}s` }}>
                   <div className="flex items-center mb-4">
                     <div className="text-4xl mr-4">{testimonial.avatar}</div>
                     <div>
@@ -237,7 +237,7 @@ export default function Home() {
         {/* Enrollment CTA */}
         <section className="py-16 md:py-24 px-4 md:px-6">
           <div className="max-w-5xl mx-auto">
-            <div className="clay-card clay-card-purple p-10 md:p-16 text-center">
+            <div className="clay-card clay-card-purple p-10 md:p-16 text-center clay-card-animated">
               <div className="text-6xl md:text-8xl mb-6 animate-bounce">🎉</div>
               <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-800">
                 Sẵn Sàng Khám Phá Ngành Học Phù Hợp?

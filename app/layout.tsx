@@ -1,6 +1,7 @@
 import './globals.css'
 import Sidebar from './components/Sidebar'
 import { ThemeProvider } from './components/ThemeProvider'
+import ChristmasEffects from './components/ChristmasEffects'
 
 export const metadata = {
   title: 'Hệ Chuyên Gia Tư Vấn Chọn Ngành Học',
@@ -20,6 +21,7 @@ export default function RootLayout({
       <body className="overflow-x-hidden">
         <ThemeProvider>
           <>
+            <ChristmasEffects />
             <Sidebar />
             <main className="ml-64 transition-all duration-300 min-h-screen flex flex-col">
               <div className="flex-1">

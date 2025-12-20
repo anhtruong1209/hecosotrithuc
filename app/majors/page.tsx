@@ -358,7 +358,7 @@ export default function MajorsPage() {
       <div className="relative z-10">
       {/* Header */}
       <div className="max-w-7xl mx-auto px-6 py-8 md:py-12">
-        <div className="clay-card clay-card-purple p-6 md:p-8 mb-8">
+        <div className="clay-card clay-card-purple p-6 md:p-8 mb-8 clay-card-animated">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
               <h1 className="text-3xl md:text-2xl font-bold mb-3 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
@@ -378,7 +378,7 @@ export default function MajorsPage() {
         </div>
 
       {/* Search Bar */}
-      <div className="clay-card clay-card-blue p-4 mb-8">
+      <div className="clay-card clay-card-blue p-4 mb-8 clay-card-animated">
         <div className="relative">
           <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl">🔍</span>
           <input
@@ -398,7 +398,7 @@ export default function MajorsPage() {
           return (
             <div
               key={group.code}
-              className={`clay-card ${clayClass} p-6 md:p-8 cursor-pointer`}
+              className={`clay-card ${clayClass} p-6 md:p-8 cursor-pointer clay-card-animated clay-card-bounce`}
               onClick={() => setSelectedGroup(group)}
             >
               <div className="flex items-start gap-2 mb-3">

@@ -45,11 +45,6 @@ export default function Sidebar() {
           </div>
         </div>
 
-        {/* Theme Selector */}
-        <div className="mb-6">
-          <ThemeSelector />
-        </div>
-
         {/* Menu Items */}
         <nav className="flex-1 space-y-2">
           {menuItems.map((item) => {
@@ -85,7 +80,7 @@ export default function Sidebar() {
 
         {/* Footer */}
         <div className="pt-4 mt-auto">
-          <div className="clay-card clay-card-purple p-4 rounded-xl">
+          <div className="clay-card clay-card-purple p-4 rounded-xl mb-4">
             <Link
               href="/admin/login"
               className="group flex items-center gap-3 px-2 py-2 rounded-lg transition-all duration-300 text-gray-700 hover:text-gray-800"
@@ -98,7 +93,13 @@ export default function Sidebar() {
               </span>
             </Link>
           </div>
-          <div className="mt-3 text-center">
+          
+          {/* Theme Selector */}
+          <div className="mb-4">
+            <ThemeSelector />
+          </div>
+          
+          <div className="text-center">
             <p className="text-xs text-gray-500">
               © 2025 Hệ Chuyên Gia
             </p>
