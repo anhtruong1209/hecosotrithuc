@@ -811,7 +811,7 @@ export default function GuidePage() {
                 <h3 className="font-bold text-lg mb-3 text-gray-800">⚙️ Backend (Xử lý logic):</h3>
                 <ul className="list-disc ml-6 space-y-2 text-base">
                   <li><strong>API Routes:</strong> Next.js API Routes cho xử lý form, lưu kết quả, authentication</li>
-                  <li><strong>Database:</strong> JSON file (db.json) để lưu trữ dữ liệu submissions và test results</li>
+                  <li><strong>Database:</strong> MongoDB để lưu trữ dữ liệu submissions và test results</li>
                   <li><strong>Authentication:</strong> Cookie-based authentication cho admin với bcryptjs</li>
                   <li><strong>Business Logic:</strong> Các module tính toán RIASEC, MBTI, Interest, Aptitude, Recommendation</li>
                 </ul>

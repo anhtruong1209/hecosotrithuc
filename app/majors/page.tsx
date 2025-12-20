@@ -421,7 +421,7 @@ export default function MajorsPage() {
           onClick={() => setSelectedGroup(null)}
         >
           <div
-            className={`clay-card ${colorMap[selectedGroup.color] || 'clay-card-blue'} rounded-3xl max-w-lg w-full max-h-[80vh] overflow-y-auto`}
+            className="clay-card clay-card-purple rounded-3xl max-w-lg w-full h-[32rem] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header Compact */}
