@@ -147,13 +147,34 @@ export default function GuidePage() {
                   Bài test chính của hệ thống, gồm các câu hỏi về sở thích, môn học mạnh, tính cách và mục tiêu nghề nghiệp.
                 </p>
                 <div className="clay-card clay-card-yellow p-4 mt-3">
-                  <p className="text-sm font-semibold mb-2">📊 Logic tính toán:</p>
-                  <ul className="list-disc ml-5 space-y-1 text-sm">
-                    <li>Thu thập thông tin về sở thích, môn học mạnh, tính cách</li>
-                    <li>Tính điểm cho 6 nhóm RIASEC dựa trên câu trả lời</li>
-                    <li>Áp dụng hệ thống chuyên gia để đề xuất nhóm ngành</li>
-                    <li>Đề xuất khối thi và trường đại học phù hợp</li>
+                  <p className="text-sm font-semibold mb-2">📊 Cách tính điểm:</p>
+                  <p className="text-xs mb-2 text-gray-700">
+                    Bài tư vấn chính thu thập thông tin từ nhiều nguồn khác nhau và tính điểm cho 6 nhóm RIASEC:
+                  </p>
+                  <ul className="list-disc ml-5 space-y-1 text-xs mb-3">
+                    <li><strong>Sở thích:</strong> Mỗi lựa chọn sở thích (kỹ thuật, công nghệ, nghệ thuật...) được gán điểm cho nhóm RIASEC tương ứng (thường 2-5 điểm)</li>
+                    <li><strong>Môn học mạnh:</strong> Mỗi môn học bạn chọn (Toán, Lý, Hóa, Văn...) được gán điểm cho nhóm phù hợp (thường 1-3 điểm mỗi môn)</li>
+                    <li><strong>Tính cách:</strong> Mỗi đặc điểm tính cách (tỉ mỉ, sáng tạo, giao tiếp...) được gán điểm cho nhóm tương ứng (thường 1-3 điểm mỗi đặc điểm)</li>
+                    <li><strong>Mục tiêu nghề nghiệp:</strong> Mục tiêu của bạn (kỹ sư, bác sĩ, giáo viên...) được gán điểm cho nhóm phù hợp (thường 3-5 điểm)</li>
                   </ul>
+                  <div className="bg-white/50 p-3 rounded-lg border border-yellow-200 mb-2">
+                    <p className="text-xs font-semibold mb-1">💡 Ví dụ cụ thể:</p>
+                    <p className="text-xs text-gray-700 mb-1">
+                      <strong>Nếu bạn chọn:</strong>
+                    </p>
+                    <ul className="list-disc ml-4 space-y-0.5 text-xs text-gray-600">
+                      <li>Sở thích: "Công nghệ" → Nhóm I (Investigative) = +5 điểm</li>
+                      <li>Môn học mạnh: "Toán", "Lý", "Hóa" → Nhóm I = +3 điểm, Nhóm R (Realistic) = +2 điểm</li>
+                      <li>Tính cách: "Phân tích", "Tỉ mỉ", "Logic" → Nhóm I = +6 điểm (2 điểm mỗi đặc điểm)</li>
+                      <li>Mục tiêu: "Trở thành kỹ sư phần mềm" → Nhóm I = +4 điểm</li>
+                    </ul>
+                    <p className="text-xs text-gray-700 mt-2">
+                      <strong>Tổng điểm nhóm I:</strong> 5 + 3 + 6 + 4 = 18 điểm
+                    </p>
+                    <p className="text-xs text-gray-700 mt-1">
+                      Hệ thống tính tương tự cho các nhóm khác, sau đó áp dụng quy tắc chuyên gia để đề xuất ngành học.
+                    </p>
+                  </div>
                 </div>
               </div>
 
@@ -165,12 +186,36 @@ export default function GuidePage() {
                   Bài test nhanh với 20 câu hỏi đánh giá 6 nhóm tính cách RIASEC một cách trực tiếp.
                 </p>
                 <div className="clay-card clay-card-yellow p-4 mt-3">
-                  <p className="text-sm font-semibold mb-2">Logic tính toán:</p>
-                  <ul className="list-disc ml-5 space-y-1 text-sm">
-                    <li>Mỗi câu trả lời được gán điểm cho các nhóm RIASEC tương ứng (0-3 điểm tùy mức độ đồng ý)</li>
-                    <li>Tính tổng điểm cho từng nhóm (R, I, A, S, E, C)</li>
-                    <li>Nhóm có điểm cao nhất là nhóm tính cách chủ đạo</li>
-                    <li>Hiển thị top 3 nhóm có điểm cao nhất với thanh progress bar</li>
+                  <p className="text-sm font-semibold mb-2">📊 Cách tính điểm:</p>
+                  <p className="text-xs mb-2 text-gray-700">
+                    Mỗi câu hỏi có 5 lựa chọn, mỗi lựa chọn sẽ cho điểm cho một hoặc nhiều nhóm RIASEC:
+                  </p>
+                  <ul className="list-disc ml-5 space-y-1 text-xs mb-3">
+                    <li><strong>Rất đồng ý:</strong> 3 điểm cho nhóm chính + có thể 1 điểm cho nhóm phụ</li>
+                    <li><strong>Đồng ý:</strong> 2 điểm cho nhóm chính</li>
+                    <li><strong>Trung lập:</strong> 0 điểm (không ảnh hưởng đến kết quả)</li>
+                    <li><strong>Không đồng ý:</strong> 1 điểm cho nhóm đối lập</li>
+                    <li><strong>Hoàn toàn không đồng ý:</strong> 2 điểm cho nhóm đối lập</li>
+                  </ul>
+                  <div className="bg-white/50 p-3 rounded-lg border border-yellow-200 mb-2">
+                    <p className="text-xs font-semibold mb-1">💡 Ví dụ cụ thể:</p>
+                    <p className="text-xs text-gray-700 mb-1">
+                      <strong>Câu hỏi:</strong> "Bạn thích nghiên cứu, tìm hiểu các vấn đề khoa học?"
+                    </p>
+                    <ul className="list-disc ml-4 space-y-0.5 text-xs text-gray-600">
+                      <li>Rất đồng ý → Nhóm I (Investigative) = 3 điểm, Nhóm A (Artistic) = 1 điểm</li>
+                      <li>Đồng ý → Nhóm I = 2 điểm</li>
+                      <li>Trung lập → 0 điểm</li>
+                      <li>Không đồng ý → Nhóm E (Enterprising) = 1 điểm</li>
+                      <li>Hoàn toàn không đồng ý → Nhóm E = 2 điểm</li>
+                    </ul>
+                  </div>
+                  <p className="text-xs font-semibold mb-1">🔄 Quy trình tính điểm:</p>
+                  <ul className="list-disc ml-5 space-y-1 text-xs">
+                    <li>Hệ thống cộng dồn điểm từ tất cả 20 câu hỏi cho mỗi nhóm RIASEC</li>
+                    <li>Ví dụ: Nếu bạn chọn "Rất đồng ý" cho 5 câu về nghiên cứu → Nhóm I = 5 × 3 = 15 điểm</li>
+                    <li>Nhóm có tổng điểm cao nhất là nhóm tính cách chủ đạo của bạn</li>
+                    <li>Hệ thống hiển thị top 3 nhóm có điểm cao nhất với thanh progress bar</li>
                   </ul>
                 </div>
                 <div className="clay-card clay-card-green p-4 mt-3">
@@ -193,13 +238,77 @@ export default function GuidePage() {
                   Suy nghĩ/Cảm xúc (T/F), Đánh giá/Nhận thức (J/P). Kết quả là một trong 16 loại tính cách MBTI.
                 </p>
                 <div className="clay-card clay-card-yellow p-4 mt-3">
-                  <p className="text-sm font-semibold mb-2">Logic tính toán:</p>
-                  <ul className="list-disc ml-5 space-y-1 text-sm">
-                    <li>Mỗi câu hỏi có điểm số cho các chiều khác nhau (E/I, S/N, T/F, J/P)</li>
-                    <li>Tính tổng điểm cho mỗi chiều</li>
-                    <li>Xác định loại tính cách dựa trên chiều có điểm cao hơn</li>
-                    <li>Kết quả là một trong 16 loại: INTJ, ENFP, ISFP, ESTJ, v.v.</li>
+                  <p className="text-sm font-semibold mb-2">📊 Cách tính điểm:</p>
+                  <p className="text-xs mb-2 text-gray-700">
+                    Bài test MBTI có 28 câu hỏi, đánh giá 4 chiều tính cách. Có 3 loại câu hỏi khác nhau:
+                  </p>
+                  <ul className="list-disc ml-5 space-y-1 text-xs mb-3">
+                    <li><strong>Chiều 1 - Hướng ngoại (E) / Hướng nội (I):</strong> Cách bạn tiếp nhận năng lượng</li>
+                    <li><strong>Chiều 2 - Cảm giác (S) / Trực giác (N):</strong> Cách bạn thu thập thông tin</li>
+                    <li><strong>Chiều 3 - Suy nghĩ (T) / Cảm xúc (F):</strong> Cách bạn ra quyết định</li>
+                    <li><strong>Chiều 4 - Đánh giá (J) / Nhận thức (P):</strong> Cách bạn tổ chức cuộc sống</li>
                   </ul>
+                  <div className="bg-white/50 p-3 rounded-lg border border-yellow-200 mb-2">
+                    <p className="text-xs font-semibold mb-1">📝 3 loại câu hỏi và cách tính điểm:</p>
+                    <p className="text-xs text-gray-700 mb-1">
+                      <strong>1. Câu hỏi thang điểm (Scale - 5 mức độ):</strong>
+                    </p>
+                    <ul className="list-disc ml-4 space-y-0.5 text-xs text-gray-600 mb-2">
+                      <li>Rất đồng ý = 3 điểm cho chiều tương ứng</li>
+                      <li>Đồng ý = 2 điểm</li>
+                      <li>Trung lập = 0 điểm</li>
+                      <li>Không đồng ý = 2 điểm cho chiều đối lập</li>
+                      <li>Hoàn toàn không đồng ý = 3 điểm cho chiều đối lập</li>
+                    </ul>
+                    <p className="text-xs text-gray-700 mb-1">
+                      <strong>Ví dụ:</strong> "Bạn cảm thấy năng lượng hơn khi ở trong nhóm đông người?" (Chiều E/I)
+                    </p>
+                    <ul className="list-disc ml-4 space-y-0.5 text-xs text-gray-600 mb-2">
+                      <li>Rất đồng ý → E = 3 điểm</li>
+                      <li>Đồng ý → E = 2 điểm</li>
+                      <li>Trung lập → 0 điểm</li>
+                      <li>Không đồng ý → I = 2 điểm</li>
+                      <li>Hoàn toàn không đồng ý → I = 3 điểm</li>
+                    </ul>
+                    <p className="text-xs text-gray-700 mb-1">
+                      <strong>2. Câu hỏi Có/Không (Yes/No):</strong>
+                    </p>
+                    <ul className="list-disc ml-4 space-y-0.5 text-xs text-gray-600 mb-2">
+                      <li>Có = 3 điểm cho chiều tương ứng</li>
+                      <li>Không = 3 điểm cho chiều đối lập</li>
+                    </ul>
+                    <p className="text-xs text-gray-700 mb-1">
+                      <strong>Ví dụ:</strong> "Bạn thích làm việc độc lập hơn là làm việc nhóm?" (Chiều E/I)
+                    </p>
+                    <ul className="list-disc ml-4 space-y-0.5 text-xs text-gray-600 mb-2">
+                      <li>Có → I = 3 điểm</li>
+                      <li>Không → E = 3 điểm</li>
+                    </ul>
+                    <p className="text-xs text-gray-700 mb-1">
+                      <strong>3. Câu hỏi lựa chọn (Choice):</strong>
+                    </p>
+                    <ul className="list-disc ml-4 space-y-0.5 text-xs text-gray-600 mb-2">
+                      <li>Mỗi lựa chọn = 3 điểm cho chiều tương ứng</li>
+                      <li>Lựa chọn "Cả hai" = 0 điểm</li>
+                    </ul>
+                    <p className="text-xs text-gray-700 mb-1">
+                      <strong>Ví dụ:</strong> "Bạn thích tập trung vào điều gì hơn?" (Chiều S/N)
+                    </p>
+                    <ul className="list-disc ml-4 space-y-0.5 text-xs text-gray-600 mb-2">
+                      <li>Chi tiết cụ thể → S = 3 điểm</li>
+                      <li>Bức tranh tổng thể → N = 3 điểm</li>
+                      <li>Cả hai → 0 điểm</li>
+                    </ul>
+                    <p className="text-xs text-gray-700 mt-2 mb-1">
+                      <strong>Kết quả cuối cùng:</strong>
+                    </p>
+                    <ul className="list-disc ml-4 space-y-0.5 text-xs text-gray-600">
+                      <li>Hệ thống tính tổng điểm cho mỗi chiều từ tất cả câu hỏi</li>
+                      <li>So sánh điểm giữa 2 chiều đối lập: E vs I, S vs N, T vs F, J vs P</li>
+                      <li>Chiều nào có điểm cao hơn sẽ được chọn</li>
+                      <li>Kết hợp 4 chiều → 1 trong 16 loại tính cách (ví dụ: INTJ, ENFP, ISFP, ESTJ...)</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
 
@@ -211,13 +320,45 @@ export default function GuidePage() {
                   Đánh giá sở thích và hứng thú của người dùng với các lĩnh vực nghề nghiệp khác nhau dựa trên mô hình RIASEC.
                 </p>
                 <div className="clay-card clay-card-yellow p-4 mt-3">
-                  <p className="text-sm font-semibold mb-2">Logic tính toán:</p>
-                  <ul className="list-disc ml-5 space-y-1 text-sm">
-                    <li>Câu hỏi được phân loại theo 6 nhóm RIASEC</li>
-                    <li>Tính tổng điểm cho mỗi nhóm dựa trên câu trả lời</li>
-                    <li>Nhóm có điểm cao nhất là sở thích nghề nghiệp chủ đạo</li>
-                    <li>Đề xuất nghề nghiệp và ngành học phù hợp với sở thích</li>
+                  <p className="text-sm font-semibold mb-2">📊 Cách tính điểm:</p>
+                  <p className="text-xs mb-2 text-gray-700">
+                    Bài test có 30 câu hỏi, mỗi câu hỏi về một lĩnh vực nghề nghiệp cụ thể và thuộc một nhóm RIASEC.
+                  </p>
+                  <ul className="list-disc ml-5 space-y-1 text-xs mb-3">
+                    <li><strong>Thang điểm:</strong> Mỗi câu hỏi có 5 lựa chọn với điểm số như sau:
+                      <ul className="list-disc ml-4 mt-1 space-y-0.5">
+                        <li>Rất đồng ý = 3 điểm</li>
+                        <li>Đồng ý = 2 điểm</li>
+                        <li>Trung lập = 1 điểm</li>
+                        <li>Không đồng ý = 0 điểm</li>
+                        <li>Hoàn toàn không đồng ý = 0 điểm</li>
+                      </ul>
+                    </li>
+                    <li><strong>Phân bổ câu hỏi:</strong> Mỗi nhóm RIASEC có khoảng 5 câu hỏi (30 câu ÷ 6 nhóm)</li>
+                    <li><strong>Tính tổng điểm:</strong> Hệ thống cộng dồn điểm cho mỗi nhóm từ tất cả các câu hỏi thuộc nhóm đó</li>
                   </ul>
+                  <div className="bg-white/50 p-3 rounded-lg border border-yellow-200 mb-2">
+                    <p className="text-xs font-semibold mb-1">💡 Ví dụ cụ thể:</p>
+                    <p className="text-xs text-gray-700 mb-1">
+                      <strong>Câu hỏi 1:</strong> "Bạn thích sửa chữa, lắp ráp hoặc vận hành máy móc?" (Nhóm R)
+                    </p>
+                    <ul className="list-disc ml-4 space-y-0.5 text-xs text-gray-600">
+                      <li>Rất đồng ý → Nhóm R = 3 điểm</li>
+                      <li>Đồng ý → Nhóm R = 2 điểm</li>
+                      <li>Trung lập → Nhóm R = 1 điểm</li>
+                      <li>Không đồng ý → Nhóm R = 0 điểm</li>
+                      <li>Hoàn toàn không đồng ý → Nhóm R = 0 điểm</li>
+                    </ul>
+                    <p className="text-xs text-gray-700 mt-2 mb-1">
+                      <strong>Ví dụ tính tổng:</strong> Nếu bạn trả lời "Rất đồng ý" cho 4 câu về nhóm R và "Đồng ý" cho 1 câu:
+                    </p>
+                    <p className="text-xs text-gray-600 ml-4">
+                      Tổng điểm nhóm R = (4 × 3) + (1 × 2) = 12 + 2 = 14 điểm
+                    </p>
+                    <p className="text-xs text-gray-700 mt-2">
+                      Nhóm có tổng điểm cao nhất là lĩnh vực nghề nghiệp bạn yêu thích nhất.
+                    </p>
+                  </div>
                 </div>
               </div>
 
@@ -229,14 +370,55 @@ export default function GuidePage() {
                   Đánh giá năng lực và điểm mạnh trong các môn học khác nhau (Toán, Lý, Hóa, Văn, Anh, Sử, Địa, Tin, Mỹ thuật).
                 </p>
                 <div className="clay-card clay-card-yellow p-4 mt-3">
-                  <p className="text-sm font-semibold mb-2">Logic tính toán:</p>
-                  <ul className="list-disc ml-5 space-y-1 text-sm">
-                    <li>Câu hỏi được phân loại theo các môn học</li>
-                    <li>Tính điểm cho từng môn dựa trên câu trả lời</li>
-                    <li>Xác định các môn học mạnh nhất (top 3)</li>
-                    <li>Đề xuất khối thi phù hợp (A00, B00, C00, D01, v.v.)</li>
-                    <li>Gợi ý ngành học phù hợp với năng lực</li>
+                  <p className="text-sm font-semibold mb-2">📊 Cách tính điểm:</p>
+                  <p className="text-xs mb-2 text-gray-700">
+                    Bài test có 25 câu hỏi, đánh giá năng lực của bạn trong 10 môn học: Toán, Lý, Hóa, Sinh, Văn, Anh, Sử, Địa, Tin học, Mỹ thuật.
+                  </p>
+                  <ul className="list-disc ml-5 space-y-1 text-xs mb-3">
+                    <li><strong>Thang điểm:</strong> Mỗi câu hỏi có 5 lựa chọn với điểm số như sau:
+                      <ul className="list-disc ml-4 mt-1 space-y-0.5">
+                        <li>Rất đồng ý = 3 điểm</li>
+                        <li>Đồng ý = 2 điểm</li>
+                        <li>Trung lập = 1 điểm</li>
+                        <li>Không đồng ý = 0 điểm</li>
+                        <li>Hoàn toàn không đồng ý = 0 điểm</li>
+                      </ul>
+                    </li>
+                    <li><strong>Phân bổ câu hỏi:</strong> Mỗi môn học có khoảng 2-3 câu hỏi</li>
+                    <li><strong>Tính tổng điểm:</strong> Hệ thống cộng dồn điểm cho mỗi môn từ tất cả các câu hỏi về môn đó</li>
                   </ul>
+                  <div className="bg-white/50 p-3 rounded-lg border border-yellow-200 mb-2">
+                    <p className="text-xs font-semibold mb-1">💡 Ví dụ cụ thể:</p>
+                    <p className="text-xs text-gray-700 mb-1">
+                      <strong>Câu hỏi 1:</strong> "Bạn học tốt môn Toán?" (Môn Toán)
+                    </p>
+                    <ul className="list-disc ml-4 space-y-0.5 text-xs text-gray-600">
+                      <li>Rất đồng ý → Môn Toán = 3 điểm</li>
+                      <li>Đồng ý → Môn Toán = 2 điểm</li>
+                      <li>Trung lập → Môn Toán = 1 điểm</li>
+                      <li>Không đồng ý → Môn Toán = 0 điểm</li>
+                      <li>Hoàn toàn không đồng ý → Môn Toán = 0 điểm</li>
+                    </ul>
+                    <p className="text-xs text-gray-700 mt-2 mb-1">
+                      <strong>Ví dụ tính tổng:</strong> Nếu bạn có 3 câu hỏi về môn Toán và trả lời:
+                    </p>
+                    <ul className="list-disc ml-4 space-y-0.5 text-xs text-gray-600">
+                      <li>Câu 1: "Rất đồng ý" = 3 điểm</li>
+                      <li>Câu 2: "Rất đồng ý" = 3 điểm</li>
+                      <li>Câu 3: "Đồng ý" = 2 điểm</li>
+                    </ul>
+                    <p className="text-xs text-gray-600 ml-4 mt-1">
+                      Tổng điểm môn Toán = 3 + 3 + 2 = 8 điểm
+                    </p>
+                    <p className="text-xs text-gray-700 mt-2 mb-1">
+                      Sau khi tính điểm cho tất cả các môn, hệ thống sẽ:
+                    </p>
+                    <ul className="list-disc ml-4 space-y-0.5 text-xs text-gray-600">
+                      <li>Xác định top 3 môn bạn học tốt nhất (có điểm cao nhất)</li>
+                      <li>Đề xuất khối thi phù hợp dựa trên top 3 môn (ví dụ: Toán-Lý-Hóa → Khối A00, Toán-Văn-Anh → Khối D01)</li>
+                      <li>Gợi ý ngành học phù hợp với năng lực của bạn</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
