@@ -122,20 +122,36 @@ export function recommendMajorGroups(aggregated: AggregatedTestResults): MajorRe
     };
 
     // Tính tổng điểm để normalize
-    const totalScore = Object.values(scores).reduce((sum, s) => sum + (s as number), 0);
     const topScore = sorted[0]?.score || 0;
+    const maxPossibleScore = 60; // Giả sử mỗi câu hỏi tối đa 3 điểm, 20 câu = 60 điểm cho 1 nhóm
     
     for (const { code, score } of sorted.slice(0, 3)) {
       const group = majorGroups[code as keyof typeof majorGroups];
       if (group) {
-        // Tính confidence dựa trên tỷ lệ so với top score và tổng điểm
+        // Tính confidence dựa trên tỷ lệ so với top score
+        // Nhóm có điểm cao nhất sẽ có confidence cao nhất (80-100%)
+        // Các nhóm khác sẽ có confidence thấp hơn dựa trên tỷ lệ
         let confidence = 0;
-        if (totalScore > 0) {
-          // Tỷ lệ điểm so với tổng điểm * 100, sau đó scale lên dựa trên top score
-          const percentageOfTotal = (score / totalScore) * 100;
-          const ratioToTop = topScore > 0 ? (score / topScore) : 0;
-          confidence = percentageOfTotal * ratioToTop * 1.5; // Scale để có giá trị hợp lý
-          confidence = Math.min(100, Math.max(10, confidence)); // Đảm bảo từ 10-100%
+        if (topScore > 0) {
+          // Tính tỷ lệ so với top score
+          const ratioToTop = score / topScore;
+          
+          // Nhóm top 1: 80-100% (tùy vào điểm số)
+          // Nhóm top 2: 60-80% của top 1
+          // Nhóm top 3: 40-60% của top 1
+          const position = sorted.findIndex(s => s.code === code);
+          if (position === 0) {
+            // Top 1: 80-100% dựa trên điểm số
+            confidence = 80 + (score / maxPossibleScore) * 20;
+          } else if (position === 1) {
+            // Top 2: 60-80% của top 1
+            confidence = 60 + ratioToTop * 20;
+          } else {
+            // Top 3: 40-60% của top 1
+            confidence = 40 + ratioToTop * 20;
+          }
+          
+          confidence = Math.min(100, Math.max(10, Math.round(confidence)));
         } else {
           // Nếu không có điểm, chia đều
           confidence = 33;

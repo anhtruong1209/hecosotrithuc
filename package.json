@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "migrate": "node scripts/migrate-to-mongodb.js",
-    "migrate:static": "node scripts/migrate-static-data.js"
+    "migrate:static": "node scripts/migrate-static-data.js",
+    "generate:data": "node scripts/generate-test-data-mongodb.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
