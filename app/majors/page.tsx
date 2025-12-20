@@ -323,7 +323,7 @@ export default function MajorsPage() {
         <div className="clay-card clay-card-purple p-6 md:p-8 mb-8">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              <h1 className="text-3xl md:text-2xl font-bold mb-3 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                 Thông Tin Ngành Học
               </h1>
               <p className="text-base md:text-lg text-gray-700 leading-relaxed">
@@ -363,15 +363,12 @@ export default function MajorsPage() {
               className={`clay-card ${clayClass} p-6 md:p-8 cursor-pointer`}
               onClick={() => setSelectedGroup(group)}
             >
-              <div className="flex items-start gap-3 mb-4">
-                <div className="text-4xl md:text-5xl flex-shrink-0">
+              <div className="flex items-start gap-2 mb-3">
+                <div className="text-3xl md:text-3xl flex-shrink-0">
                   {group.icon}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-white/60 border border-white/80 mb-2 text-gray-800">
-                    {group.code}
-                  </div>
-                  <h2 className="text-lg md:text-xl font-bold mt-1 text-gray-800 leading-tight">
+                  <h2 className="text-sm md:text-base font-bold mt-1 text-gray-800 leading-tight">
                     {group.name}
                   </h2>
                 </div>

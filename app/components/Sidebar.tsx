@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import ThemeSelector from './ThemeSelector';
 
 export default function Sidebar() {
   const pathname = usePathname() || '/';
@@ -15,13 +16,23 @@ export default function Sidebar() {
   ];
 
   return (
-    <aside className="fixed left-0 top-0 h-full w-64 z-40 bg-gradient-to-br from-blue-50/90 via-purple-50/90 to-pink-50/90 backdrop-blur-lg border-r border-white/40">
+    <aside 
+      className="fixed left-0 top-0 h-full w-64 z-40 backdrop-blur-lg border-r border-white/40"
+      style={{
+        background: 'var(--theme-sidebar-bg)'
+      }}
+    >
       <div className="h-full flex flex-col p-6">
         {/* Logo/Title */}
-        <div className="mb-8 pt-6">
+        <div className="mb-6 pt-6">
           <div className="clay-card clay-card-blue p-4 rounded-2xl">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl bg-gradient-to-br from-blue-500 to-purple-500 shadow-lg">
+              <div 
+                className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shadow-lg"
+                style={{
+                  background: `linear-gradient(to bottom right, rgba(var(--theme-gradient-from), 0.8), rgba(var(--theme-gradient-via), 0.8))`
+                }}
+              >
                 🎓
               </div>
               <div>
@@ -34,6 +45,11 @@ export default function Sidebar() {
           </div>
         </div>
 
+        {/* Theme Selector */}
+        <div className="mb-6">
+          <ThemeSelector />
+        </div>
+
         {/* Menu Items */}
         <nav className="flex-1 space-y-2">
           {menuItems.map((item) => {
@@ -42,7 +58,7 @@ export default function Sidebar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`group relative flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${
+                className={`group relative flex items-center gap-3 px-4 py-1.5 rounded-xl transition-all duration-300 ${
                   isActive
                     ? 'clay-button-secondary text-white shadow-lg scale-105'
                     : 'clay-card clay-card-blue text-gray-700 hover:scale-105 hover:shadow-md'

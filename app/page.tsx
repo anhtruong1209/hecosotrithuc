@@ -109,7 +109,7 @@ export default function Home() {
           <div className="max-w-5xl mx-auto">
             <div className="clay-card clay-card-pink p-8 md:p-12 mb-8">
               <div className="text-6xl md:text-8xl mb-6 animate-bounce">🎓</div>
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 bg-clip-text text-transparent" style={{ lineHeight: '2' }}>
+              <h1 className="text-4xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 bg-clip-text text-transparent" style={{ lineHeight: '2' }}>
                 Hệ Chuyên Gia Tư Vấn Chọn Ngành Học
               </h1>
               <p className="text-lg md:text-xl text-gray-700 mb-8 max-w-2xl mx-auto leading-relaxed">
@@ -131,7 +131,7 @@ export default function Home() {
         <section className="py-12 md:py-16 px-4 md:px-6">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                 📚 Danh Sách Bài Test
               </h2>
               <p className="text-lg text-gray-700 max-w-2xl mx-auto">
@@ -239,7 +239,7 @@ export default function Home() {
           <div className="max-w-5xl mx-auto">
             <div className="clay-card clay-card-purple p-10 md:p-16 text-center">
               <div className="text-6xl md:text-8xl mb-6 animate-bounce">🎉</div>
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 text-gray-800">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-800">
                 Sẵn Sàng Khám Phá Ngành Học Phù Hợp?
               </h2>
               <p className="text-lg md:text-xl text-gray-700 mb-10 max-w-2xl mx-auto leading-relaxed">

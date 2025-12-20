@@ -16,7 +16,7 @@ export default function GuidePage() {
         <div className="text-center mb-12">
           <div className="clay-card clay-card-purple p-8 md:p-12 mb-8">
             <div className="text-6xl md:text-8xl mb-6 animate-bounce">📚</div>
-            <h1 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <h1 className="text-3xl md:text-3xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
               Hướng Dẫn Sử Dụng Hệ Thống
             </h1>
             <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -765,7 +765,7 @@ export default function GuidePage() {
               <div className="clay-card clay-card-yellow p-5">
                 <h3 className="font-bold text-lg mb-3 text-gray-800">📋 Quy tắc suy luận (IF-THEN Rules):</h3>
                 <div className="space-y-3 text-sm">
-                  <div className="bg-white/50 p-3 rounded-lg border border-gray-200">
+                  <div className="bg-white/50 p- rounded-lg border border-gray-200">
                     <p><strong className="text-blue-700">IF</strong> điểm R cao nhất <strong className="text-blue-700">THEN</strong> đề xuất nhóm "Kỹ thuật – Cơ khí – Điện tử"</p>
                   </div>
                   <div className="bg-white/50 p-3 rounded-lg border border-gray-200">

@@ -83,7 +83,7 @@ export default function TestPage() {
           <div className="clay-card clay-card-purple p-6 md:p-8">
             <div className="flex items-center justify-between flex-wrap gap-4">
               <div>
-                <h1 className="text-3xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                <h1 className="text-3xl md:text-2xl font-bold mb-3 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                   {resultData ? 'Kết Quả Tư Vấn Ngành Học' : 'Bài Tư Vấn Chọn Ngành Học'}
                 </h1>
                 <p className="text-base md:text-lg text-gray-700 leading-relaxed">
