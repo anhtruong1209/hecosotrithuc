@@ -167,7 +167,7 @@ function generateSubmission(id) {
 
 // Generate 100 submissions
 const submissions = [];
-for (let i = 1; i <= 300; i++) {
+for (let i = 1; i <= 150; i++) {
   submissions.push(generateSubmission(i));
 }
 

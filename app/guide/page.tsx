@@ -245,74 +245,316 @@ export default function GuidePage() {
           {/* 4. Logic quy nạp và đánh giá */}
           <div className="clay-card clay-card-green p-6 md:p-8">
             <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">
-              4. Logic Quy Nạp Và Đánh Giá
+              4. Quy Nạp Và Đánh Giá - Hệ Cơ Sở Tri Thức (Expert System)
             </h2>
             <div className="space-y-4 text-base md:text-lg text-gray-700 leading-relaxed">
-              <p>
-                Hệ thống sử dụng phương pháp <strong className="text-green-700">quy nạp</strong> để tổng hợp kết quả từ tất cả các bài test, 
-                đảm bảo đánh giá chính xác và toàn diện nhất. Quy trình quy nạp gồm 4 bước chính:
+              <div className="clay-card clay-card-purple p-5 mb-6">
+                <h3 className="font-bold text-xl mb-3 text-gray-800 flex items-center gap-2">
+                  <span>🧠</span>
+                  <span>Giới Thiệu Về Hệ Cơ Sở Tri Thức (Expert System)</span>
+                </h3>
+                <p className="text-base mb-3">
+                  Hệ thống tư vấn chọn ngành học được xây dựng dựa trên <strong className="text-purple-700">Hệ Cơ Sở Tri Thức (Expert System)</strong> - 
+                  một loại hệ thống trí tuệ nhân tạo mô phỏng khả năng suy luận và ra quyết định của chuyên gia trong lĩnh vực tư vấn hướng nghiệp.
+                </p>
+                <div className="clay-card clay-card-blue p-4 mt-3">
+                  <p className="text-sm font-semibold mb-2">📚 Lý thuyết về Expert System:</p>
+                  <ul className="list-disc ml-5 space-y-1 text-sm">
+                    <li><strong>Expert System</strong> là hệ thống dựa trên tri thức (Knowledge-based System) được phát triển từ những năm 1970</li>
+                    <li>Hệ thống sử dụng <strong>Knowledge Base</strong> (Cơ sở tri thức) chứa các quy tắc và sự kiện từ chuyên gia</li>
+                    <li><strong>Inference Engine</strong> (Bộ suy luận) áp dụng các quy tắc để đưa ra kết luận từ dữ liệu đầu vào</li>
+                    <li><strong>Working Memory</strong> (Bộ nhớ làm việc) lưu trữ dữ liệu hiện tại và kết quả trung gian</li>
+                    <li>Phương pháp <strong>Forward Chaining</strong> (Suy luận tiến) và <strong>Backward Chaining</strong> (Suy luận lùi) được sử dụng</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="clay-card clay-card-yellow p-5 mb-6">
+                <h3 className="font-bold text-xl mb-3 text-gray-800 flex items-center gap-2">
+                  <span>🏗️</span>
+                  <span>Cấu Trúc Hệ Cơ Sở Tri Thức Trong Hệ Thống</span>
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="clay-card clay-card-blue p-4">
+                    <h4 className="font-bold text-base mb-2 text-blue-700">📖 Cơ Sở Tri Thức<br/>(Knowledge Base)</h4>
+                    <ul className="list-disc ml-4 space-y-1 text-xs">
+                      <li>Chứa các quy tắc "Nếu-Thì" về ngành học</li>
+                      <li>Bảng chuyển đổi từ nhóm tính cách sang ngành học</li>
+                      <li>Danh sách trường đại học và ngành học của từng trường</li>
+                      <li>Các quy tắc để tổng hợp kết quả từ nhiều bài test</li>
+                      <li>Mối quan hệ giữa các bài test khác nhau</li>
+                    </ul>
+                  </div>
+                  <div className="clay-card clay-card-pink p-4">
+                    <h4 className="font-bold text-base mb-2 text-pink-700">⚙️ Bộ Suy Luận<br/>(Inference Engine)</h4>
+                    <ul className="list-disc ml-4 space-y-1 text-xs">
+                      <li>Tổng hợp kết quả từ tất cả các bài test</li>
+                      <li>Đề xuất nhóm ngành dựa trên quy tắc</li>
+                      <li>Áp dụng hệ thống chuyên gia để đưa ra gợi ý</li>
+                      <li>Tính toán và sắp xếp điểm số RIASEC</li>
+                      <li>Điều chỉnh kết quả dựa trên MBTI và các yếu tố khác</li>
+                    </ul>
+                  </div>
+                  <div className="clay-card clay-card-green p-4">
+                    <h4 className="font-bold text-base mb-2 text-green-700">💾 Bộ Nhớ Làm Việc<br/>(Working Memory)</h4>
+                    <ul className="list-disc ml-4 space-y-1 text-xs">
+                      <li>Lưu trữ kết quả các bài test bạn đã làm</li>
+                      <li>Lưu điểm số RIASEC sau khi tính toán</li>
+                      <li>Lưu kết quả sau khi tổng hợp từ nhiều test</li>
+                      <li>Lưu danh sách nhóm ngành được đề xuất</li>
+                      <li>Lưu thông tin bài làm của bạn</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <p className="text-base">
+                Hệ thống sử dụng phương pháp <strong className="text-green-700">quy nạp (Induction)</strong> kết hợp với <strong className="text-green-700">Expert System</strong> 
+                để tổng hợp kết quả từ tất cả các bài test, đảm bảo đánh giá chính xác và toàn diện nhất. 
+                Quy trình quy nạp và đánh giá gồm 4 bước chính:
               </p>
 
               <div className="clay-card clay-card-blue p-5">
-                <h3 className="font-bold text-lg mb-3 text-gray-800">
-                  Bước 1: Thu thập dữ liệu
+                <h3 className="font-bold text-lg mb-3 text-gray-800 flex items-center gap-2">
+                  <span>📥</span>
+                  <span>Bước 1: Thu Thập Dữ Liệu (Data Collection)</span>
                 </h3>
+                <p className="text-sm mb-3 text-gray-600">
+                  Hệ thống bắt đầu bằng việc thu thập tất cả kết quả từ các bài test bạn đã làm và lưu vào bộ nhớ để xử lý.
+                </p>
                 <ul className="list-disc ml-6 space-y-2 text-base">
-                  <li>Thu thập kết quả từ bài test RIASEC (điểm số R, I, A, S, E, C)</li>
-                  <li>Thu thập kết quả từ bài test MBTI (loại tính cách: INTJ, ENFP, v.v.)</li>
-                  <li>Thu thập kết quả từ bài test Sở thích (top interests theo RIASEC)</li>
-                  <li>Thu thập kết quả từ bài test Năng lực (điểm mạnh các môn học và khối thi)</li>
+                  <li><strong>Test RIASEC:</strong> Thu thập điểm số cho 6 nhóm tính cách (R, I, A, S, E, C) từ bài tư vấn chính, bài RIASEC 20 câu, hoặc Test Sở thích</li>
+                  <li><strong>Test MBTI:</strong> Thu thập loại tính cách của bạn (ví dụ: INTJ, ENFP, ISFP, ESTJ...) - có tổng cộng 16 loại tính cách</li>
+                  <li><strong>Test Sở Thích:</strong> Thu thập các lĩnh vực nghề nghiệp bạn yêu thích nhất để xác nhận nhóm tính cách chủ đạo</li>
+                  <li><strong>Test Năng Lực:</strong> Thu thập thông tin về các môn học bạn học tốt (Toán, Lý, Hóa, Văn, Anh...) và khối thi phù hợp</li>
                 </ul>
+                <div className="clay-card clay-card-yellow p-3 mt-3">
+                  <p className="text-xs font-semibold mb-1">💡 Giải thích đơn giản:</p>
+                  <p className="text-xs">Giống như bạn thu thập tất cả thông tin vào một tờ giấy, hệ thống lưu tất cả kết quả test vào bộ nhớ để phân tích tiếp theo</p>
+                </div>
               </div>
 
               <div className="clay-card clay-card-purple p-5">
                 <h3 className="font-bold text-lg mb-3 text-gray-800 flex items-center gap-2">
                   <span>🔄</span>
-                  <span>Bước 2: Quy nạp dữ liệu</span>
+                  <span>Bước 2: Quy Nạp Dữ Liệu (Data Aggregation) - Inference Engine Hoạt Động</span>
                 </h3>
+                <p className="text-sm mb-3 text-gray-600">
+                  Đây là bước quan trọng nhất! Hệ thống sẽ tổng hợp và phân tích tất cả kết quả test của bạn theo các quy tắc đã được lập trình sẵn, 
+                  giống như một chuyên gia tư vấn đang xem xét tất cả thông tin để đưa ra nhận định.
+                </p>
                 <ul className="list-disc ml-6 space-y-2 text-base">
-                  <li><strong>Tổng hợp điểm số RIASEC:</strong> Cộng dồn điểm từ tất cả các test có liên quan (Bài tư vấn chính, RIASEC 20, Test Sở thích)</li>
-                  <li><strong>Điều chỉnh dựa trên MBTI:</strong> Ví dụ, INTJ tăng điểm cho nhóm I (Investigative), ENFP tăng điểm cho nhóm E (Enterprising)</li>
-                  <li><strong>Kết hợp với sở thích:</strong> Xác nhận nhóm RIASEC chủ đạo dựa trên sở thích nghề nghiệp từ Test Sở thích</li>
-                  <li><strong>Xem xét năng lực:</strong> Đề xuất khối thi phù hợp dựa trên điểm mạnh môn học từ Test Năng lực</li>
-                  <li><strong>Ưu tiên dữ liệu:</strong> Dữ liệu từ bài test chính (Bài tư vấn chọn ngành) được ưu tiên, sau đó là các test bổ sung</li>
+                  <li><strong>Tổng hợp điểm số RIASEC:</strong> 
+                    <ul className="list-disc ml-5 mt-1 space-y-1 text-sm">
+                      <li>Hệ thống cộng dồn điểm từ tất cả các bài test có liên quan (Bài tư vấn chính, RIASEC 20, Test Sở thích)</li>
+                      <li>Ví dụ: Nếu bài tư vấn chính cho nhóm I = 15 điểm, và RIASEC 20 cho nhóm I = 32 điểm, thì tổng điểm nhóm I = 47 điểm</li>
+                      <li>Sau đó xác định nhóm nào có điểm cao nhất</li>
+                    </ul>
+                  </li>
+                  <li><strong>Điều chỉnh dựa trên MBTI:</strong> 
+                    <ul className="list-disc ml-5 mt-1 space-y-1 text-sm">
+                      <li>Nếu bạn có tính cách INTJ hoặc INTP (người thích nghiên cứu, phân tích), hệ thống sẽ tăng thêm điểm cho nhóm I (Investigative) khoảng 10%</li>
+                      <li>Nếu bạn có tính cách ENFP hoặc ESFP (người năng động, sáng tạo), hệ thống sẽ tăng điểm cho nhóm A (Artistic) và S (Social) khoảng 5%</li>
+                      <li>Điều này giúp kết quả chính xác hơn vì MBTI bổ sung thông tin về tính cách</li>
+                    </ul>
+                  </li>
+                  <li><strong>Kết hợp với sở thích:</strong> 
+                    <ul className="list-disc ml-5 mt-1 space-y-1 text-sm">
+                      <li>Nếu Test Sở thích cho thấy bạn thích lĩnh vực nghiên cứu (nhóm I), và điểm RIASEC cũng cho nhóm I cao nhất, 
+                      thì hệ thống sẽ xác nhận chắc chắn rằng nhóm I phù hợp với bạn</li>
+                      <li>Điều này giúp tăng độ tin cậy của kết quả</li>
+                    </ul>
+                  </li>
+                  <li><strong>Xem xét năng lực:</strong> 
+                    <ul className="list-disc ml-5 mt-1 space-y-1 text-sm">
+                      <li>Dựa trên các môn học bạn học tốt, hệ thống sẽ đề xuất khối thi phù hợp</li>
+                      <li>Ví dụ: Nếu bạn mạnh Toán, Lý, Hóa → đề xuất khối A00</li>
+                      <li>Nếu bạn mạnh Toán, Văn, Anh → đề xuất khối D01</li>
+                    </ul>
+                  </li>
+                  <li><strong>Ưu tiên dữ liệu:</strong> Kết quả từ bài tư vấn chính được ưu tiên cao nhất, sau đó mới đến các test bổ sung</li>
                 </ul>
                 <div className="clay-card clay-card-blue p-4 mt-3">
-                  <p className="text-sm font-semibold mb-2">💡 Ví dụ quy nạp:</p>
-                  <ul className="list-disc ml-5 space-y-1 text-xs">
-                    <li>Bài tư vấn chính: I=15, A=12, S=10 → Nhóm I cao nhất</li>
-                    <li>RIASEC 20: I=32, A=25, S=20 → Nhóm I vẫn cao nhất</li>
-                    <li>MBTI: INTJ → Tăng điểm cho nhóm I</li>
-                    <li>Test Sở thích: Top interest = I → Xác nhận nhóm I</li>
-                    <li><strong>Kết quả quy nạp:</strong> Nhóm I (Investigative) với độ phù hợp cao nhất (95%)</li>
+                  <p className="text-sm font-semibold mb-2">💡 Ví dụ minh họa quy trình quy nạp:</p>
+                  <div className="space-y-2 text-xs">
+                    <div className="bg-white/50 p-2 rounded">
+                      <strong>📊 Dữ liệu đầu vào (Kết quả các bài test):</strong>
+                      <ul className="list-disc ml-4 mt-1">
+                        <li>Bài tư vấn chính: Nhóm I = 15 điểm, Nhóm A = 12 điểm, Nhóm S = 10 điểm</li>
+                        <li>Bài RIASEC 20: Nhóm I = 32 điểm, Nhóm A = 25 điểm, Nhóm S = 20 điểm</li>
+                        <li>Test MBTI: Bạn có tính cách INTJ (người thích nghiên cứu, phân tích)</li>
+                        <li>Test Sở thích: Lĩnh vực bạn thích nhất là nghiên cứu (nhóm I)</li>
                   </ul>
+                    </div>
+                    <div className="bg-white/50 p-2 rounded">
+                      <strong>🔧 Quy tắc xử lý (Áp dụng logic):</strong>
+                      <ul className="list-disc ml-4 mt-1">
+                        <li>Cộng dồn điểm từ tất cả bài test: Nhóm I = 15 + 32 = 47 điểm</li>
+                        <li>Vì MBTI là INTJ (người nghiên cứu), tăng thêm 10% điểm cho nhóm I</li>
+                        <li>Vì sở thích cũng là nhóm I, xác nhận nhóm I là phù hợp nhất</li>
+                      </ul>
+                    </div>
+                    <div className="bg-green-50 p-2 rounded border border-green-200">
+                      <strong>✅ Kết quả cuối cùng:</strong>
+                      <ul className="list-disc ml-4 mt-1">
+                        <li>Nhóm I (Investigative - Nghiên cứu) với độ phù hợp 95%</li>
+                        <li>Đề xuất: Nhóm ngành "Khoa học – Công nghệ – Nghiên cứu"</li>
+                        <li>Gợi ý các ngành: Công nghệ thông tin, Khoa học máy tính, Toán ứng dụng, Vật lý học...</li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
 
               <div className="clay-card clay-card-pink p-5">
                 <h3 className="font-bold text-lg mb-3 text-gray-800 flex items-center gap-2">
                   <span>🎯</span>
-                  <span>Bước 3: Đề xuất nhóm ngành</span>
+                  <span>Bước 3: Đề Xuất Nhóm Ngành (Rule-Based Recommendation)</span>
                 </h3>
+                <p className="text-sm mb-3 text-gray-600">
+                  Dựa trên kết quả quy nạp từ bước 2, hệ thống sẽ đề xuất các nhóm ngành phù hợp với bạn. 
+                  Hệ thống sử dụng các quy tắc đã được lập trình sẵn để đưa ra gợi ý.
+                </p>
                 <ul className="list-disc ml-6 space-y-2 text-base">
-                  <li><strong>Sắp xếp nhóm RIASEC:</strong> Theo điểm số từ cao xuống thấp</li>
-                  <li><strong>Chọn top 3 nhóm:</strong> Các nhóm có điểm cao nhất</li>
-                  <li><strong>Tính độ phù hợp (confidence):</strong> Dựa trên tỷ lệ điểm số (10-100%)</li>
-                  <li><strong>Đề xuất chi tiết:</strong> Ngành học, nghề nghiệp và khối thi tương ứng với mỗi nhóm</li>
+                  <li><strong>Sắp xếp nhóm RIASEC:</strong> 
+                    <ul className="list-disc ml-5 mt-1 space-y-1 text-sm">
+                      <li>Hệ thống sắp xếp 6 nhóm tính cách theo điểm số từ cao xuống thấp</li>
+                      <li>Ví dụ: Nhóm I = 47 điểm, Nhóm A = 37 điểm, Nhóm S = 30 điểm...</li>
+                    </ul>
+                  </li>
+                  <li><strong>Chọn top 3 nhóm:</strong> 
+                    <ul className="list-disc ml-5 mt-1 space-y-1 text-sm">
+                      <li>Hệ thống chọn 3 nhóm có điểm cao nhất để đề xuất</li>
+                      <li>Ví dụ: Top 3 là Nhóm I (47 điểm), Nhóm A (37 điểm), Nhóm S (30 điểm)</li>
+                    </ul>
+                  </li>
+                  <li><strong>Tính độ phù hợp:</strong> 
+                    <ul className="list-disc ml-5 mt-1 space-y-1 text-sm">
+                      <li>Hệ thống tính toán độ phù hợp (từ 10% đến 100%) dựa trên tỷ lệ điểm số</li>
+                      <li>Nhóm có điểm cao nhất sẽ có độ phù hợp cao nhất (thường trên 80%)</li>
+                      <li>Ví dụ: Nhóm I có độ phù hợp 95%, Nhóm A có độ phù hợp 75%, Nhóm S có độ phù hợp 60%</li>
+                    </ul>
+                  </li>
+                  <li><strong>Đề xuất chi tiết:</strong> 
+                    <ul className="list-disc ml-5 mt-1 space-y-1 text-sm">
+                      <li>Với mỗi nhóm, hệ thống sẽ tra cứu trong cơ sở dữ liệu để đưa ra:</li>
+                      <li>• Tên nhóm ngành (ví dụ: "Khoa học – Công nghệ – Nghiên cứu")</li>
+                      <li>• Danh sách ngành học cụ thể (ví dụ: Công nghệ thông tin, Khoa học máy tính, Toán ứng dụng...)</li>
+                      <li>• Các nghề nghiệp phù hợp (ví dụ: Lập trình viên, Nhà nghiên cứu, Kỹ sư AI...)</li>
+                      <li>• Khối thi tương ứng (ví dụ: A00, A01, B00...)</li>
+                    </ul>
+                  </li>
                 </ul>
+                <div className="clay-card clay-card-yellow p-3 mt-3">
+                  <p className="text-xs font-semibold mb-1">📋 Ví dụ đề xuất:</p>
+                  <div className="text-xs space-y-1">
+                    <p><strong>Nhóm I (Investigative) - Độ phù hợp: 95%</strong></p>
+                    <ul className="list-disc ml-4 mt-1 space-y-1">
+                      <li><strong>Nhóm ngành:</strong> "Khoa học – Công nghệ – Nghiên cứu"</li>
+                      <li><strong>Ngành học:</strong> Công nghệ thông tin, Khoa học máy tính, Toán ứng dụng, Vật lý học, Hóa học...</li>
+                      <li><strong>Nghề nghiệp:</strong> Lập trình viên, Nhà nghiên cứu, Kỹ sư AI, Nhà khoa học dữ liệu...</li>
+                      <li><strong>Khối thi:</strong> A00, A01, B00</li>
+                </ul>
+                  </div>
+                </div>
               </div>
 
               <div className="clay-card clay-card-yellow p-5">
                 <h3 className="font-bold text-lg mb-3 text-gray-800 flex items-center gap-2">
                   <span>🏫</span>
-                  <span>Bước 4: Đề xuất trường đại học</span>
+                  <span>Bước 4: Đề Xuất Trường Đại Học (Final Recommendation)</span>
                 </h3>
+                <p className="text-sm mb-3 text-gray-600">
+                  Cuối cùng, hệ thống sẽ tìm các trường đại học có các ngành học phù hợp với nhóm ngành được đề xuất ở bước 3.
+                </p>
                 <ul className="list-disc ml-6 space-y-2 text-base">
-                  <li><strong>Tìm trường phù hợp:</strong> Dựa trên nhóm ngành được đề xuất</li>
-                  <li><strong>Tính điểm phù hợp:</strong> Dựa trên số lượng ngành học khớp với đề xuất</li>
-                  <li><strong>Ưu tiên trường:</strong> Trường công lập và trường có uy tín được ưu tiên</li>
-                  <li><strong>Hiển thị kết quả:</strong> Top 5-10 trường phù hợp nhất với điểm phù hợp và lý do</li>
+                  <li><strong>Tìm trường phù hợp:</strong> 
+                    <ul className="list-disc ml-5 mt-1 space-y-1 text-sm">
+                      <li>Hệ thống duyệt qua danh sách tất cả các trường đại học</li>
+                      <li>Kiểm tra xem trường nào có các ngành học khớp với nhóm ngành được đề xuất</li>
+                      <li>Ví dụ: Nếu bạn được đề xuất nhóm "Khoa học – Công nghệ", hệ thống sẽ tìm các trường có ngành Công nghệ thông tin, Khoa học máy tính...</li>
+                    </ul>
+                  </li>
+                  <li><strong>Tính điểm phù hợp:</strong> 
+                    <ul className="list-disc ml-5 mt-1 space-y-1 text-sm">
+                      <li>Mỗi ngành học của trường khớp với đề xuất: +10 điểm</li>
+                      <li>Nếu là trường công lập: +5 điểm (ưu tiên trường công lập)</li>
+                      <li>Nếu trường ở vị trí bạn ưu tiên (ví dụ: TP.HCM): +10 điểm</li>
+                      <li>Ví dụ: Trường A có 3 ngành khớp, là công lập, ở TP.HCM → Điểm = 3×10 + 5 + 10 = 45 điểm</li>
+                    </ul>
+                  </li>
+                  <li><strong>Ưu tiên trường:</strong> 
+                    <ul className="list-disc ml-5 mt-1 space-y-1 text-sm">
+                      <li>Trường công lập được ưu tiên hơn trường tư thục</li>
+                      <li>Trường có nhiều ngành phù hợp được ưu tiên hơn</li>
+                      <li>Trường ở vị trí bạn ưu tiên được ưu tiên hơn</li>
+                    </ul>
+                  </li>
+                  <li><strong>Hiển thị kết quả:</strong> 
+                    <ul className="list-disc ml-5 mt-1 space-y-1 text-sm">
+                      <li>Hệ thống sắp xếp các trường theo điểm phù hợp từ cao xuống thấp</li>
+                      <li>Hiển thị top 5-10 trường phù hợp nhất</li>
+                      <li>Mỗi trường có kèm lý do tại sao được đề xuất (ví dụ: "Có 5 ngành phù hợp với kết quả test của bạn")</li>
+                    </ul>
+                  </li>
                 </ul>
+                <div className="clay-card clay-card-green p-3 mt-3">
+                  <p className="text-xs font-semibold mb-1">✅ Kết quả cuối cùng bạn nhận được:</p>
+                  <ul className="list-disc ml-4 mt-1 space-y-1 text-xs">
+                    <li>Danh sách top 3 nhóm ngành với độ phù hợp (ví dụ: Nhóm I - 95%, Nhóm A - 75%, Nhóm S - 60%)</li>
+                    <li>Chi tiết cho mỗi nhóm: ngành học cụ thể, nghề nghiệp phù hợp, khối thi cần thiết</li>
+                    <li>Danh sách top 5-10 trường đại học phù hợp nhất với điểm phù hợp</li>
+                    <li>Lý do đề xuất cho từng trường (ví dụ: "Có 5 ngành phù hợp", "Trường công lập uy tín")</li>
+                </ul>
+                </div>
+              </div>
+
+              <div className="clay-card clay-card-purple p-5 mt-6">
+                <h3 className="font-bold text-xl mb-3 text-gray-800 flex items-center gap-2">
+                  <span>📊</span>
+                  <span>Tóm Tắt Quy Trình Hệ Cơ Sở Tri Thức</span>
+                </h3>
+                <div className="space-y-3 text-sm">
+                  <div className="bg-white/50 p-3 rounded-lg border border-purple-200">
+                    <p className="font-semibold mb-2">1. Cơ Sở Tri Thức (Knowledge Base):</p>
+                    <ul className="list-disc ml-5 space-y-1 text-xs">
+                      <li>Giống như một cuốn sách hướng dẫn chứa tất cả các quy tắc về ngành học và nghề nghiệp</li>
+                      <li>Chứa bảng chuyển đổi: Nhóm tính cách → Nhóm ngành → Ngành học cụ thể</li>
+                      <li>Chứa danh sách tất cả các trường đại học và ngành học của từng trường</li>
+                      <li>Chứa các quy tắc để điều chỉnh kết quả dựa trên MBTI, sở thích, năng lực</li>
+                    </ul>
+                  </div>
+                  <div className="bg-white/50 p-3 rounded-lg border border-purple-200">
+                    <p className="font-semibold mb-2">2. Bộ Nhớ Làm Việc (Working Memory):</p>
+                    <ul className="list-disc ml-5 space-y-1 text-xs">
+                      <li>Giống như một tờ giấy nháp, lưu trữ tất cả thông tin trong quá trình xử lý</li>
+                      <li>Lưu kết quả các bài test bạn đã làm (RIASEC, MBTI, Sở thích, Năng lực)</li>
+                      <li>Lưu điểm số sau khi tính toán và quy nạp</li>
+                      <li>Lưu kết quả cuối cùng: danh sách nhóm ngành và trường được đề xuất</li>
+                    </ul>
+                  </div>
+                  <div className="bg-white/50 p-3 rounded-lg border border-purple-200">
+                    <p className="font-semibold mb-2">3. Bộ Suy Luận (Inference Engine):</p>
+                    <ul className="list-disc ml-5 space-y-1 text-xs">
+                      <li>Giống như bộ não của hệ thống, thực hiện tất cả các phép tính và suy luận</li>
+                      <li><strong>Quy trình suy luận:</strong> Lấy dữ liệu từ bộ nhớ → Áp dụng quy tắc từ cơ sở tri thức → Tạo ra kết quả mới</li>
+                      <li>Bước 1: Tổng hợp kết quả từ tất cả các bài test</li>
+                      <li>Bước 2: Điều chỉnh và quy nạp dữ liệu</li>
+                      <li>Bước 3: Đề xuất nhóm ngành dựa trên quy tắc</li>
+                      <li>Bước 4: Đề xuất trường đại học phù hợp</li>
+                    </ul>
+                  </div>
+                  <div className="bg-green-50 p-3 rounded-lg border border-green-200">
+                    <p className="font-semibold mb-2 text-green-700">🎯 Ưu Điểm Của Hệ Cơ Sở Tri Thức:</p>
+                    <ul className="list-disc ml-5 space-y-1 text-xs">
+                      <li>✅ <strong>Dễ hiểu:</strong> Quy tắc rõ ràng, có thể giải thích được tại sao đưa ra đề xuất này</li>
+                      <li>✅ <strong>Dễ cập nhật:</strong> Có thể thêm quy tắc mới hoặc sửa quy tắc cũ mà không cần viết lại toàn bộ chương trình</li>
+                      <li>✅ <strong>Mô phỏng chuyên gia:</strong> Hoạt động giống như một chuyên gia tư vấn hướng nghiệp thực sự</li>
+                      <li>✅ <strong>Quy nạp thông minh:</strong> Tổng hợp nhiều nguồn thông tin khác nhau để đưa ra kết luận chính xác nhất</li>
+                      <li>✅ <strong>Mở rộng dễ dàng:</strong> Có thể thêm nhiều quy tắc mới để hệ thống thông minh hơn</li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
